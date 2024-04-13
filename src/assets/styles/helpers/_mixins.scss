@@ -1,0 +1,80 @@
+@import "variables";
+
+@mixin flex-container($align: center, $justify: center, $direction: row) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  flex-direction: $direction;
+}
+
+@mixin box-shadow($color: #bbbbbb) {
+  box-shadow: 0px 2px 4px $color;
+}
+
+@mixin top-box-shadow($color: #bbbbbb) {
+  box-shadow: 0px 0px 20px $color;
+}
+
+@mixin bottom-box-shadow($color: #bbbbbb) {
+  box-shadow: 0px 2px 4px $color;
+}
+
+@mixin bg-image($bgUrl, $size: cover) {
+  background: url($basePath + $bgUrl) no-repeat top center;
+  background-size: $size;
+}
+
+@mixin font($minimum, $preffered, $maximum, $family: regular, $color: #000) {
+  $minimum: $minimum/$primary-font-size-value + rem;
+  $maximum: $maximum/$primary-font-size-value + rem;
+
+ @if $family==helvetica {
+    font-family: helvetica;
+  } @else if $family==hbold {
+    font-family: helvetica-bold;
+  } @else if $family == hboldOblique{
+    font-family: helvetica-bold-oblique;
+  }@else if $family == hlight{
+    font-family: helvetica-light;
+  }@else if $family == hlightOblique{
+    font-family: helvetica-light-oblique;
+  }@else if $family == hcompressed{
+    font-family: helvetica-compressed;
+  }@else if $family == hroundedbold{
+    font-family: helvetica-rounded-bold;
+  }
+
+  color: $color;
+  font-size: clamp(#{$minimum}, #{$preffered}, #{$maximum});
+}
+
+@mixin width($width) {
+  width: $width / $primary-font-size-value + rem;
+}
+
+@mixin height($height) {
+  height: $height / $primary-font-size-value + rem;
+}
+
+@mixin min-width($width) {
+  min-width: $width / $primary-font-size-value + rem;
+}
+
+@mixin min-height($height) {
+  min-height: $height / $primary-font-size-value + rem;
+}
+
+@mixin max-width($width) {
+  max-width: $width / $primary-font-size-value + rem;
+}
+
+@mixin max-height($height) {
+  max-height: $height / $primary-font-size-value + rem;
+}
+
+@mixin two-bg-image($path1, $path2, $size: cover) {
+  background: url($basePath + $path1), url($basePath + $path2);
+  background-size: $size, $size;
+  background-position: top center, top center;
+  background-repeat: no-repeat, no-repeat;
+}
