@@ -6,12 +6,17 @@ const routes: Routes = [
   {
     path:'',
     pathMatch:'full',
-    redirectTo:'/landing'
+    redirectTo:'/login'
+  },
+  {
+    path:'/login',
+    pathMatch:'full',
+    redirectTo:'/login'
   },
   {
     path:'index.html',
     pathMatch:'full',
-    redirectTo:'/landing'
+    redirectTo:'/login'
   },
   {
     path:'landing',
