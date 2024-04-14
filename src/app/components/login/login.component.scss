@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+@import "mixins";
+
+.login-component {
+  height: 100%;
+  width: 100%;
+  .login-wrapper {
+    height: 100%;
+    width: 100%;
+    @include flex-container(center, center, column);
+    background: linear-gradient(
+      to right,
+      #e9dfc4 0%,
+      #e9dfc4 1%,
+      #ede3c8 2%,
+      #ede3c8 24%,
+      #ebddc3 25%,
+      #e9dfc4 48%,
+      #ebddc3 49%,
+      #e6d8bd 52%,
+      #e6d8bd 53%,
+      #e9dbc0 54%,
+      #e6d8bd 55%,
+      #e6d8bd 56%,
+      #e9dbc0 57%,
+      #e6d8bd 58%,
+      #e6d8bd 73%,
+      #e9dbc0 74%,
+      #e9dbc0 98%,
+      #ebddc3 100%
+    );
+    background-size: 120px;
+    .login-form-container {
+      width: 50%;
+      padding: 2.2em 4em 2.2em 4em;
+      border-radius: 2rem;
+      background: #fff;
+      box-shadow: 0.3rem 0.3rem 0.3rem 0.3rem grey;
+      @media screen and (max-width: 940px) {
+        width: 90%;
+        padding: 2em;
+      }
+      .header {
+        @include font(28, 6.5vw, 33, hbold, #232836);
+        text-align: center;
+        text-transform: uppercase;
+      }
+      .login-icon {
+        @include flex-container(center, center, column);
+        margin-top: 1rem;
+        img {
+          height: 10vw;
+        }
+      }
+      .input-fields {
+        width: 100%;
+        .inputs {
+          position: relative;
+          width: 100%;
+          margin-top: 1.5em;
+          img {
+            height: 2.5rem;
+            position: absolute;
+            bottom: 0.5rem;
+            left: 0.5rem;
+            top: 1rem;
+            @media screen and (max-width: 940px) {
+              top: 0.5rem;
+            }
+          }
+          input {
+            width: 100%;
+            border: 1px solid #cacaca;
+            outline: none;
+            border-radius: 1rem;
+            padding: 1em 1em 1em 3.5em;
+            @include font(16, 3.5vw, 19, hbold, #000000);
+          }
+          ::placeholder {
+            @include font(16, 3.5vw, 19, helvetica, #636363);
+          }
+          :hover {
+            border: 3px solid #cacaca;
+          }
+        }
+      }
+      .submit-button {
+        width: 100%;
+        @include flex-container(center, center, column);
+        background: #4caf50;
+        margin-top: 2em;
+        cursor: pointer;
+        border-radius: 1rem;
+        box-shadow: 0.2rem 0.2rem 0.2rem grey;
+
+        .submit-button-text {
+          padding: 0.8em 0em;
+          @include font(16, 3.5vw, 19, hbold, #ffffff);
+        }
+        &.disabled {
+          pointer-events: none;
+          opacity: 0.3;
+        }
+      }
+      .not-having-account {
+        width: 100%;
+        text-align: center;
+        margin-top: 1.2em;
+        @include font(13, 3.5vw, 15, helvetica, #636363);
+        span {
+          @include font(13, 3.5vw, 15, hbold, #23395d);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

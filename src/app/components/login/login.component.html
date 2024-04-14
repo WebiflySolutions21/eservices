@@ -1,0 +1,25 @@
+<div class="login-component">
+  <div class="login-wrapper">
+    <div class="login-form-container">
+      <div class="header">Agent Login</div>
+      <div class="login-icon">
+        <img src="assets/images/agent-login/login.svg">
+      </div>
+      <div class="input-fields">
+        <form [formGroup]="loginForm">
+          <div class="inputs" *ngFor="let field of fields">
+            <img [src]="field?.src" [alt]="field?.title">
+            <input [type]="field?.type" [placeholder]="field?.placeholder" [formControlName]="field?.formControlName" />
+          </div>
+        </form>
+      </div>
+      <div class="submit-button" [class.disabled]="!loginForm?.valid" (click)="loginUser()">
+        <div class="submit-button-text">Login</div>
+    </div>
+    <div class="not-having-account">
+      Don't have an account? <span (click)="redirectToRegistration()">Register as a Agent Now!</span>
+    </div>
+    </div>
+  </div>
+</div>
+

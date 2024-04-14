@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AgentRoutingModule } from './agent-routing.module';
-import { AgentComponent } from './agent/agent.component';
+import { AgentComponent } from './agent.component';
 
 
 @NgModule({
