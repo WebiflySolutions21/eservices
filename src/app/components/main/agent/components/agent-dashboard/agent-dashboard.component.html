@@ -1,1 +1,19 @@
-<p>agent-dashboard works!</p>
+<div class="agent-dashboard">
+    <div class="agent-dashboard-wrapper">
+        <div class="card-list" *ngFor="let service of services">
+            <article class="card">
+            <div class="card-image">
+                <img [src]="service?.src" [alt]="service?.title" />
+            </div>
+            <div class="detailed">
+                <div class="card-header">
+                    {{service?.title}}
+                </div>
+                <div class="right-arrow">
+                    <img src="assets/images/agent-dashboard/right-arrow.png">
+                </div>
+            </div>
+        </article>
+        </div>
+    </div>
+</div>
