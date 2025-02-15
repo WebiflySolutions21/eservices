@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AgentService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-agent-dashboard',
   templateUrl: './agent-dashboard.component.html',
   styleUrls: ['./agent-dashboard.component.scss']
 })
-export class AgentDashboardComponent {
+export class AgentDashboardComponent implements OnInit {
 services=[
   {
     id:1,
@@ -107,4 +108,17 @@ services=[
     ]
   }
 ]
+constructor(private agentService:AgentService){}
+
+ngOnInit(){
+  this.getAgentDashboardData()
+}
+
+getAgentDashboardData(){
+  this.agentService.getAgentDashboardData().subscribe((res)=>{
+    console.log(res)
+  },(err)=>{
+    console.log(err)
+  })
+}
 }

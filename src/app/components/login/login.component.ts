@@ -3,6 +3,7 @@ import { LOGIN_FIELDS } from 'src/assets/constants/login-fields.constants';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthenticationService, LoginService, UserService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-login',
@@ -11,25 +12,57 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   fields = LOGIN_FIELDS;
-  loginForm:any;
+  loginForm: any;
 
-  constructor(private toastrService: ToastrService, private fb: FormBuilder,private router:Router) {
-    this.loginForm = FormGroup
+  constructor(
+    private toastrService: ToastrService,
+    private fb: FormBuilder,
+    private router: Router,
+    private loginService: LoginService,
+    private authenticationService:AuthenticationService,
+    private userService:UserService
+  ) {
+    this.loginForm = FormGroup;
   }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-        username:['',Validators.required],
-        password:['',Validators.required]
-    })
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+    });
   }
 
-  redirectToRegistration(){
-    this.router.navigate(['/main/agent'])
+  redirectToRegistration() {
+    this.router.navigate(['/main/agent']);
   }
 
-  loginUser(){
-    this.toastrService.success("You Logged In Successfully","Success")
-    console.log(this.loginForm.value)
+  loginUser() {
+    console.log(this.loginForm.value);
+
+    let payload = {
+      username: this.loginForm.controls.username.value,
+      password: this.loginForm.controls.password.value,
+      role: 'agent',
+    };
+    this.loginService.login(payload).subscribe(
+      (res: any) => {
+        if (res && res?.success) {
+          if (res['token']) {
+            this.authenticationService.setAuthenticationToken(res["token"])
+            this.userService.setUserInfo({
+              token:res["token"],
+              info:this.authenticationService.parseJWT(res["token"])
+            })
+          }
+          this.toastrService.success('You Logged In Successfully', 'Success');
+          this.router.navigate(['/main/agent']);
+        }
+        console.log(res);
+      },
+      (err) => {
+        this.toastrService.error('Error In login', 'Error');
+        console.log(err);
+      }
+    );
   }
 }
