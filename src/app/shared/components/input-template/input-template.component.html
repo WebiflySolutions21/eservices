@@ -1,6 +1,6 @@
 <div class="input-template-component">
 
-    <ng-container *ngIf="jsonData && dynamicForm &&showForm">
+    <ng-container *ngIf="jsonData && dynamicForm">
       <div class="mainTitle">{{jsonData?.mainTitle}}</div>
       <div class="mainDesc text-primary">({{jsonData?.mainDesc}})</div>
       <button type="button" class="btn btn-primary">{{jsonData?.buttonTitle}}</button>
@@ -35,6 +35,46 @@
                         [id]="fieldInput?.apiKey"
                         class="form-control"
                         type="text"
+                        [placeholder]="fieldInput?.placeholder"
+                        [maxlength]="fieldInput?.validations?.maximum_length?.val"
+                      />
+                      <div *ngIf="fieldInput?.validations?.maximum_length?.val" class="text-count">
+                        {{ dynamicForm.controls?.[fieldInput?.apiKey]?.value?.length || '0' }}/{{ fieldInput?.validations?.maximum_length?.val }}
+                      </div>
+                    </div>
+                    <div *ngIf="dynamicForm.controls?.[fieldInput?.apiKey]?.invalid && (dynamicForm.controls?.[fieldInput?.apiKey]?.dirty || dynamicForm.controls?.[fieldInput?.apiKey]?.touched)"
+                        class="error text-danger">
+                        <div *ngIf="dynamicForm.controls?.[fieldInput?.apiKey]?.errors?.required">
+                            {{ fieldInput?.validations?.required?.msg || 'This field cannot be empty.'}}
+                        </div>
+                        <div *ngIf="dynamicForm.controls?.[fieldInput?.apiKey]?.errors?.maxSpaces">
+                          {{ fieldInput?.validations?.maximum_space?.msg || 'Maximum spaces allowed exceeded.'}}
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'password'">
+                <div class="row mt-3 input-text-field">
+                  <div class="col-4">
+                    <label
+                      style="padding-left: 1.5rem"
+                      [for]="fieldInput?.apiKey"
+                      class="form-label fs-6"
+                      >{{ fieldInput?.label }} <br /><span
+                        *ngIf="fieldInput?.subLabel"
+                        style="opacity: 0.5"
+                        >({{ fieldInput?.subLabel }})</span
+                      ></label
+                    >
+                  </div>
+                  <div class="col-5">
+                    <div class="input">
+                      <input
+                        [formControlName]="fieldInput?.apiKey"
+                        [id]="fieldInput?.apiKey"
+                        class="form-control"
+                        type="password"
                         [placeholder]="fieldInput?.placeholder"
                         [maxlength]="fieldInput?.validations?.maximum_length?.val"
                       />
@@ -126,7 +166,7 @@
                   </div>
                 </div>
               </ng-container>
-              <ng-container *ngSwitchCase="'imageUpload'">
+              <ng-container *ngSwitchCase="'file'">
                 <div class="row mt-3 input-text-field">
                   <div class="col-4">
                     <label

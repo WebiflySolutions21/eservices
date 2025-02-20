@@ -30,21 +30,10 @@ export class ConfigurationsComponent implements OnInit {
     { value: 'password', label: 'Password', placeholder: 'Enter your password' },
     { value: 'email', label: 'Email', placeholder: 'Enter your email' },
     { value: 'number', label: 'Number', placeholder: 'Enter a number' },
-    { value: 'search', label: 'Search', placeholder: 'Search something' },
-    { value: 'tel', label: 'Telephone', placeholder: 'Enter phone number' },
-    { value: 'url', label: 'URL', placeholder: 'Enter a URL' },
-    { value: 'date', label: 'Date', placeholder: '' },
-    { value: 'datetime-local', label: 'Datetime Local', placeholder: '' },
-    { value: 'month', label: 'Month', placeholder: '' },
-    { value: 'week', label: 'Week', placeholder: '' },
-    { value: 'time', label: 'Time', placeholder: '' },
+    { value: 'datetime', label: 'Date', placeholder: '' },
     { value: 'file', label: 'File', placeholder: '' },
-    { value: 'range', label: 'Range', placeholder: '' },
     { value: 'checkbox', label: 'Checkbox', placeholder: '' },
     { value: 'radio', label: 'Radio', placeholder: '' },
-    { value: 'button', label: 'Button', placeholder: 'Click me' },
-    { value: 'submit', label: 'Submit', placeholder: 'Submit the form' },
-    { value: 'reset', label: 'Reset', placeholder: 'Reset fields' }
   ];
 
   constructor(private fb: FormBuilder,private router:Router) {
