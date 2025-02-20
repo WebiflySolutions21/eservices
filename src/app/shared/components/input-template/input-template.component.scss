@@ -1,0 +1,231 @@
+@import "mixins";
+.input-template-component{
+    .sections {
+     background: #f3f6ff;
+     padding: 0.8rem;
+     color: #000084;
+   }
+ }
+ .banner {
+ 
+   height: 100%;
+   overflow-y: auto;
+   background-color: #FFF;
+ .input-template-component {
+   .sections {
+     background: #f3f6ff;
+     padding: 0.8rem;
+     color: #000084;
+   }
+ }
+ 
+ .banner {
+   height: 100%;
+   overflow-y: auto;
+   background-color: #FFF;
+ 
+   &.disabled {
+     opacity: 0.5;
+     pointer-events: none;
+   }
+ 
+   .banner {
+     .form-group {
+       .form-fields {
+         .contents {
+           .row {
+             label {
+               color: #2A388F;
+             }
+ 
+             .input {
+               position: relative;
+               display: flex;
+ 
+               .desc {
+                 width: 100%;
+                 margin-left: 1rem;
+               }
+ 
+               .text-count {
+                 position: absolute;
+                 right: -3rem;
+                 top: 0.5rem;
+                 color: #000000;
+                 opacity: 0.5;
+               }
+             }
+           }
+         }
+       }
+     }
+   }
+ }
+ 
+ .imageOption {
+   img {
+     width: 80px;
+   }
+ }
+ 
+ label {
+   color: #2A388F;
+ }
+ 
+ input {
+   line-height: 15px;
+   padding: 0.6rem;
+   border-radius: 6px;
+   color: #000;
+ }
+ 
+ .disable {
+   pointer-events: none;
+   opacity: 75%;
+ }
+ 
+ .displayText {
+   color: #000;
+   background-color: #ced4da;
+   height: 2.5em;
+   border-radius: 6px;
+   padding-left: 0.8rem;
+ }
+ 
+ .input {
+   position: relative;
+ 
+   .text-count {
+     position: absolute;
+     top: 0.5rem;
+     right: -3rem;
+   }
+ }
+ 
+ .table-outer {
+   margin-left: 2rem;
+   margin-top: 1rem;
+ }
+ 
+ .disabled {
+   opacity: 0.5;
+   pointer-events: none;
+ }
+ 
+ .form-switch {
+   .form-check-input {
+     width: 3em;
+     margin-left: -1.5em;
+   }
+ }
+   &.disabled {
+     opacity: 0.5;
+     pointer-events: none;
+   }
+ 
+  
+ 
+   .banner {
+     .form-group {
+       .form-fields {
+         .contents {
+           .row {
+             label {
+               color: #2A388F;
+             }
+ 
+             .input {
+               position: relative;
+               display: flex;
+ 
+               .desc {
+                 width: 100%;
+                 margin-left: 1rem;
+               }
+ 
+               .text-count {
+                 position: absolute;
+                 right: -3rem;
+                 top: 0.5rem;
+                 color: #000000;
+                 opacity: 0.5;
+               }
+             }
+           }
+         }
+       }
+     }
+   }
+ }
+ 
+ .imageOption {
+   img {
+     width: 80px;
+   }
+ }
+ 
+ label {
+   color: #2A388F;
+ }
+ 
+ input {
+   line-height: 15px;
+   padding: 0.6rem;
+   border-radius: 6px;
+   color: #000;
+ }
+ 
+ .disable {
+   pointer-events: none;
+   opacity: 75%;
+ }
+ 
+ .displayText {
+   color: #000;
+   background-color: #ced4da;
+   height: 2.5em;
+   border-radius: 6px;
+   padding-left: 0.8rem;
+ }
+ .input{
+   position: relative;
+   .text-count{
+     position: absolute;
+     top: 0.5rem;
+     right: -3rem;
+   }
+ 
+ }
+ // .text-count {
+ //   position: absolute;
+ //   right: 1.5rem;
+ //   top: 0.5rem;
+ //   color: #000000;
+ //   opacity: 0.5;
+ // }
+ 
+ .table-outer {
+   margin-left: 2rem;
+   margin-top: 1rem;
+ 
+ }
+ .disabled {
+     opacity: 0.5;
+     pointer-events: none;
+   }
+ 
+ .form-switch{
+   .form-check-input{
+     width: 3em;
+     margin-left: -1.5em;
+   }
+ }
+
+ .mainTitle{
+  text-align: center;
+  @include font(15,5vw,18,hbold,#202020);
+ }
+ .mainDesc{
+  text-align: center;
+  @include font(10,5vw,12,helvetica,#000084);
+ }

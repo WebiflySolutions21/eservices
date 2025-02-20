@@ -1,0 +1,15 @@
+<div class="header-section">
+    <div class="hosp" *ngIf="hospitalName">
+      <div class="hosp-icon">
+        <img src="assets/images/agent-login/login.png" />
+      </div>
+      <div class="hospital-name">{{ hospitalName }}</div>
+    </div>
+    <div
+      class="login-section"
+      *ngFor="let data of headingRoutes"
+      (click)="onTitleClick(data)"
+    >
+      {{ data?.title }}
+    </div>
+  </div>

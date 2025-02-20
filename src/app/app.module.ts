@@ -5,15 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {CoreModule} from './core/core.module';
 import {SharedModule} from './shared/shared.module';
-import { LandingComponent } from './components/landing/landing.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ErrorInterceptor,TokenInterceptor} from "./core/interceptors"
 import { ToastrModule } from 'ngx-toastr';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
   declarations: [
     AppComponent,
-    LandingComponent,
   ],
   imports: [
     BrowserModule,
@@ -21,7 +20,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     CoreModule,
     SharedModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

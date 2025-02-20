@@ -1,0 +1,36 @@
+@import "mixins";
+.landing-component {
+  width: 100%;
+  height: 100%;
+  .landing-wrapper {
+    width: 100%;
+    height: 100%;
+    .header-section {
+      width: 100%;
+      background-color: #202020;
+      @include flex-container(center, space-between, row);
+      .hosp {
+        width: 30%;
+        @include flex-container(center, flex-start, row);
+        margin-left: 1em;
+
+        .hospital-name {
+          cursor: pointer;
+          padding: 1em 1em;
+          @include font(16, 5vw, 18, hbold, #ffffff);
+        }
+        .hosp-icon {
+          img {
+            width: 3em;
+            border-radius: 50%;
+          }
+        }
+      }
+
+      .login-section {
+        cursor: pointer;
+        @include font(13, 4vw, 15, helvetica, #ffffff);
+      }
+    }
+  }
+}

@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import * as fromComponents from './components'
+import * as fromComponents from './components';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputTemplateComponent } from './components/input-template/input-template.component';
 
 
 @NgModule({
-  declarations: [...fromComponents.components],
+  declarations: [...fromComponents.components,InputTemplateComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
-  exports:[...fromComponents.components]
+  exports:[...fromComponents.components,InputTemplateComponent]
 })
 export class SharedModule { }

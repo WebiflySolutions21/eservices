@@ -1,0 +1,32 @@
+<!-- <div *ngIf="displayForm">
+  <h2>{{ formData.formTitle }}</h2>
+  <p>{{ formData.formDescription }}</p>
+
+  <form>
+    <div *ngFor="let field of formData.formSequence">
+      <label>{{ field.label }}</label>
+      <input
+        [type]="field.type"
+        [placeholder]="field.placeholder"
+        [value]="field.defaultValue"
+        [required]="field.required"
+      />
+    </div>
+
+    <button type="submit">{{ formData.buttonTitle }}</button>
+  </form>
+</div>
+
+<div *ngIf="!displayForm">
+  <p>No form available for this login type.</p>
+</div> -->
+
+<div class="registration-component">
+  <div class="registration-wrapper">
+    <div class="row">
+      <div class="col-md-12">
+        <app-input-template [jsonObs$]="jsonObs$" [formValueObs$]="formValueObs$" (sectionCtaClick)="previewCtaClick($event)"></app-input-template>
+      </div>
+    </div>
+  </div>
+</div>

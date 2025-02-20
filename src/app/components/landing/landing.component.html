@@ -1,1 +1,6 @@
-<p>landing works!</p>
+<div class="landing-component">
+  <div class="landing-wrapper">
+    <app-header [headingRoutes]="loginRoutes" [hospitalName]="hospitalName"
+      (titleClick)="navigateUser($event)"></app-header>
+  </div>
+</div>

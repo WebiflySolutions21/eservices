@@ -1,0 +1,28 @@
+<div class="table-component">
+  <div class="table-wrapper table-responsive">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th *ngFor="let col of tableColumns">{{ col.title }}</th>
+          <th *ngIf="actions.length">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of tableData">
+          <td *ngFor="let col of tableColumns">{{ row[col.key] }}</td>
+          <td *ngIf="actions.length">
+            <button
+              *ngFor="let action of actions"
+              [class]="action.class || 'default-btn'"
+              (click)="onAction(action.action, row)"
+            >
+              {{ action.label }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

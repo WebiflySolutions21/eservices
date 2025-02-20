@@ -8,12 +8,8 @@ const routes: Routes = [
     component:MainComponent,
     children:[
       {
-        path:'',
-        loadChildren: () => import('./agent/agent.module').then(m => m.AgentModule) 
-      },
-      {
-        path:'agent',
-        loadChildren: () => import('./agent/agent.module').then(m => m.AgentModule) 
+        path:'admin',
+        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) 
       },
       {
         path:'admin',

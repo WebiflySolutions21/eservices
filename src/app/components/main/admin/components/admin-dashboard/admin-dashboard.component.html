@@ -1,0 +1,29 @@
+<div class="admin-dashboard-component">
+  <div class="admin-dashboard-wrapper">
+    <!-- <div class="header">
+      <app-header
+        [headingRoutes]="adminRoutes"
+        [hospitalName]="hospitalName"
+        (titleClick)="navigateUser($event)"
+      ></app-header>
+    </div> -->
+
+    <div class="table-data">
+      <div *ngFor="let category of tableCategories">
+        <!-- Table Title -->
+        <h2 class="table-title">{{ category | titlecase }} Registration Details</h2>
+
+        <!-- Display Table -->
+        <app-table
+          [tableData]="tableData[category]"
+          [tableColumns]="tableColumns[category]"
+          [actions]="[
+            { label: 'Edit', action: 'edit' },
+            { label: 'Delete', action: 'delete' }
+          ]"
+          (actionClicked)="handleAction($event)"
+        ></app-table>
+      </div>
+    </div>
+  </div>
+</div>

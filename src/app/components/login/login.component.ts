@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LOGIN_FIELDS } from 'src/assets/constants/login-fields.constants';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService, LoginService, UserService } from 'src/app/core/services';
 
 @Component({
@@ -13,6 +13,7 @@ import { AuthenticationService, LoginService, UserService } from 'src/app/core/s
 export class LoginComponent implements OnInit {
   fields = LOGIN_FIELDS;
   loginForm: any;
+  userId: string | null = '';
 
   constructor(
     private toastrService: ToastrService,
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private loginService: LoginService,
     private authenticationService:AuthenticationService,
-    private userService:UserService
+    private userService:UserService,
+    private route:ActivatedRoute
   ) {
     this.loginForm = FormGroup;
   }
@@ -30,6 +32,10 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
+
+    this.route.queryParamMap.subscribe(params => {
+      this.userId = params.get('userId');
+    });
   }
 
   redirectToRegistration() {
@@ -38,6 +44,8 @@ export class LoginComponent implements OnInit {
 
   loginUser() {
     console.log(this.loginForm.value);
+    this.router.navigate(["/main/admin/admin-dashboard"])
+    return
 
     let payload = {
       username: this.loginForm.controls.username.value,

@@ -1,0 +1,48 @@
+@import "mixins";
+
+.header-section {
+  width: 100%;
+  background-color: #202020;
+  @include flex-container(center, space-between, row);
+  padding: 0.5em 1em;
+
+  .hosp {
+    width: 30%;
+    @include flex-container(center, flex-start, row);
+
+    .hospital-name {
+      cursor: pointer;
+      padding: 0em 1em;
+      @include font(16, 5vw, 18, hbold, #FFFFFF);
+      transition: transform 0.3s ease, color 0.3s ease;
+
+      &:hover {
+        transform: scale(1.1);
+        color: #FFCC00; // Change color on hover
+      }
+    }
+
+    .hosp-icon {
+      img {
+        width: 3em;
+        border-radius: 50%;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: rotate(10deg) scale(1.1);
+        }
+      }
+    }
+  }
+
+  .login-section {
+    cursor: pointer;
+    @include font(13, 4vw, 15, hroundedbold, #FFFFFF);
+    transition: color 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+
+    &:hover {
+      color: #FFCC00;
+      transform: scale(1.1);
+    }
+  }
+}

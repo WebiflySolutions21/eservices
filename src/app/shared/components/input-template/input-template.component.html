@@ -1,0 +1,373 @@
+<div class="input-template-component">
+
+    <ng-container *ngIf="jsonData && dynamicForm &&showForm">
+      <div class="mainTitle">{{jsonData?.mainTitle}}</div>
+      <div class="mainDesc text-primary">({{jsonData?.mainDesc}})</div>
+      <button type="button" class="btn btn-primary">{{jsonData?.buttonTitle}}</button>
+
+      <form [formGroup]="dynamicForm">
+        <div *ngFor="let section of jsonData?.sections" class="mt-5">
+          <div class="sections d-flex justify-content-between" *ngIf="!jsonData?.hideSectionHeader">
+            <h5>{{ section?.title }}</h5>
+
+            <!-- <div *ngIf="section?.sectionCta?.showCta" (click)="handleSectionCtaClick(section)" class="btn btn-primary">{{section?.sectionCta?.label}}</div> -->
+          </div>
+          <ng-container *ngFor="let fieldInput of section?.piFields">
+            <ng-container [ngSwitch]="fieldInput.type">
+              <ng-container *ngSwitchCase="'text'">
+                <div class="row mt-3 input-text-field">
+                  <div class="col-4">
+                    <label
+                      style="padding-left: 1.5rem"
+                      [for]="fieldInput?.apiKey"
+                      class="form-label fs-6"
+                      >{{ fieldInput?.label }} <br /><span
+                        *ngIf="fieldInput?.subLabel"
+                        style="opacity: 0.5"
+                        >({{ fieldInput?.subLabel }})</span
+                      ></label
+                    >
+                  </div>
+                  <div class="col-5">
+                    <div class="input">
+                      <input
+                        [formControlName]="fieldInput?.apiKey"
+                        [id]="fieldInput?.apiKey"
+                        class="form-control"
+                        type="text"
+                        [placeholder]="fieldInput?.placeholder"
+                        [maxlength]="fieldInput?.validations?.maximum_length?.val"
+                      />
+                      <div *ngIf="fieldInput?.validations?.maximum_length?.val" class="text-count">
+                        {{ dynamicForm.controls?.[fieldInput?.apiKey]?.value?.length || '0' }}/{{ fieldInput?.validations?.maximum_length?.val }}
+                      </div>
+                    </div>
+                    <div *ngIf="dynamicForm.controls?.[fieldInput?.apiKey]?.invalid && (dynamicForm.controls?.[fieldInput?.apiKey]?.dirty || dynamicForm.controls?.[fieldInput?.apiKey]?.touched)"
+                        class="error text-danger">
+                        <div *ngIf="dynamicForm.controls?.[fieldInput?.apiKey]?.errors?.required">
+                            {{ fieldInput?.validations?.required?.msg || 'This field cannot be empty.'}}
+                        </div>
+                        <div *ngIf="dynamicForm.controls?.[fieldInput?.apiKey]?.errors?.maxSpaces">
+                          {{ fieldInput?.validations?.maximum_space?.msg || 'Maximum spaces allowed exceeded.'}}
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'number'">
+                <div class="row mt-3 input-text-field">
+                  <div class="col-4">
+                    <label
+                      style="padding-left: 1.5rem"
+                      [for]="fieldInput?.apiKey"
+                      class="form-label fs-6"
+                      >{{ fieldInput?.label }} <br /><span
+                        *ngIf="fieldInput?.subLabel"
+                        style="opacity: 0.5"
+                        >({{ fieldInput?.subLabel }})</span
+                      ></label
+                    >
+                  </div>
+                  <div class="col-5">
+                    <div class="input">
+                      <input
+                        [formControlName]="fieldInput?.apiKey"
+                        [id]="fieldInput?.apiKey"
+                        class="form-control"
+                        type="number"
+                        [placeholder]="fieldInput?.placeholder"
+                        [max]="fieldInput?.validations?.maximum_value?.val"
+                        [min]="fieldInput?.validations?.minimum_value?.val"
+                      />
+                    </div>
+                    <div *ngIf="dynamicForm.controls?.[fieldInput?.apiKey]?.invalid && (dynamicForm.controls?.[fieldInput?.apiKey]?.dirty || dynamicForm.controls?.[fieldInput?.apiKey]?.touched)"
+                        class="error text-danger">
+                        <div *ngIf="dynamicForm.controls?.[fieldInput?.apiKey]?.errors?.required">
+                            {{ fieldInput?.validations?.required?.msg || 'This field cannot be empty.'}}
+                        </div>
+                        <div *ngIf="dynamicForm.controls?.[fieldInput?.apiKey]?.errors?.maxNumber">
+                          {{ fieldInput?.validations?.maximum_value?.msg || ('The number should be less than ' + fieldInput?.validations?.maximum_value?.val) }}
+                        </div>
+                        <div *ngIf="dynamicForm.controls?.[fieldInput?.apiKey]?.errors?.minNumber">
+                          {{ fieldInput?.validations?.minimum_value?.msg || ('The number should be greater than ' + fieldInput?.validations?.minimum_value?.val) }}
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'checkbox'">
+                <div class="row mt-3 input-text-field">
+                  <div class="col-4">
+                    <label
+                      style="padding-left: 1.5rem"
+                      [for]="fieldInput?.apiKey"
+                      class="form-check-label fs-6"
+                      >{{ fieldInput?.label }} <br /><span
+                        *ngIf="fieldInput?.subLabel"
+                        style="opacity: 0.5"
+                        >({{ fieldInput?.subLabel }})</span
+                      ></label
+                    >
+                  </div>
+                  <div class="col-5 form-check form-switch">
+                    <div class="input">
+                      <input 
+                        [formControlName]="fieldInput?.apiKey" 
+                        class="form-check-input" 
+                        type="checkbox" 
+                        role="switch" 
+                        [id]="fieldInput?.apiKey" 
+                        style="cursor: pointer;"
+                      />
+                    </div>
+                    <div *ngIf="dynamicForm.controls?.[fieldInput?.apiKey]?.invalid && (dynamicForm.controls?.[fieldInput?.apiKey]?.dirty || dynamicForm.controls?.[fieldInput?.apiKey]?.touched)"
+                        class="error text-danger">
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'imageUpload'">
+                <div class="row mt-3 input-text-field">
+                  <div class="col-4">
+                    <label
+                      style="padding-left: 1.5rem"
+                      [for]="fieldInput?.apiKey"
+                      class="form-label fs-6"
+                      >{{ fieldInput?.label }} <br /><span
+                        *ngIf="fieldInput?.subLabel"
+                        style="opacity: 0.5"
+                        >({{ fieldInput?.subLabel }})</span
+                      ></label
+                    >
+                  </div>
+                  <div class="col-4">
+                    <div class="input">
+                      <input
+                        [id]="fieldInput?.apiKey"
+                        class="form-control"
+                        type="file"
+                        [accept]="getImageFileTypeString(fieldInput?.validations?.fileType?.val)"
+                        (change)="onImage($event, fieldInput)"
+                      />
+                      <div class="desc">
+                        {{fieldInput?.info}}
+                      </div>
+                    </div>
+                    <div *ngIf="dynamicForm.controls?.[fieldInput?.apiKey]?.invalid && (dynamicForm.controls?.[fieldInput?.apiKey]?.dirty || dynamicForm.controls?.[fieldInput?.apiKey]?.touched)"
+                        class="error text-danger">
+                        <div *ngIf="dynamicForm.controls?.[fieldInput?.apiKey]?.errors?.required">
+                            {{ fieldInput?.validations?.required?.msg || 'This field cannot be empty.'}}
+                        </div>
+                    </div>
+                    <div *ngIf="imgStatus[fieldInput?.apiKey].errorMsg" class="error text-danger">
+                        <div >
+                            {{ imgStatus[fieldInput?.apiKey].errorMsg }}
+                        </div>
+                    </div>
+                  </div>
+                  <div
+                    class="col-4 d-flex justify-content-center align-items-center"
+                    style="height: 150px; border: 0.5px solid grey"
+                    *ngIf="
+                      imgStatus[fieldInput?.apiKey].imageUploading ||
+                      dynamicForm.get(fieldInput?.apiKey)?.value ||
+                      imgStatus[fieldInput?.apiKey].imageUploadError
+                    "
+                  >
+                    <div *ngIf="imgStatus[fieldInput?.apiKey].imageUploading">
+                      Uploading...
+                    </div>
+                    <div *ngIf="imgStatus[fieldInput?.apiKey].imageUploadError">
+                      Uploading failed.
+                    </div>
+                    <img
+                      [src]="dynamicForm.get(fieldInput?.apiKey)?.value"
+                      alt=""
+                      *ngIf="
+                        !imgStatus[fieldInput?.apiKey].imageUploading &&
+                        dynamicForm.get(fieldInput?.apiKey)?.value
+                      "
+                    />
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'select'">
+                <div class="row mt-3 input-text-field">
+                  <div class="col-4">
+                    <label
+                      style="padding-left: 1.5rem"
+                      [for]="fieldInput?.apiKey"
+                      class="form-label fs-6"
+                      >{{ fieldInput?.label }} <br /><span
+                        *ngIf="fieldInput?.subLabel"
+                        style="opacity: 0.5"
+                        >({{ fieldInput?.subLabel }})</span
+                      ></label
+                    >
+                  </div>
+                  <div class="col-5">
+                    <div class="input">
+                      <ng-select 
+                        [formControlName]="fieldInput?.apiKey"  
+                        style="cursor: pointer;"
+                        [multiple]="fieldInput?.extra?.multiSelect"
+                      >
+                        <ng-option disabled>
+                          {{fieldInput?.placeholder}}
+                        </ng-option>
+                        <ng-option 
+                          *ngFor="let item of fieldInput?.extra?.options" 
+                          [value]="item['id']"
+                        >
+                          {{ item["desc"] }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                    <div *ngIf="dynamicForm.controls?.[fieldInput?.apiKey]?.invalid && (dynamicForm.controls?.[fieldInput?.apiKey]?.dirty || dynamicForm.controls?.[fieldInput?.apiKey]?.touched)"
+                        class="error text-danger">
+                        <div *ngIf="dynamicForm.controls?.[fieldInput?.apiKey]?.errors?.required">
+                            {{ fieldInput?.validations?.required?.msg || 'This field cannot be empty.'}}
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'radio'">
+                <div class="row mt-3 input-text-field">
+                  <div class="col-4">
+                    <label
+                      style="padding-left: 1.5rem"
+                      [for]="fieldInput?.apiKey"
+                      class="form-label fs-6"
+                      >{{ fieldInput?.label }} <br /><span
+                        *ngIf="fieldInput?.subLabel"
+                        style="opacity: 0.5"
+                        >({{ fieldInput?.subLabel }})</span
+                      ></label
+                    >
+                  </div>
+                  <div class="col-5">
+                    <div class="input">
+                      <div class="form-check form-check-inline"  *ngFor="let item of fieldInput?.extra?.options" >
+                        <label class="form-check-label" [attr.for]="'inlineRadio'+item['id']" >{{item.name}}</label>
+                        <input [formControlName]="fieldInput?.apiKey" 
+                        class="form-check-input" type="radio" 
+                        [name]="fieldInput?.apiKey" 
+                        [attr.id]="'inlineRadio'+item['id']"  
+                        [value]="item['value']"
+                      >
+                      </div>
+                    </div>
+                    <div *ngIf="dynamicForm.controls?.[fieldInput?.apiKey]?.invalid && (dynamicForm.controls?.[fieldInput?.apiKey]?.dirty || dynamicForm.controls?.[fieldInput?.apiKey]?.touched)"
+                        class="error text-danger">
+                        <div *ngIf="dynamicForm.controls?.[fieldInput?.apiKey]?.errors?.required">
+                            {{ fieldInput?.validations?.required?.msg || 'This field cannot be empty.'}}
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'datetime'">
+                <div class="row mt-3 input-text-field">
+                  <div class="col-4">
+                    <label
+                      style="padding-left: 1.5rem"
+                      [for]="fieldInput?.apiKey"
+                      class="form-label fs-6"
+                      >{{ fieldInput?.label }} <br /><span
+                        *ngIf="fieldInput?.subLabel"
+                        style="opacity: 0.5"
+                        >({{ fieldInput?.subLabel }})</span
+                      ></label
+                    >
+                  </div>
+                  <div class="col-5">
+                    <div class="input">
+                      <input
+                        [formControlName]="fieldInput?.apiKey"
+                        [id]="fieldInput?.apiKey"
+                        class="form-control"
+                        [type]="fieldInput?.extra?.dateOnly ? 'date' : 'datetime-local'"
+                        [placeholder]="fieldInput?.placeholder"
+                      />
+                    </div>
+                    <div *ngIf="dynamicForm.controls?.[fieldInput?.apiKey]?.invalid && (dynamicForm.controls?.[fieldInput?.apiKey]?.dirty || dynamicForm.controls?.[fieldInput?.apiKey]?.touched)"
+                        class="error text-danger">
+                        <div *ngIf="dynamicForm.controls?.[fieldInput?.apiKey]?.errors?.required">
+                            {{ fieldInput?.validations?.required?.msg || 'This field cannot be empty.'}}
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <!-- <ng-container *ngSwitchCase="'date'">
+                <div class="row mt-3 input-date-field">
+                  <div class="col-4">
+                    <label
+                      style="padding-left: 1.5rem"
+                      for=""
+                      class="form-label fs-6"
+                      >{{ fieldInput?.label }}</label
+                    >
+                  </div>
+                  <div class="col-5">
+                    <input
+                      class="form-control"
+                      type="datetime-local"
+                      class="starttime-input"
+                      [formControlName]="fieldInput?.apiKey"
+                      name="end"
+                      placeholder="Select End date & and time"
+                    />
+                    <div class="error text-danger">
+                      <div *ngIf="fieldInput?.error">
+                        {{ fieldInput?.error }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container> -->
+              <!-- <ng-container *ngSwitchCase="'csvUpload'">
+                <div class="row mt-3 in-fields">
+                  <div class="col-4">
+                    <label
+                      style="padding-left: 1.5rem"
+                      for=""
+                      class="form-label fs-6"
+                      >{{ fieldInput?.label }}</label
+                    >
+                  </div>
+                  <div class="col-5">
+                    <input
+                      #imageInput
+                      id="file_upload"
+                      [formControlName]="fieldInput?.apiKey"
+                      class="form-control"
+                      (change)="uploadCsv($event)"
+                      type="file"
+                      accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                    />
+                    <span class="file desc" style="font-size: 10px; color: red"
+                      >Only Supports .csv
+                    </span>
+                  </div>
+                </div>
+              </ng-container> -->
+            </ng-container>
+          </ng-container>
+        </div>
+      </form>
+      <div class="row d-flex align-items-center justify-content-center m-5" *ngIf="jsonData?.isSubmit">
+        <button
+          type="button"
+          class="btn btn-primary mt-2"
+          [disabled]="dynamicForm.invalid"
+          style="width: 20rem; border-radius: 1rem;"
+          (click)="submitForm()"
+        >
+          Submit
+        </button>
+      </div>
+    </ng-container>
+  </div>
+  
