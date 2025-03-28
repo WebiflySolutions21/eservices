@@ -1,0 +1,87 @@
+.print-container {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    overflow-y: scroll;
+    .header {
+      margin-bottom: 20px;
+      text-align: center;
+  
+      .logo img {
+        width: 100px;
+        height: auto;
+        margin-bottom: 10px;
+      }
+  
+      .hospital-name {
+        font-size: 28px;
+        font-weight: bold;
+        margin: 0;
+      }
+  
+      .hospital-address,
+      .hospital-contact {
+        font-size: 14px;
+        color: #555;
+        margin: 0;
+      }
+    }
+  
+    .section-title {
+      font-size: 20px;
+      margin-bottom: 8px;
+      background-color: #007bff;
+      color: white;
+      padding: 8px;
+      border-radius: 4px;
+    }
+  
+    table {
+      width: 100%;
+      margin-bottom: 20px;
+  
+      th, td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ddd;
+      }
+  
+      th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+      }
+  
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+    }
+  
+    ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+  }
+  .additional-info-section {
+    .info-box {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+      h5 {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 4px;
+        color: #333;
+      }
+  
+      ul {
+        list-style-type: disc;
+        padding-left: 20px;
+  
+        li {
+          font-size: 14px;
+          color: #555;
+        }
+      }
+    }
+  }
+  

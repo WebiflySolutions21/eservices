@@ -1,0 +1,106 @@
+<div class="print-container p-4">
+    <!-- Print Button -->
+    <div class="text-right mb-3">
+      <button class="btn btn-primary" (click)="printPage()">Print</button>
+    </div>
+  
+    <!-- Header Section -->
+    <div class="header text-center mb-4">
+      <div class="logo">
+        <img src="assets/hospital-logo.png" alt="Hospital Logo" />
+      </div>
+      <h2 class="hospital-name">Health Care Hospital</h2>
+      <p class="hospital-address">1234, Medical Lane, Wellness City, State - 411001</p>
+      <p class="hospital-contact">Contact: +91 12345 67890 | Email: info@healthcare.com</p>
+    </div>
+  
+    <!-- Patient Details Section -->
+    <div class="patient-details mb-4">
+      <h4 class="section-title">Patient Details</h4>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th>Name</th>
+            <td>{{ patientDetails.name }}</td>
+            <th>Age</th>
+            <td>{{ patientDetails.age }}</td>
+          </tr>
+          <tr>
+            <th>Sex</th>
+            <td>{{ patientDetails.sex }}</td>
+            <th>Complaint</th>
+            <td>{{ patientDetails.complaint }}</td>
+          </tr>
+          <tr>
+            <th>Weight (kg)</th>
+            <td>{{ patientDetails.weight }}</td>
+            <th>Pulse (bpm)</th>
+            <td>{{ patientDetails.pulse }}</td>
+          </tr>
+          <tr>
+            <th>Blood Pressure (mmHg)</th>
+            <td>{{ patientDetails.bp }}</td>
+            <th>Temperature (°F)</th>
+            <td>{{ patientDetails.temp }}</td>
+          </tr>
+          <tr>
+            <th>SpO2 (%)</th>
+            <td>{{ patientDetails.spo2 }}</td>
+            <th>Follow-Up Date</th>
+            <td>{{ data.followupDate }} ({{ data.followupDay }})</td>
+          </tr>
+          <tr>
+            <th>Admitted Status</th>
+            <td colspan="3">{{ data.isAdmitted ? 'Admitted' : 'Not Admitted' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Additional Information Section -->
+    <div class="additional-info-section mb-4">
+      <h4 class="section-title">Additional Information</h4>
+      <div *ngFor="let section of data.selectedCheckboxes" class="mb-2">
+        <ng-container *ngIf="section.isPrintable">
+          <h5>{{ getSectionTitle(section) }}</h5>
+          <ul>
+            <li *ngFor="let item of getSectionData(section)">
+              {{ item.name }}
+            </li>
+          </ul>
+        </ng-container>
+      </div>
+    </div>
+  
+    <!-- Prescription Section -->
+    <div class="prescription-section mb-4">
+      <h4 class="section-title">Prescription Details</h4>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Medicine</th>
+            <th>Morning</th>
+            <th>Afternoon</th>
+            <th>Night</th>
+            <th>Intake Time</th>
+            <th>Days</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of data.prescriptionData">
+            <td>{{ item.type }}</td>
+            <td>{{ item.medicine }}</td>
+            <td>{{ item.morning }}</td>
+            <td>{{ item.afternoon }}</td>
+            <td>{{ item.night }}</td>
+            <td>{{ item.intakeTime }}</td>
+            <td>{{ item.days }}</td>
+            <td>{{ item.quantity }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
