@@ -1,0 +1,152 @@
+export const DOCTOR_TABLE_DATA = {
+  patient: [
+    {
+      id: 1,
+      regDate: '02/02/2024',
+      patientName: 'Lokesh Thakare',
+      sex: 'Male',
+      age: '26',
+      contactNo: '7218509409',
+      type: 'Registration',
+      refer: 'Not Referred',
+      visitCount: '8',
+    },
+    {
+      id: 2,
+      regDate: '03/02/2024',
+      patientName: 'Devesh Thakare',
+      sex: 'Male',
+      age: '21',
+      contactNo: '8208030973',
+      type: 'Appointment',
+      refer: 'Not Referred',
+      visitCount: '12',
+    },
+    {
+      id: 3,
+      regDate: '22/02/2024',
+      patientName: 'Lokesh Thakare',
+      sex: 'Male',
+      age: '26',
+      contactNo: '7218509409',
+      type: 'Follow Up',
+      refer: 'Not Referred',
+      visitCount: '3',
+    },
+    {
+      id: 4,
+      regDate: '23/02/2024',
+      patientName: 'Lokesh Thakare',
+      sex: 'Male',
+      age: '26',
+      contactNo: '7218509409',
+      type: 'Registration',
+      refer: 'Not Referred',
+      visitCount: '1',
+    },
+    {
+      id: 5,
+      regDate: '12/02/2024',
+      patientName: 'Lokesh Thakare',
+      sex: 'Male',
+      age: '26',
+      contactNo: '7218509409',
+      type: 'Registration',
+      refer: 'Referred',
+      visitCount: '5',
+    },
+    {
+      id: 6,
+      regDate: '10/02/2024',
+      patientName: 'Lokesh Thakare',
+      sex: 'Male',
+      age: '26',
+      contactNo: '7218509409',
+      type: 'Registration',
+      refer: 'Referred',
+      visitCount: '2',
+    },
+  ],
+};
+export const DOCTOR_TABLE_COLUMNS = {
+  patient: [
+    { key: 'id', title: 'ID' },
+    { key: 'regDate', title: 'Registration Date', filterType: 'date' },
+    { key: 'patientName', title: 'Patient Name',filterType: 'search',type:"text" },
+    { key: 'sex', title: 'Sex', filterType: 'dropdown',
+      options: ['Male', 'Female', 'Others'], },
+    { key: 'age', title: 'Age' },
+    { key: 'contactNo', title: 'Contact No', filterType: 'search' ,type:"number"},
+    {
+      key: 'type',
+      title: 'Type',
+      filterType: 'dropdown',
+      options: ['Registration', 'Appointment', 'Follow Up'],
+    },
+    {
+      key: 'refer',
+      title: 'Refer Status',
+      filterType: 'dropdown',
+      options: [18, 21, 25, 30],
+    },
+    { key: 'visitCount', title: 'Visit No.' },
+  ],
+};
+
+export const DOCTOR_ROUTES = [
+  {
+    id: 1,
+    title: 'Review Table',
+    path: '/review-table',
+  },
+];
+
+export const PRESCRIPTION_VIEW_ROUTES = [
+  {
+    id: 1,
+    title: 'Dashboard',
+    path: '/doctor-dashboard',
+  },
+  {
+    id: 2,
+    title: 'Image Gallery',
+    path: '/image-gallery',
+  },
+  {
+    id: 3,
+    title: 'Templates',
+    path: '',
+  },
+  {
+    id: 4,
+    title: 'Canvas',
+    path: '',
+  },
+];
+
+export const PATIENT_DETAILS = {
+  name: 'Lokesh Thakare',
+  age: 18,
+  sex: 'Male',
+  complaint: 'Pain in back',
+  weight: 70,
+  pulse: 72,
+  bp: '120/80',
+  temp: 98.6,
+  spo2: 98,
+};
+export const FOLLOW_UP_DETAILS = [
+  { label: '1 Day', value: 1 },
+  { label: '2 Days', value: 2 },
+  { label: '3 Days', value: 3 },
+  { label: '1 Week', value: 7 },
+  { label: '10 Days', value: 10 },
+  { label: '2 Weeks', value: 14 },
+  { label: '15 Days', value: 15 },
+  { label: '20 Days', value: 20 },
+  { label: '1 Month', value: 30 },
+  { label: '1.5 Months', value: 45 },
+  { label: '2 Months', value: 60 },
+  { label: '3 Months', value: 90 },
+];
+

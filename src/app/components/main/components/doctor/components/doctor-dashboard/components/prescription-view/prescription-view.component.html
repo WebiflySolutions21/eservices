@@ -1,0 +1,189 @@
+<div class="prescription-view-component">
+  <div class="prescription-view-wrapper">
+    <div class="patient-details">
+      <div class="detail-card">Name: <span>{{ patientDetails.name }}</span></div>
+      <div class="detail-card">Age: <span>{{ patientDetails.age }}</span></div>
+      <div class="detail-card">Sex: <span>{{ patientDetails.sex }}</span></div>
+      <div class="detail-card">Complaint: <span>{{ patientDetails.complaint }}</span></div>
+      <div class="detail-card">Weight: <span>{{ patientDetails.weight }}</span></div>
+      <div class="detail-card">Pulse: <span>{{ patientDetails.pulse }}</span></div>
+      <div class="detail-card">BP: <span>{{ patientDetails.bp }}</span></div>
+      <div class="detail-card">Temp: <span>{{ patientDetails.temp }}</span></div>
+      <div class="detail-card">SPO2: <span>{{ patientDetails.spo2 }}</span></div>
+    </div>
+    
+    
+    <div class="top-section">
+      <!-- Follow-up Section -->
+      <div class="add-followup">
+        <button (click)="openModal('followup')">Add Follow-up</button>
+        <div *ngIf="followupDate">
+          <p class="selected-date">
+            Follow-up Date: <span>{{ followupDate }}</span> ({{ followupDay }})
+          </p>
+        </div>
+      </div>
+    
+      <div class="admin-patient">
+        <button (click)="openModal('admit')">
+          {{ isAdmitted ? "Admitted" : "Admit Patient" }}
+        </button>
+      </div>
+    
+      <div class="refer-patient">
+        <button (click)="openModal('refer')">Refer Patient</button>
+      </div>
+    </div>
+    
+
+    <div class="patient-diagnosis-section">
+      <div class="examination" *ngFor="let item of dropdowns">
+        <app-multi-select-dropdown
+          [label]="item.label"
+          [options]="item.options"
+          [dropdownId]="item.dropdownId"
+          (selectionChanged)="onSelectionChanged($event)"
+        ></app-multi-select-dropdown>
+      </div>
+    </div>
+    <div class="medicine-prescription" #prescriptionSection>
+      <app-prescription-table (medicineAdded)="scrollToPrescription()"(prescriptionUpdated)="onPrescriptionUpdate($event)" ></app-prescription-table>
+
+    </div>
+    <div class="print-button">
+      <div class="sticky-save-button">
+        <button (click)="saveDetails()">Save Prescription</button>
+      </div>
+      <div class="sticky-save-button">
+        <button (click)="saveDetails('print')">Save & Print Prescription</button>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<!-- Admit Patient Modal -->
+<div #admitPatientModal class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Admit Patient</h5>
+        <div type="button" (click)="closeModal()">
+          <span>&times;</span>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to admit this patient?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">
+          Close
+        </button>
+        <button type="button" class="btn btn-success" (click)="admitPatient()">
+          Confirm Admit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div #followUpPatientModal class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Follow-Up Patient</h5>
+        <div type="button" (click)="closeModal()">
+          <span>&times;</span>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="add-followup">
+          <div class="followup-container">
+            <label class="selected-date">Select Follow-up Date:</label>
+            <input
+              class="form-control"
+              type="date"
+              (change)="onDateChange($event)"
+            />
+
+            <label class="selected-date">Select Follow-up Duration:</label>
+            <div class="followup-options">
+              <button
+                *ngFor="let option of followupOptions"
+                (click)="onDurationChange(option.value)"
+              >
+                {{ option.label }}
+              </button>
+            </div>
+
+            <div *ngIf="followupDate">
+              <p class="selected-date">
+                Follow-up Date: <span>{{ followupDate }}</span> ({{ followupDay }})
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">
+          Close
+        </button>
+        <button type="button" class="btn btn-success" (click)="closeModal()">
+          Confirm Follow-Up
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div #referUpPatientModal class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Refer Patient</h5>
+        <div type="button" (click)="closeModal()">
+          <span>&times;</span>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="card mt-2 p-3">
+          <div class="mb-2">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search doctor..."
+              [(ngModel)]="searchQuery"
+              (input)="filterDoctors()"
+            />
+          </div>
+
+          <ul class="list-group mb-2" *ngIf="filteredDoctors.length > 0">
+            <li
+              class="list-group-item list-group-item-action"
+              *ngFor="let doctor of filteredDoctors"
+              (click)="selectDoctor(doctor)"
+            >
+              {{ doctor.name }}
+            </li>
+          </ul>
+
+          <p *ngIf="selectedDoctor" class="alert alert-success p-2">
+            Selected Doctor: <strong>{{ selectedDoctor.name }}</strong>
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-success"
+          *ngIf="selectedDoctor"
+          (click)="referPatient()"
+        >
+          Confirm Refer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

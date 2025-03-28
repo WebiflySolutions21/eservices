@@ -1,0 +1,18 @@
+<div class="print-preview">
+    <div class="print-options">
+      <label for="printSize">Select Print Size:</label>
+      <select id="printSize" [(ngModel)]="selectedPrintSize" (change)="updatePrintSize()">
+        <option value="A4">A4</option>
+        <option value="A3">A3</option>
+      </select>
+      <button (click)="triggerPrint()">Print</button>
+    </div>
+    <div class="print-area" id="printContent">
+      <!-- Your prescription content -->
+      <div class="prescription-content">
+        <h2>Prescription Details</h2>
+        <div [innerHTML]="printContent"></div>
+      </div>
+    </div>
+  </div>
+  

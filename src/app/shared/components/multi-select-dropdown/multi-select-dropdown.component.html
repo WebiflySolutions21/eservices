@@ -1,0 +1,49 @@
+<div class="dropdown-container">
+  <div class="dropdown-header">
+    <div class="label">{{ label }}</div>
+    <label class="toggle-switch">
+      <input type="checkbox" [(ngModel)]="isPrintEnabled" (change)="emitSelectionChanged()"/>
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="selected-items">
+    <div class="selected-item" *ngFor="let item of selectedOptions">
+      {{ item.name }}
+      <span class="remove-icon" (click)="removeItem(item)">&times;</span>
+    </div>
+    <!-- Combined search and input for adding new options -->
+    <input
+      type="text"
+      class="dropdown-input"
+      [(ngModel)]="searchTerm"
+      (focus)="toggleDropdown(true)"
+      (input)="filterOptions()"
+      (keydown.enter)="addNewOption()"
+      placeholder="Select or type..."
+    />
+  </div>
+
+  <div
+    class="dropdown-menu show"
+    *ngIf="dropdownOpen && filteredOptions.length"
+  >
+    <div class="dropdown-options">
+      <!-- <div *ngIf="filteredOptions.length === 0" class="no-options">
+        No options found. Press Enter to add.
+      </div> -->
+      <div *ngFor="let option of filteredOptions">
+        <label class="option-label">
+          <input
+            type="checkbox"
+            [checked]="isSelected(option)"
+            (change)="toggleSelection(option)"
+          />
+          <div class="name">
+            {{ option.name }}
+          </div>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

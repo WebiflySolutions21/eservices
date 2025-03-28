@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
 
     this.route.queryParamMap.subscribe(params => {
       this.userId = params.get('userId');
+      console.log(this.userId)
     });
   }
 
@@ -44,7 +45,11 @@ export class LoginComponent implements OnInit {
 
   loginUser() {
     console.log(this.loginForm.value);
-    this.router.navigate(["/main/admin/admin-dashboard"])
+    if(this.userId){
+      this.router.navigate([`/main/${this.userId}/${this.userId}-dashboard`])
+    } else{
+      alert("No user id in parameters")
+    }
     return
 
     let payload = {

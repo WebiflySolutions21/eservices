@@ -1,15 +1,40 @@
 <div class="header-section">
-    <div class="hosp" *ngIf="hospitalName">
-      <div class="hosp-icon">
-        <img src="assets/images/agent-login/login.png" />
-      </div>
-      <div class="hospital-name">{{ hospitalName }}</div>
+  <div class="hosp" *ngIf="hospitalName">
+    <div class="hosp-icon">
+      <img src="assets/images/agent-login/login.png" />
     </div>
+    <div class="hospital-name">{{ hospitalName }}</div>
+  </div>
+
+  <!-- Desktop Navigation (First 4 Logins + Dropdown) -->
+  <div class="nav-links" [class.active]="isMenuOpen">
     <div
       class="login-section"
-      *ngFor="let data of headingRoutes"
+      *ngFor="let data of (isMobileView ? headingRoutes : headingRoutes.slice(0, 4))"
       (click)="onTitleClick(data)"
     >
       {{ data?.title }}
     </div>
+
+    <!-- Dropdown (Only for Desktop) -->
+    <div class="dropdown" *ngIf="!isMobileView && headingRoutes.length > 4">
+      <button class="dropbtn" (click)="toggleDropdown()">More ▼</button>
+      <div class="dropdown-content" [class.show]="isDropdownOpen">
+        <div
+          class="login-section"
+          *ngFor="let data of headingRoutes.slice(4)"
+          (click)="onTitleClick(data); toggleDropdown();"
+        >
+          {{ data?.title }}
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- Hamburger Menu (For Mobile) -->
+  <div class="hamburger" (click)="toggleMenu()">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+</div>

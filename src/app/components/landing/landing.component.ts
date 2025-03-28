@@ -14,6 +14,6 @@ hospitalName = "HOSPITAL NAME"
 constructor(private router:Router){}
 
 navigateUser(data:any){
-    this.router.navigate([`/login`], { queryParams: { userId: data?.title} })
+    this.router.navigate([`/login`], { queryParams: { userId: data?.identification} })
 }
 }

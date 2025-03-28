@@ -2,47 +2,152 @@
 
 .header-section {
   width: 100%;
-  background-color: #202020;
+  background-color: #0084ff;
   @include flex-container(center, space-between, row);
-  padding: 0.5em 1em;
+  padding: 0.8em 1.5em;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 
   .hosp {
-    width: 30%;
-    @include flex-container(center, flex-start, row);
+    display: flex;
+    align-items: center;
+    gap: 12px;
 
     .hospital-name {
       cursor: pointer;
       padding: 0em 1em;
-      @include font(16, 5vw, 18, hbold, #FFFFFF);
+      @include font(18, 5vw, 20, hbold, #ffffff);
       transition: transform 0.3s ease, color 0.3s ease;
 
       &:hover {
         transform: scale(1.1);
-        color: #FFCC00; // Change color on hover
+        color: #ffcc00;
       }
     }
 
-    .hosp-icon {
-      img {
-        width: 3em;
-        border-radius: 50%;
-        transition: transform 0.3s ease;
+    .hosp-icon img {
+      width: 3em;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
 
-        &:hover {
-          transform: rotate(10deg) scale(1.1);
-        }
+      &:hover {
+        transform: rotate(10deg) scale(1.1);
       }
     }
   }
 
-  .login-section {
-    cursor: pointer;
-    @include font(13, 4vw, 15, hroundedbold, #FFFFFF);
-    transition: color 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+  .nav-links {
+    display: flex;
+    gap: 1.5em;
 
-    &:hover {
-      color: #FFCC00;
-      transform: scale(1.1);
+    .login-section {
+      cursor: pointer;
+      padding: 0.5em 1em;
+      border-radius: 6px;
+      @include font(14, 4vw, 16, hroundedbold, #ffffff);
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: #f8f9fa;
+        background-color: #0056b3;
+        transform: scale(1.1);
+      }
+    }
+
+    // Dropdown Menu (Only for Desktop)
+    .dropdown {
+      position: relative;
+
+      .dropbtn {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 0.5em 1em;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #ffcc00;
+        }
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #ffffff;
+        min-width: 150px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 6px;
+        overflow: hidden;
+        top: 100%;
+        right: 0;
+        z-index: 10;
+
+        .login-section {
+          padding: 10px;
+          color: #333;
+          background: #f8f9fa;
+          transition: background 0.3s ease;
+
+          &:hover {
+            background: #0084ff;
+            color: white;
+          }
+        }
+      }
+
+      // Show dropdown when active
+      .show {
+        display: block;
+      }
+    }
+  }
+
+  // Hamburger Menu (For Mobile)
+  .hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+
+    .bar {
+      width: 30px;
+      height: 4px;
+      background-color: white;
+      transition: 0.3s ease;
+    }
+  }
+
+  // Mobile Styles
+  @media (max-width: 768px) {
+    .hamburger {
+      display: flex;
+    }
+
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      right: 0;
+      background-color: #0084ff;
+      width: 100%;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+
+      &.active {
+        display: flex;
+      }
+
+      .login-section {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
     }
   }
 }

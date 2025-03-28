@@ -1,37 +1,54 @@
 @import "mixins";
-.input-fields{
+
+.input-fields {
   width: 100%;
   height: 100%;
   @include flex-container();
   margin-top: 2em;
   padding: 0em 1em;
   gap: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
-.dynamic-form-component{
+
+.dynamic-form-component {
   width: 100%;
   height: 100%;
   overflow-y: scroll;
 }
-.multiselect-dropdown{
+
+.multiselect-dropdown {
   width: 30%;
   margin: 2em 0em 0em 0em;
 }
 
-.buttons{
+.buttons {
   width: 100%;
   gap: 1em;
   display: flex;
   margin: 1em;
+
+  button {
+    padding: 0.7em 1.5em;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    }
+  }
 }
 
-.head-section{
+.head-section {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  
 }
-.sec{
+
+.sec {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,22 +57,25 @@
   width: 100%;
 }
 
-.head{
+.head {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  div{
-      font-weight: 700;
-      font-size: 23px;
+
+  div {
+    font-weight: 700;
+    font-size: 23px;
   }
 }
-.modal-header{
+
+.modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
 }
+
 .drag-container {
   display: flex;
   flex-direction: column;
@@ -96,5 +116,30 @@
   &.active {
     background-color: rgba(0, 123, 255, 0.2);
     border-color: #0056b3;
+  }
+}
+
+.form-control {
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 0.6em;
+  transition: border-color 0.3s ease-in-out;
+
+  &:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
+  th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
   }
 }

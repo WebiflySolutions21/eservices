@@ -3,17 +3,57 @@
     <table class="custom-table">
       <thead>
         <tr>
-          <th *ngFor="let col of tableColumns">{{ col.title }}</th>
+          <th *ngFor="let col of tableColumns" (click)="sortData(col.key)">
+            {{ col.title }}
+            <span class="sort-icon">{{ sortDirection[col.key] ? '🔼' : '🔽' }}</span>
+          </th>
           <th *ngIf="actions.length">Actions</th>
+        </tr>
+        <!-- Filter Row -->
+        <tr>
+          <td *ngFor="let col of tableColumns">
+            <ng-container [ngSwitch]="col.filterType">
+              <!-- Search Input -->
+              <input
+                *ngSwitchCase="'search'"
+                [type]="col.type"
+                class="search-input"
+                [(ngModel)]="searchValues[col.key]"
+                (input)="onFilterChange(col.key)"
+                placeholder="Search..."
+              />
+
+              <!-- Dropdown Filter -->
+              <select
+                *ngSwitchCase="'dropdown'"
+                class="dropdown-filter"
+                [(ngModel)]="dropdownValues[col.key]"
+                (change)="onFilterChange(col.key)"
+              >
+                <option value="" selected>All</option>
+                <option *ngFor="let option of col.options" [value]="option">{{ option }}</option>
+              </select>
+
+              <!-- Date Filter -->
+              <input
+                *ngSwitchCase="'date'"
+                type="date"
+                class="date-filter"
+                [(ngModel)]="dateValues[col.key]"
+                (change)="onFilterChange(col.key)"
+              />
+            </ng-container>
+          </td>
+          <td *ngIf="actions.length"></td>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of tableData">
+        <tr *ngFor="let row of filteredData">
           <td *ngFor="let col of tableColumns">{{ row[col.key] }}</td>
-          <td *ngIf="actions.length">
+          <td *ngIf="actions.length" class="btns">
             <button
               *ngFor="let action of actions"
-              [class]="action.class || 'default-btn'"
+              [ngClass]="action.class || 'primary-btn'"
               (click)="onAction(action.action, row)"
             >
               {{ action.label }}
@@ -24,5 +64,3 @@
     </table>
   </div>
 </div>
-
-

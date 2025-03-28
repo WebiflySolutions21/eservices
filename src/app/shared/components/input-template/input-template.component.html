@@ -199,9 +199,9 @@
                             {{ fieldInput?.validations?.required?.msg || 'This field cannot be empty.'}}
                         </div>
                     </div>
-                    <div *ngIf="imgStatus[fieldInput?.apiKey].errorMsg" class="error text-danger">
+                    <div *ngIf="imgStatus[fieldInput?.apiKey]?.errorMsg" class="error text-danger">
                         <div >
-                            {{ imgStatus[fieldInput?.apiKey].errorMsg }}
+                            {{ imgStatus[fieldInput?.apiKey]?.errorMsg }}
                         </div>
                     </div>
                   </div>

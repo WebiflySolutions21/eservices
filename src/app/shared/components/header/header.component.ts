@@ -7,15 +7,33 @@ import { Component, Input, Output, EventEmitter,OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   @Input() hospitalName!: string;
-  @Input() headingRoutes: { title: string; path: string }[] = [];
+@Input() headingRoutes: { title: string; path: string }[] = [];
+isDropdownOpen = false;
+isMenuOpen = false;
+isMobileView = window.innerWidth <= 768; // Detect if it's a mobile view
+@Output() titleClick = new EventEmitter<{ title: string; path: string }>();
 
-  @Output() titleClick = new EventEmitter<{ title: string; path: string }>();
+ngOnInit() {
+  console.log(this.headingRoutes);
 
-  ngOnInit(){
-    console.log(this.headingRoutes)
-  }
+  // Listen to window resize to update isMobileView
+  window.addEventListener("resize", () => {
+    this.isMobileView = window.innerWidth <= 768;
+  });
+}
 
-  onTitleClick(data: { title: string; path: string }) {
-    this.titleClick.emit(data); // Emit event when clicked
-  }
+toggleDropdown() {
+  this.isDropdownOpen = !this.isDropdownOpen;
+}
+
+toggleMenu() {
+  this.isMenuOpen = !this.isMenuOpen;
+}
+
+onTitleClick(data: { title: string; path: string }) {
+  this.titleClick.emit(data);
+  this.isMenuOpen = false; // Close menu after clicking
+  this.isDropdownOpen = false; // Close dropdown after selection
+}
+
 }

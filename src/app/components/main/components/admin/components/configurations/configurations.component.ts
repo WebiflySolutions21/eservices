@@ -3,7 +3,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { IFormValueData } from '@assets/constants/app.constants';
+import { IFormValueData, INPUT_TYPES, LOGIN_TYPE_LANDING_PAGE } from '@assets/constants/app.constants';
+import { DataService } from 'src/app/core/services';
 @Component({
   selector: 'app-configurations',
   templateUrl: './configurations.component.html',
@@ -25,18 +26,9 @@ export class ConfigurationsComponent implements OnInit {
   dropdownList: any[] = [];
   selectedItems: any[] = [];
   dropdownSettings: any = {};
-  inputTypes = [
-    { value: 'text', label: 'Text', placeholder: 'Enter text here' },
-    { value: 'password', label: 'Password', placeholder: 'Enter your password' },
-    { value: 'email', label: 'Email', placeholder: 'Enter your email' },
-    { value: 'number', label: 'Number', placeholder: 'Enter a number' },
-    { value: 'datetime', label: 'Date', placeholder: '' },
-    { value: 'file', label: 'File', placeholder: '' },
-    { value: 'checkbox', label: 'Checkbox', placeholder: '' },
-    { value: 'radio', label: 'Radio', placeholder: '' },
-  ];
-
-  constructor(private fb: FormBuilder,private router:Router) {
+  inputTypes = INPUT_TYPES
+storedData:any
+  constructor(private fb: FormBuilder,private router:Router,private dataService:DataService) {
     this.dynamicForm = this.fb.group({
       title: ['', Validators.required], // Universal Title
       description: ['', Validators.required], // Universal Description
@@ -46,14 +38,7 @@ export class ConfigurationsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dropdownList = [
-      { item_id: 1, item_text: 'Staff',path:"/staff" },
-      { item_id: 2, item_text: 'Doctor',path:"/doctor" },
-      { item_id: 3, item_text: 'Reception' ,path:"/reception"},
-      { item_id: 4, item_text: 'Opthalmologist',path:"/opthal" },
-      { item_id: 5, item_text: 'Medical',path:"/medical" },
-      { item_id: 6, item_text: 'Lab' ,path:"/lab"}
-    ];
+    this.dropdownList = LOGIN_TYPE_LANDING_PAGE
 
     this.selectedItems = [];
 
@@ -66,6 +51,14 @@ export class ConfigurationsComponent implements OnInit {
 
     this.addField(); // Add one field initially
   }
+
+  loadData() {
+    this.dataService.getData().subscribe((data) => {
+      this.storedData = data;
+      console.log("data",data)
+    });
+  }
+
 
   onItemSelect(item: any) {
     this.selectedItems.push(item.path);
@@ -198,71 +191,23 @@ export class ConfigurationsComponent implements OnInit {
     }
     console.log("Updated Form Sequence:", this.dynamicForm.value.fields);
   }
-  
 
-  // drop(event: CdkDragDrop<any[]>) {
-  //   const fieldsArray = this.dynamicForm.get('fields') as FormArray;
   
-  //   // Get the current form values
-  //   const fieldValues = fieldsArray.value;
   
-  //   // Swap items in the form values array
-  //   moveItemInArray(fieldValues, event.previousIndex, event.currentIndex);
-  
-  //   // Reset the FormArray with new order
-  //   fieldsArray.clear();
-  //   fieldValues.forEach((field:any) => {
-  //     fieldsArray.push(this.fb.group(field));
-  //   });
-  
-  //   console.log("Updated Form Sequence:", this.dynamicForm.value.fields);
+  // submitForm() {
+  //   const payload = this.transformFormToApiFormat(this.dynamicForm.value);
+  //   localStorage.setItem("submittedForm", JSON.stringify(payload));
+  //   this.router.navigate(["/main/admin/doctor"],{queryParams:{loginType:"/doctor"}});
+  //   console.log("Final Submitted Form Data:", payload);
   // }
-  
+
   submitForm() {
-    // let selectedItem=this.selectedItems.filter(item=>item!=null|| undefined)
-    // const submittedData = {
-    //   loginType:selectedItem,
-    //   formTitle: this.dynamicForm.value.title,
-    //   formDescription: this.dynamicForm.value.description,
-    //   buttonTitle: this.dynamicForm.value.buttonTitle,
-    //   formSequence: this.dynamicForm.value.fields, // Always updated order
-    // };
-    const submittedData = this.transformFormToApiFormat(this.dynamicForm.value);
-    localStorage.setItem("submittedForm", JSON.stringify(submittedData));
-    this.router.navigate(["/main/admin/doctor"],{queryParams:{loginType:"/doctor"}});
-    console.log("Final Submitted Form Data:", submittedData);
+    console.log(this.transformFormToApiFormat(this.dynamicForm.value))
+    // return
+      this.dataService.saveData(this.dynamicForm.value).subscribe(() => {
+        this.loadData();
+      });
+    
   }
-  
-  resize(event: MouseEvent, index: number) {
-    event.preventDefault();
-  
-    // Get the input element
-    const resizer = event.target as HTMLElement;
-    const inputElement = resizer.parentElement?.querySelector('input, textarea') as HTMLElement;
-  
-    if (!inputElement) return;
-  
-    const startX = event.clientX;
-    const startY = event.clientY;
-    const startWidth = inputElement.offsetWidth;
-    const startHeight = inputElement.offsetHeight;
-  
-    // Function to update width & height dynamically
-    const onMouseMove = (e: MouseEvent) => {
-      const newWidth = startWidth + (e.clientX - startX);
-      const newHeight = startHeight + (e.clientY - startY);
-  
-      inputElement.style.width = `${newWidth}px`;
-      inputElement.style.height = `${newHeight}px`;
-    };
-  
-    // Cleanup event listeners on mouse release
-    const onMouseUp = () => {
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    };
-  
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-  }
+
 }
