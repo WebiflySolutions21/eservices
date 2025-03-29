@@ -57,20 +57,27 @@
       </table>
     </div>
   
-    <!-- Additional Information Section -->
-    <div class="additional-info-section mb-4">
-      <h4 class="section-title">Additional Information</h4>
-      <div *ngFor="let section of data.selectedCheckboxes" class="mb-2">
+   <!-- Additional Information Section -->
+<div class="additional-info-section mb-4">
+    <h4 class="section-title">Additional Information</h4>
+    <div class="row">
+      <ng-container *ngFor="let section of data.selectedCheckboxes">
         <ng-container *ngIf="section.isPrintable">
-          <h5>{{ getSectionTitle(section) }}</h5>
-          <ul>
-            <li *ngFor="let item of getSectionData(section)">
-              {{ item.name }}
-            </li>
-          </ul>
+          <div class="col-md-4 col-sm-6 mb-2">
+            <div class="info-box p-2 border rounded">
+              <h5>{{ getSectionTitle(section) }}</h5>
+              <ul class="m-0 pl-3">
+                <li *ngFor="let item of getSectionData(section)">
+                  {{ item.name }}
+                </li>
+              </ul>
+            </div>
+          </div>
         </ng-container>
-      </div>
+      </ng-container>
     </div>
+  </div>
+  
   
     <!-- Prescription Section -->
     <div class="prescription-section mb-4">

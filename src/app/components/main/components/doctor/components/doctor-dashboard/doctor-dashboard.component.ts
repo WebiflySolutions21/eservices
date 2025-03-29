@@ -14,7 +14,45 @@ export class DoctorDashboardComponent {
   tableCategories = Object.keys(DOCTOR_TABLE_DATA); // ['doctor', 'staff', 'receptionist']
   tableData = DOCTOR_TABLE_DATA;
   tableColumns = DOCTOR_TABLE_COLUMNS;
-  constructor(private router: Router) {}
+  globalSearchTerm = ''; // Global search input
+  filteredTableData: any = {};
+
+  constructor(private router: Router) {
+    this.filteredTableData = { ...this.tableData };
+  }
+
+  // Filter data based on global search term
+  clearSearch() {
+    this.globalSearchTerm = '';
+    this.filterData();
+  }
+
+  
+  filterData() {
+    const searchTerm = this.globalSearchTerm.toLowerCase().trim();
+
+    if (!searchTerm) {
+      this.filteredTableData = { ...this.tableData };
+      return;
+    }
+
+    this.filteredTableData = {};
+
+    for (const category of this.tableCategories) {
+      this.filteredTableData[category] = this.tableData[category].filter(
+        (item: any) => {
+          const patientName = item.patientName?.toString().toLowerCase() || '';
+          const contactNo = item.contactNo?.toString().toLowerCase() || '';
+
+          return (
+            patientName.includes(searchTerm) || contactNo.includes(searchTerm)
+          );
+        }
+      );
+    }
+
+    console.log('Filtered Data:', this.filteredTableData);
+  }
 
   handleAction(event: { action: string; row: any }) {
     console.log(event);

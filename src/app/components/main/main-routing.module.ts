@@ -14,6 +14,10 @@ const routes: Routes = [
       {
         path:'doctor',
         loadChildren: () => import('./components/doctor/doctor.module').then(m => m.DoctorModule) 
+      },
+      {
+        path:'reception',
+        loadChildren: () => import('./components/reception/reception.module').then(m => m.ReceptionModule) 
       }
     ]
   }

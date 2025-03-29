@@ -10,7 +10,13 @@ import { DOCTOR_ROUTES,PRESCRIPTION_VIEW_ROUTES } from '@assets/constants/doctor
 export class DoctorComponent {
  doctorRoutes = DOCTOR_ROUTES
  hospitalName = "Hospital Name"
-
+ loginDetails = {
+  name : "Lokesh Thakare",
+  imageUrl:"assets/images/header/doctor.jpeg",
+  designation:"Doctor",
+  contactNo:"1234567890",
+  type:"Orthopedic",
+ }
 constructor(private router:Router){}
 
 ngOnInit() {

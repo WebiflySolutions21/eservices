@@ -1,15 +1,14 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
   @Input() tableData: any[] = [];
   @Input() tableColumns: { key: string; title: string; filterType?: string; options?: any[] }[] = [];
   @Input() actions: { label: string; action: string; class?: string }[] = [];
-
   @Output() actionClicked = new EventEmitter<{ action: string; row: any }>();
 
   searchValues: { [key: string]: string } = {};
@@ -20,6 +19,16 @@ export class TableComponent implements OnInit {
 
   ngOnInit(): void {
     this.filteredData = [...this.tableData];
+    this.initializeFilters();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['tableData']) {
+      this.filteredData = [...this.tableData];
+    }
+  }
+
+  initializeFilters() {
     this.tableColumns.forEach((col) => {
       this.searchValues[col.key] = '';
       this.dropdownValues[col.key] = '';
@@ -31,38 +40,32 @@ export class TableComponent implements OnInit {
   onAction(action: string, row: any) {
     this.actionClicked.emit({ action, row });
   }
+
   onFilterChange() {
     this.filteredData = this.tableData.filter((row) => {
       return this.tableColumns.every((col) => {
         const value = row[col.key] ? row[col.key].toString().toLowerCase() : '';
-  
-        // Search Filter
+
         if (col.filterType === 'search') {
           const searchValue = this.searchValues[col.key]?.toString().toLowerCase() || '';
           return !searchValue || value.includes(searchValue);
         }
-  
-        // Dropdown Filter
+
         if (col.filterType === 'dropdown') {
           const dropdownValue = this.dropdownValues[col.key];
           return !dropdownValue || value === dropdownValue.toString().toLowerCase();
         }
-  
-        // Date Filter
+
         if (col.filterType === 'date') {
-          // Format the date in 'dd/mm/yyyy' format
           const rowDate = new Date(row[col.key]).toLocaleDateString('en-GB');
           const filterDate = new Date(this.dateValues[col.key]).toLocaleDateString('en-GB');
           return !this.dateValues[col.key] || rowDate === filterDate;
         }
-  
-        return true; // Default to true if no filter type is specified
+
+        return true;
       });
     });
   }
-  
-  
-  
 
   sortData(key: string) {
     const direction = this.sortDirection[key] ? 1 : -1;

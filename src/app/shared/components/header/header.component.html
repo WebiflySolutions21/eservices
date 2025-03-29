@@ -10,10 +10,32 @@
   <div class="nav-links" [class.active]="isMenuOpen">
     <div
       class="login-section"
-      *ngFor="let data of (isMobileView ? headingRoutes : headingRoutes.slice(0, 4))"
+      *ngFor="
+        let data of isMobileView ? headingRoutes : headingRoutes.slice(0, 4)
+      "
       (click)="onTitleClick(data)"
     >
       {{ data?.title }}
+    </div>
+    <!-- Doctor Details -->
+    <!-- Doctor Details -->
+    <div class="doctor-container">
+      <div class="doctor-info" (click)="toggleDoctorDetails()">
+        <img [src]="loginDetails.imageUrl" alt="Doctor" class="doctor-image" />
+      </div>
+
+      <!-- Doctor Details Dropdown -->
+      <div class="doctor-dropdown" [class.show]="isDoctorDetailsVisible">
+        <div class="doctor-header">
+          <div class="doctor-info">
+            <p class="name">Name: {{ loginDetails?.name }}</p>
+            <p class="name">Contact: {{ loginDetails?.contactNo }}</p>
+            <p class="name">Type: {{ loginDetails?.type }}</p>
+          </div>
+        </div>
+        <div class="doctor-contact"></div>
+        <button class="logout-btn" (click)="logout()">Logout</button>
+      </div>
     </div>
 
     <!-- Dropdown (Only for Desktop) -->
@@ -23,7 +45,7 @@
         <div
           class="login-section"
           *ngFor="let data of headingRoutes.slice(4)"
-          (click)="onTitleClick(data); toggleDropdown();"
+          (click)="onTitleClick(data); toggleDropdown()"
         >
           {{ data?.title }}
         </div>

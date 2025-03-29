@@ -42,6 +42,7 @@
   .nav-links {
     display: flex;
     gap: 1.5em;
+    align-items: center;
 
     .login-section {
       cursor: pointer;
@@ -149,5 +150,147 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
       }
     }
+  }
+}
+.doctor-container {
+  position: relative;
+  margin-left: 1rem;
+  cursor: pointer;
+
+  .doctor-info {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.5rem;
+    // background-color: #f5f7fa;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      transform: translateY(-2px);
+      background-color: #e8ebf0;
+    }
+
+    .doctor-image {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    .name {
+      @include font(8, 1vw, 12, hbold, #333333);
+      margin: 0;
+    }
+  }
+
+  .doctor-dropdown {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #ffffff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    width: 260px;
+    padding: 1.2rem;
+    z-index: 100;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
+    // Modern triangle tip
+    &::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      right: 20px;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid #ffffff;
+      filter: drop-shadow(0px -2px 3px rgba(0, 0, 0, 0.1));
+    }
+
+    &.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .doctor-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
+
+      .doctor-image-large {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        border: 2px solid #007bff;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+
+      .doctor-info {
+        background-color: #ffffff;
+        .doctor-name {
+          @include font(16, 4vw, 18, hroundedbold, #333333);
+        }
+
+        .designation {
+          font-size: 0.9rem;
+          @include font(14, 4vw, 16, hroundedbold, #777777);
+        }
+      }
+    }
+
+    .doctor-contact {
+      font-size: 0.9rem;
+      margin: 0.5rem 0;
+
+      p {
+        margin: 0.2rem 0;
+        @include font(8, 1vw, 12, helvetica, #555555);
+      }
+    }
+
+    .logout-btn {
+      width: 100%;
+      padding: 0.6rem;
+      background-color: red;
+      border: none;
+      border-radius: 8px;
+      color: #ffffff;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      @include font(14, 4vw, 16, hroundedbold, #ffffff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background-color: #0056b3;
+        transform: scale(1.02);
+      }
+    }
+  }
+
+  &:hover .doctor-dropdown,
+  .doctor-dropdown:hover {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
   }
 }

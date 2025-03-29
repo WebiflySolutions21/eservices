@@ -18,7 +18,7 @@
       <tbody>
         <tr *ngFor="let row of prescriptionData; let i = index">
           <td>
-            <select [(ngModel)]="row.type">
+            <select  [(ngModel)]="row.type">
               <option value="" disabled selected>Select type</option>
               <option *ngFor="let type of medicineTypes" [value]="type">
                 {{ type }}
@@ -28,6 +28,7 @@
   
           <td class="medicine-input-container">
             <input
+            class="form-control"
               type="text"
               [(ngModel)]="row.medicine"
               (input)="filterMedicineSuggestions(row)"
@@ -42,9 +43,9 @@
             </ul>
           </td>
   
-          <td><input type="number" [(ngModel)]="row.morning" min="0" /></td>
-          <td><input type="number" [(ngModel)]="row.afternoon" min="0" /></td>
-          <td><input type="number" [(ngModel)]="row.night" min="0" /></td>
+          <td><input  class="form-control" type="number" [(ngModel)]="row.morning" min="0" /></td>
+          <td><input  class="form-control" type="number" [(ngModel)]="row.afternoon" min="0" /></td>
+          <td><input  class="form-control" type="number" [(ngModel)]="row.night" min="0" /></td>
           <td>
             <select [(ngModel)]="row.intakeTime">
               <option *ngFor="let time of intakeTimes" [value]="time">
@@ -52,8 +53,8 @@
               </option>
             </select>
           </td>
-          <td><input type="number" [(ngModel)]="row.days" min="1" /></td>
-          <td><input type="number" [(ngModel)]="row.quantity" min="1" /></td>
+          <td><input  class="form-control" type="number" [(ngModel)]="row.days" min="1" /></td>
+          <td><input  class="form-control" type="number" [(ngModel)]="row.quantity" min="1" /></td>
           <td>
             <button (click)="removeRow(i)" class="delete-btn">Delete</button>
           </td>

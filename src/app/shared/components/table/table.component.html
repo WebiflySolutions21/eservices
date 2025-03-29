@@ -3,12 +3,20 @@
     <table class="custom-table">
       <thead>
         <tr>
-          <th *ngFor="let col of tableColumns" (click)="sortData(col.key)">
+          <th
+            *ngFor="let col of tableColumns"
+            (click)="sortData(col.key)"
+            class="sortable-column"
+          >
             {{ col.title }}
-            <span class="sort-icon">{{ sortDirection[col.key] ? '🔼' : '🔽' }}</span>
+            <span class="sort-icon">
+              <i class="fas" [ngClass]="sortDirection[col.key] ? 'fa-arrow-up' : 'fa-arrow-down'"></i>
+            </span>
+            
           </th>
           <th *ngIf="actions.length">Actions</th>
         </tr>
+
         <!-- Filter Row -->
         <tr>
           <td *ngFor="let col of tableColumns">
@@ -31,7 +39,9 @@
                 (change)="onFilterChange(col.key)"
               >
                 <option value="" selected>All</option>
-                <option *ngFor="let option of col.options" [value]="option">{{ option }}</option>
+                <option *ngFor="let option of col.options" [value]="option">
+                  {{ option }}
+                </option>
               </select>
 
               <!-- Date Filter -->
@@ -48,12 +58,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of filteredData">
-          <td *ngFor="let col of tableColumns">{{ row[col.key] }}</td>
+        <tr *ngFor="let row of filteredData" [ngClass]="{'admitted-row': row.isAdmitted}">
+          <td *ngFor="let col of tableColumns" [ngClass]="{'admitted-text': row.isAdmitted}">
+            {{ row[col.key] }}
+          </td>
           <td *ngIf="actions.length" class="btns">
             <button
               *ngFor="let action of actions"
-              [ngClass]="action.class || 'primary-btn'"
+              [ngClass]="row.isAdmitted ? 'btn admitted-btn' : action.class || 'btn btn-primary'"
               (click)="onAction(action.action, row)"
             >
               {{ action.label }}
@@ -61,6 +73,7 @@
           </td>
         </tr>
       </tbody>
+      
     </table>
   </div>
 </div>
