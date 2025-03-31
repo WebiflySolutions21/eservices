@@ -1,6 +1,6 @@
 <div class="table-component">
   <div class="table-wrapper table-responsive">
-    <table class="custom-table">
+    <table class="custom-table" *ngIf="type === 'normal'">
       <thead>
         <tr>
           <th
@@ -10,9 +10,13 @@
           >
             {{ col.title }}
             <span class="sort-icon">
-              <i class="fas" [ngClass]="sortDirection[col.key] ? 'fa-arrow-up' : 'fa-arrow-down'"></i>
+              <i
+                class="fas"
+                [ngClass]="
+                  sortDirection[col.key] ? 'fa-arrow-up' : 'fa-arrow-down'
+                "
+              ></i>
             </span>
-            
           </th>
           <th *ngIf="actions.length">Actions</th>
         </tr>
@@ -58,22 +62,160 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of filteredData" [ngClass]="{'admitted-row': row.isAdmitted}">
-          <td *ngFor="let col of tableColumns" [ngClass]="{'admitted-text': row.isAdmitted}">
+        <tr
+          *ngFor="let row of filteredData"
+          [ngClass]="{ 'admitted-row': row.isAdmitted }"
+        >
+          <td
+            *ngFor="let col of tableColumns"
+            [ngClass]="{ 'admitted-text': row.isAdmitted }"
+          >
             {{ row[col.key] }}
           </td>
           <td *ngIf="actions.length" class="btns">
-            <button
-              *ngFor="let action of actions"
-              [ngClass]="row.isAdmitted ? 'btn admitted-btn' : action.class || 'btn btn-primary'"
-              (click)="onAction(action.action, row)"
-            >
-              {{ action.label }}
-            </button>
+            <!-- Display the first 3 buttons -->
+            <ng-container *ngFor="let action of actions.slice(0, 4)">
+              <button
+                [ngClass]="
+                  row.isAdmitted
+                    ? 'btn admitted-btn'
+                    : action.class || 'btn btn-primary'
+                "
+                (click)="onAction(action.action, row)"
+              >
+                {{ action.label }}
+              </button>
+            </ng-container>
+
+            <!-- More button with dropdown for remaining buttons -->
+            <div class="dropdown" *ngIf="actions.length > 4">
+              <button class="btn more-btn" (click)="toggleDropdown(row)">
+                <i class="fas fa-caret-down"></i>
+              </button>
+              <div class="dropdown-menu" *ngIf="row.showDropdown">
+                <button
+                  *ngFor="let action of actions.slice(4)"
+                  [ngClass]="
+                    row.isAdmitted
+                      ? 'btn admitted-btn'
+                      : action.class || 'btn btn-primary'
+                  "
+                  (click)="onAction(action.action, row)"
+                >
+                  {{ action.label }}
+                </button>
+              </div>
+            </div>
           </td>
         </tr>
       </tbody>
-      
     </table>
+    <table class="custom-table" *ngIf="type === 'dateEdit'">
+      <thead>
+        <tr>
+          <th
+            *ngFor="let col of tableColumns"
+            (click)="sortData(col.key)"
+            class="sortable-column"
+          >
+            {{ col.title }}
+            <span class="sort-icon">
+              <i
+                class="fas"
+                [ngClass]="sortDirection[col.key] ? 'fa-arrow-up' : 'fa-arrow-down'"
+              ></i>
+            </span>
+          </th>
+          <th *ngIf="actions.length">Actions</th>
+        </tr>
+    
+        <!-- Filter Row -->
+        <tr>
+          <td *ngFor="let col of tableColumns">
+            <ng-container [ngSwitch]="col.filterType">
+              <!-- Search Input -->
+               <div class="text" *ngSwitchCase="'text'" >Filter </div>
+              <input
+                *ngSwitchCase="'search'"
+                [type]="col.type"
+                class="search-input"
+                [(ngModel)]="searchValues[col.key]"
+                (input)="onFilterChange(col.key)"
+                placeholder="Search..."
+              />
+    
+              <!-- Dropdown Filter -->
+              <select
+                *ngSwitchCase="'dropdown'"
+                class="dropdown-filter"
+                [(ngModel)]="dropdownValues[col.key]"
+                (change)="onFilterChange(col.key)"
+              >
+                <option value="" selected>All</option>
+                <option *ngFor="let option of col.options" [value]="option">
+                  {{ option }}
+                </option>
+              </select>
+    
+              <!-- Date Filter -->
+              <input
+                *ngSwitchCase="'date'"
+                type="date"
+                class="date-filter"
+                [value]="dateValues[col.key]"
+                (change)="onDateFilterChange(col.key, $event)"
+              />
+            </ng-container>
+          </td>
+          <td *ngIf="actions.length"></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of filteredData" [ngClass]="{ 'admitted-row': row.isAdmitted }">
+          <td *ngFor="let col of tableColumns" [ngClass]="{ 'admitted-text': row.isAdmitted,'text-primary':row[col.key] === 'Appointment','text-success':row[col.key] === 'Follow Up','text-warning':row[col.key]==='Review','text-info':row[col.key]==='Skip' }">
+            <!-- Check if the column is a date column -->
+            <ng-container *ngIf="col.filterType === 'date'; else defaultCell">
+              <input
+                type="date"
+                [value]="convertToInputDateFormat(row[col.key])"
+                (change)="onDateChange(row, col.key, $event)"
+                class="date-input"
+              />
+            </ng-container>
+            <ng-template #defaultCell >
+              {{ row[col.key] }}
+            </ng-template>
+          </td>
+          <td *ngIf="actions.length" class="btns">
+            <!-- Display the first 3 buttons -->
+            <ng-container *ngFor="let action of actions.slice(0, 4)">
+              <button
+                [ngClass]="row.isAdmitted ? 'btn admitted-btn' : action.class || 'btn btn-primary'"
+                (click)="onAction(action.action, row)"
+              >
+                {{ action.label }}
+              </button>
+            </ng-container>
+    
+            <!-- More button with dropdown for remaining buttons -->
+            <div class="dropdown" *ngIf="actions.length > 4">
+              <button class="btn more-btn" (click)="toggleDropdown(row)">
+                <i class="fas fa-caret-down"></i>
+              </button>
+              <div class="dropdown-menu" *ngIf="row.showDropdown">
+                <button
+                  *ngFor="let action of actions.slice(4)"
+                  [ngClass]="row.isAdmitted ? 'btn admitted-btn' : action.class || 'btn btn-primary'"
+                  (click)="onAction(action.action, row)"
+                >
+                  {{ action.label }}
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
   </div>
 </div>

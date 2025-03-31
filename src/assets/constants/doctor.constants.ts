@@ -111,7 +111,7 @@ export const DOCTOR_TABLE_COLUMNS = {
       key: 'refer',
       title: 'Refer Status',
       filterType: 'dropdown',
-      options: [18, 21, 25, 30],
+      options: ["Referred","Not Referred"],
     },
     { key: 'visitCount', title: 'Visit No.' },
   ],
@@ -158,6 +158,9 @@ export const PATIENT_DETAILS = {
   bp: '120/80',
   temp: 98.6,
   spo2: 98,
+  registrationDate:"23/04/2025",
+  contact:7218509409,
+  barcode : "Barcode"
 };
 export const FOLLOW_UP_DETAILS = [
   { label: '1 Day', value: 1 },

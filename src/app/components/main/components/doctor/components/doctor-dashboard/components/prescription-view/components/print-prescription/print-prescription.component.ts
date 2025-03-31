@@ -18,8 +18,23 @@ export class PrintPrescriptionComponent {
     prescriptionData: [
       { type: "Tab", medicine: "Rerum aut sed dolori", morning: 42, afternoon: 68, night: 49, intakeTime: "Before Meal", days: 92, quantity: 77 },
       { type: "Injection", medicine: "Architecto culpa es", morning: 53, afternoon: 98, night: 65, intakeTime: "After Meal", days: 91, quantity: 45 },
+      { type: "Tab", medicine: "Rerum aut sed dolori", morning: 42, afternoon: 68, night: 49, intakeTime: "Before Meal", days: 92, quantity: 77 },
+      { type: "Injection", medicine: "Architecto culpa es", morning: 53, afternoon: 98, night: 65, intakeTime: "After Meal", days: 91, quantity: 45 },
+      { type: "Tab", medicine: "Rerum aut sed dolori", morning: 42, afternoon: 68, night: 49, intakeTime: "Before Meal", days: 92, quantity: 77 },
+      { type: "Injection", medicine: "Architecto culpa es", morning: 53, afternoon: 98, night: 65, intakeTime: "After Meal", days: 91, quantity: 45 },
+      { type: "Tab", medicine: "Rerum aut sed dolori", morning: 42, afternoon: 68, night: 49, intakeTime: "Before Meal", days: 92, quantity: 77 },
+      { type: "Injection", medicine: "Architecto culpa es", morning: 53, afternoon: 98, night: 65, intakeTime: "After Meal", days: 91, quantity: 45 },
     ],
     selectedCheckboxes: [
+      { "Examination": [{ "id": 1, "name": "Est laboriosam sit" }], "isPrintable": true },
+      { "Family/Drug History": [{ "id": 4, "name": "Et excepteur ullam v" }], "isPrintable": true },
+      { "Medical History": [{ "id": 6, "name": "Aut ullamco placeat" }], "isPrintable": true },
+      { "Examination": [{ "id": 1, "name": "Est laboriosam sit" }], "isPrintable": true },
+      { "Family/Drug History": [{ "id": 4, "name": "Et excepteur ullam v" }], "isPrintable": true },
+      { "Medical History": [{ "id": 6, "name": "Aut ullamco placeat" }], "isPrintable": true },
+      { "Examination": [{ "id": 1, "name": "Est laboriosam sit" }], "isPrintable": true },
+      { "Family/Drug History": [{ "id": 4, "name": "Et excepteur ullam v" }], "isPrintable": true },
+      { "Medical History": [{ "id": 6, "name": "Aut ullamco placeat" }], "isPrintable": true },
       { "Examination": [{ "id": 1, "name": "Est laboriosam sit" }], "isPrintable": true },
       { "Family/Drug History": [{ "id": 4, "name": "Et excepteur ullam v" }], "isPrintable": true },
       { "Medical History": [{ "id": 6, "name": "Aut ullamco placeat" }], "isPrintable": true }

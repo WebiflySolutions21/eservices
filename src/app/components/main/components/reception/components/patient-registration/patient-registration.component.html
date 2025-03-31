@@ -1,0 +1,195 @@
+<div class="patient-registration container mt-4">
+    <h2 class="text-center mb-4">Patient Registration</h2>
+    <svg #barcode></svg>
+    <!-- Camera and Photo Capture -->
+    
+
+ 
+  
+  
+    <form [formGroup]="patientForm">
+      <!-- Old Patient -->
+       <div class="camera-heading">
+        <div class="form-group mb-3">
+            <label class="form-label">Are you an Old Patient of this hospital?</label><br/>
+            <div class="yes-no">
+                <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      formControlName="oldPatient"
+                      value="yes"
+                      id="oldYes"
+                      (change)="onPatientTypeChange('yes')"
+                    />
+                    <label class="radio-class form-check-label" for="oldYes">Yes</label>
+                  </div>
+                  
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      formControlName="oldPatient"
+                      value="no"
+                      id="oldNo"
+                      (change)="onPatientTypeChange('no')"
+                    />
+                    <label class="radio-class form-check-label" for="oldNo">No</label>
+                  </div>
+            </div>
+           
+              
+          </div>
+
+        <div class="camera-container">
+            <div class="photo-frame" *ngIf="cameraImagePreview">
+              <img [src]="cameraImagePreview" alt="Captured Photo" class="photo-preview" />
+            </div>
+        
+            <video #videoElement class="video-preview" *ngIf="isCameraOpen"></video>
+        
+            <!-- Camera Buttons -->
+            <div class="camera-buttons">
+              <button *ngIf="!isCameraOpen &&!cameraImagePreview" class="btn btn-primary" (click)="openCamera()">Open Camera</button>
+              <button *ngIf="isCameraOpen &&!cameraImagePreview" class="btn btn-success" (click)="capturePhoto()">Capture Picture</button>
+              <button *ngIf="cameraImagePreview" class="btn btn-warning" (click)="retakePhoto()">Retake</button>
+              <button *ngIf="cameraImagePreview &&!savedPicture" class="btn btn-success" (click)="savePhoto()">Save Picture</button>
+            </div>
+          </div>
+       </div>
+       <div *ngIf="showSearchBar" class="mb-3" style="width: 30%;">
+        <label class="form-label">Search Patient</label>
+        <input
+          type="text"
+          formControlName="searchQuery"
+          class="form-control"
+          placeholder="Search by Name, Mobile, ID, Age, or DOB"
+        />
+        <div *ngIf="searchResults.length" class="list-group mt-2">
+          <button
+            *ngFor="let patient of searchResults"
+            (click)="selectPatient(patient)"
+            class="list-group-item list-group-item-action text-success"
+          >
+            {{ patient.name }} - {{ patient.mobile }} - {{patient.sex}} - {{patient.age}} (ID: {{ patient.id }})
+          </button>
+        </div>
+      </div>
+      
+  
+      <!-- Patient Details -->
+      <div class="card mb-3 p-3 shadow-sm" >
+        <h4 class="card-title">Patient Details</h4>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Name of Patient</label>
+            <input type="text" formControlName="name" class="form-control" placeholder="Enter patient name" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Address</label>
+            <input type="text" formControlName="address" class="form-control" placeholder="Enter address" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Taluka</label>
+            <input type="text" formControlName="taluka" class="form-control" placeholder="Enter taluka" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">District</label>
+            <input type="text" formControlName="district" class="form-control" placeholder="Enter district" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Date of Birth</label>
+            <input type="date" formControlName="dob" class="form-control" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Age</label>
+            <input type="number" formControlName="age" class="form-control" placeholder="Enter age" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Gender</label>
+            <select formControlName="sex" class="form-select">
+              <option value="" disabled>Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Mobile Number</label>
+            <input type="tel" formControlName="mobile" class="form-control" placeholder="Enter mobile number" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Consultant</label>
+            <select formControlName="consultant" class="form-select">
+              <option value="" disabled>Select Consultant</option>
+              <option *ngFor="let consultant of consultants" [value]="consultant">
+                {{ consultant }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Type of Visit</label>
+            <select formControlName="visitType" class="form-select">
+              <option value="" disabled>Select Type of Visit</option>
+              <option *ngFor="let type of visitTypes" [value]="type">
+                {{ type }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Physical Examination -->
+      <div class="card mb-3 p-3 shadow-sm">
+        <h4 class="card-title">Physical Examination</h4>
+        <div class="row">
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Weight</label>
+            <input type="number" formControlName="weight" class="form-control" placeholder="Enter weight" />
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Pulse</label>
+            <input type="number" formControlName="pulse" class="form-control" placeholder="Enter pulse rate" />
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label">BP</label>
+            <input type="number" formControlName="bp" class="form-control" placeholder="Enter BP" />
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Temperature</label>
+            <input type="number" formControlName="temperature" class="form-control" placeholder="Enter temperature" />
+          </div>
+          <div class="col-md-12 mb-3">
+            <label class="form-label">Upload Image</label>
+            <input
+              type="file"
+              formControlName="image"
+              (change)="onImageUpload($event)"
+              class="form-control"
+              accept="image/*"
+            />
+            <img *ngIf="imagePreview" [src]="imagePreview" alt="Uploaded Image" class="img-thumbnail mt-2" width="150" />
+          </div>
+        </div>
+      </div>
+  
+      <!-- General Details -->
+      <div class="card mb-3 p-3 shadow-sm">
+        <h4 class="card-title">General Details</h4>
+        <div class="mb-3">
+          <label class="form-label">Referred By</label>
+          <input type="text" formControlName="referredBy" class="form-control" placeholder="Enter referred by" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Patient Complaints</label>
+          <textarea formControlName="complaints" class="form-control" placeholder="Enter complaints"></textarea>
+        </div>
+      </div>
+  
+      <!-- Submit Button -->
+      <div class="text-center">
+        <button type="submit" class="submit-btn btn btn-primary" (click)="onSubmit()">Submit</button>
+      </div>
+    </form>
+  </div>
+ 

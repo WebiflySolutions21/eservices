@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { ReceptionDashboardRoutingModule } from './reception-dashboard-routing.module';
 import { ReceptionDashboardComponent } from './reception-dashboard.component';
+import { FormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { ReceptionDashboardComponent } from './reception-dashboard.component';
   ],
   imports: [
     CommonModule,
-    ReceptionDashboardRoutingModule
+    ReceptionDashboardRoutingModule,
+    FormsModule,
+    SharedModule
   ]
 })
 export class ReceptionDashboardModule { }

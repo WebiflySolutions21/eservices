@@ -1,0 +1,12 @@
+.reception-component{
+    width: 100%;
+    height: 100%;
+    .header{
+        height: 4em;
+        width: 100%;
+    }
+    .router-outlet{
+        height: calc(100% - 4em);
+        width: 100%;
+    }
+}

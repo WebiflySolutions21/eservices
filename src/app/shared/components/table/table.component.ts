@@ -10,6 +10,7 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() tableColumns: { key: string; title: string; filterType?: string; options?: any[] }[] = [];
   @Input() actions: { label: string; action: string; class?: string }[] = [];
   @Output() actionClicked = new EventEmitter<{ action: string; row: any }>();
+  @Input() type = "normal";
 
   searchValues: { [key: string]: string } = {};
   dropdownValues: { [key: string]: any } = {};
@@ -18,7 +19,14 @@ export class TableComponent implements OnInit, OnChanges {
   sortDirection: { [key: string]: boolean } = {};
 
   ngOnInit(): void {
-    this.filteredData = [...this.tableData];
+    this.filteredData = this.tableData.map(row => {
+      if (row.regDate) {
+        row.regDate = this.convertToDisplayDateFormat(this.convertToInputDateFormat(row.regDate));
+      } else {
+        row.regDate = this.getTodayDate(); // Auto-populate with today's date if empty
+      }
+      return row;
+    });
     this.initializeFilters();
   }
 
@@ -37,10 +45,33 @@ export class TableComponent implements OnInit, OnChanges {
     });
   }
 
+  toggleDropdown(row: any) {
+    row.showDropdown = !row.showDropdown;
+  }
+
   onAction(action: string, row: any) {
     this.actionClicked.emit({ action, row });
   }
+  getTodayDate(): string {
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = today.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+  // Convert from DD/MM/YYYY to YYYY-MM-DD for date input
+convertToInputDateFormat(dateString: string): string {
+  if (!dateString) return '';
+  const [day, month, year] = dateString.split('/');
+  return `${year}-${month}-${day}`;
+}
 
+// Convert from YYYY-MM-DD to DD/MM/YYYY for display
+convertToDisplayDateFormat(dateString: string): string {
+  if (!dateString) return '';
+  const [year, month, day] = dateString.split('-');
+  return `${day}/${month}/${year}`;
+}
   onFilterChange() {
     this.filteredData = this.tableData.filter((row) => {
       return this.tableColumns.every((col) => {
@@ -57,14 +88,21 @@ export class TableComponent implements OnInit, OnChanges {
         }
 
         if (col.filterType === 'date') {
-          const rowDate = new Date(row[col.key]).toLocaleDateString('en-GB');
-          const filterDate = new Date(this.dateValues[col.key]).toLocaleDateString('en-GB');
-          return !this.dateValues[col.key] || rowDate === filterDate;
+          console.log("row[col.key]", row[col.key]);
+          const rowDate = this.convertToInputDateFormat(row[col.key]);
+          const filterDate = this.dateValues[col.key];
+          return !filterDate || rowDate === filterDate;
         }
 
         return true;
       });
     });
+  }
+
+  onDateChange(row: any, key: string, event: any) {
+    const inputDate = event.target.value;
+    row[key] = this.convertToDisplayDateFormat(inputDate);
+    this.onFilterChange();
   }
 
   sortData(key: string) {

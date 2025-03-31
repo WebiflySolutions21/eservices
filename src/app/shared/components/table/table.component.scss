@@ -15,13 +15,12 @@
       border-collapse: collapse;
       margin-top: 1em;
 
-      th, td {
+      th,
+      td {
         padding: 0.8em 0.8em;
         text-align: center;
         border-bottom: 1px solid #e0e0e0;
-        font-size: 14px;
-        font-weight: bold;
-        color: #2c3e50;
+        @include font(12, 1vw, 14, hbold, #2c3e50);
       }
 
       th {
@@ -64,18 +63,16 @@
         font-size: 0.9rem;
         color: #fff;
         transition: transform 0.3s ease;
-      
+
         i {
           transition: transform 0.3s ease;
         }
-      
+
         &:hover i {
           transform: scale(1.1);
           color: #007bff;
         }
       }
-      
-
     }
   }
 }
@@ -89,7 +86,8 @@
   .custom-table {
     font-size: 12px;
 
-    th, td {
+    th,
+    td {
       padding: 8px;
     }
 
@@ -142,21 +140,21 @@ tbody {
     }
 
     &.admitted-row {
-      background-color: #d4edda !important; /* Light green background */
-      color: #155724 !important; /* Dark green text */
+      background-color: #d4edda !important;
+      color: #155724 !important;
 
       td {
-        color: #155724 !important; /* Ensures text color is consistent */
+        @include font(12, 1vw, 14, hbold, #2c3e50);
+        color: #155724 !important;
       }
 
       .btn {
         background-color: #ffffff;
-        color: #155724;
+        @include font(12, 1vw, 14, hbold, #155724);
         border: 1px solid #c3e6cb;
         margin: 0.2rem;
         padding: 0.4rem 0.8rem;
         border-radius: 0.5rem;
-        font-weight: bold;
 
         &:hover {
           background-color: #e6e6e6;
@@ -179,8 +177,8 @@ tbody {
 
         &.btn-primary {
           background-color: #007bff;
-          color: white;
           border: none;
+          @include font(12, 1vw, 14, hbold, #ffffff);
 
           &:hover {
             background-color: #0056b3;
@@ -191,7 +189,85 @@ tbody {
           background-color: #ffffff;
           color: #155724;
         }
+
+        &.more-btn {
+          background-color: #6c757d;
+          color: #ffffff;
+          border: none;
+
+          &:hover {
+            background-color: #5a6268;
+          }
+        }
+      }
+
+      .dropdown {
+        position: relative;
+        display: inline-block;
+
+        .dropdown-menu {
+          display: block;
+          position: absolute;
+          top: 100%;
+          right: 0;
+          background-color: #ffffff;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          border-radius: 0.5rem;
+          margin-top: 0.2rem;
+          padding: 0.8rem;
+          z-index: 10;
+
+          /* Triangle at the top */
+          // Modern triangle tip
+    &::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      right: 20px;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid #ffffff;
+      filter: drop-shadow(0px -2px 3px rgba(0, 0, 0, 0.1));
+    }
+        }
+
+        .dropdown-menu .btn {
+          margin: 0.2rem;
+          width: 100%;
+          text-align: left;
+
+          &:hover {
+            background-color: #f0f0f0;
+          }
+        }
       }
     }
   }
+}
+
+input{
+  @include font(14,1vw,16,helvetica,#000);
+}
+
+select{
+  @include font(14,1vw,16,helvetica,#000);
+
+}
+
+.date-input {
+  width: 100%;
+  padding: 4px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.admitted-row {
+  background-color: #f0f8ff;
+}
+
+.admitted-text {
+  font-weight: bold;
+  color: #007bff;
 }

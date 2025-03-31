@@ -18,6 +18,14 @@ const routes: Routes = [
       {
         path:'reception',
         loadChildren: () => import('./components/reception/reception.module').then(m => m.ReceptionModule) 
+      },
+      {
+        path:'medical',
+        loadChildren: () => import('./components/medical/medical.module').then(m => m.MedicalModule) 
+      },
+      {
+        path:'lab',
+        loadChildren: () => import('./components/lab/lab.module').then(m => m.LabModule) 
       }
     ]
   }

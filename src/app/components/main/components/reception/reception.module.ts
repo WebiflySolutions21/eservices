@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ReceptionRoutingModule } from './reception-routing.module';
 import { ReceptionComponent } from './reception.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { ReceptionComponent } from './reception.component';
   ],
   imports: [
     CommonModule,
-    ReceptionRoutingModule
+    ReceptionRoutingModule,
+    SharedModule
   ]
 })
 export class ReceptionModule { }

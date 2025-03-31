@@ -1,0 +1,197 @@
+  
+@import "mixins";
+.patient-registration {
+  background-color: #f4f8fc;
+  border-radius: 0.8em;
+  padding: 1.4em 1.4em 1.4em 1.4em;
+  width: 80%;
+  // max-width: 900px;
+  margin: auto;
+  height: 100%;
+  overflow-y: scroll;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 1.4em;
+    color: #333;
+    @include font(26, 1vw, 32, hbold, #000);
+  }
+
+  .card-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .img-thumbnail {
+    border-radius: 10px;
+  }
+
+  input[type="file"] {
+    margin-top: 10px;
+  }
+
+  button {
+    width: 100%;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 8px 12px;
+    color: #fff;
+    transition: 0.3s ease;
+
+    &.btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    &.btn-success {
+      background-color: #28a745;
+      border-color: #28a745;
+    }
+
+    &.btn-warning {
+      background-color: #ffc107;
+      border-color: #ffc107;
+    }
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+.camera-heading{
+    @include flex-container(center,space-between,row);
+    .camera-container {
+        text-align: center;
+        margin-bottom: 20px;
+    
+        .photo-frame {
+          width: 16em;
+          height: 14em;
+          border: 2px solid #ddd;
+          margin: 0.8em auto;
+          padding: 0.3em;
+          background-color: #fff;
+          border-radius: 5px;
+    
+          .photo-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+          }
+        }
+    
+        .video-preview {
+          width: 100%;
+          max-width: 18em;
+          margin: 10px auto;
+          display: block;
+          border-radius: 8px;
+        }
+    
+        .camera-buttons {
+          margin-top: 10px;
+        }
+      }
+}
+  
+
+  .card {
+    background-color: #fff;
+    border-radius: 8px;
+    margin-bottom: 1.3em;
+    padding: 1.3em;
+
+    h4 {
+      color: #444;
+      margin-bottom: 1em;
+    }
+
+    .form-control,
+    .form-select {
+      border-radius: 6px;
+      margin-top: 5px;
+    }
+
+    .form-label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+  }
+
+  .form-group {
+    margin-bottom: 1em;
+
+    label {
+      font-weight: bold;
+    }
+
+    input {
+      // width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+
+    .form-control,
+    .form-select {
+      border-radius: 6px;
+      margin-top: 5px;
+    }
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+  }
+}
+
+input {
+  @include font(14, 1vw, 16, helvetica, #000);
+}
+label {
+  @include font(14, 1vw, 16, hbold, #000);
+}
+button{
+  @include font(14, 1vw, 16, hbold, #ffffff);
+
+}
+
+.yes-no{
+    @include flex-container(center,flex-start,row);
+}
+.radio-class{
+    margin: 0.3em 0em 0em 0.3em;
+}
+
+.submit-btn{
+    width: 20% !important;
+}
+
+.radio-class {
+    margin-left: 0.5rem;
+    font-weight: bold;
+  }
+  
+  .form-check-input[type="radio"] {
+    appearance: auto;
+    accent-color: #0d6efd; /* Bootstrap Primary Color */
+    margin-right: 0.3rem;
+  }
+  
+  .form-check-input:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }
+  .scanner-container {
+    width: 100%;
+    height: 300px;
+    margin-top: 20px;
+  }

@@ -8,8 +8,8 @@ export const LOGIN_ROUTES = [
     },
     {
         id:2,
-        title:"New Registration",
-        path:"/registration",
+        title:"Reception Login",
+        path:"/reception",
         identification:"reception"
         
     },

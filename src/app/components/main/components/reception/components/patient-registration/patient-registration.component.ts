@@ -1,0 +1,283 @@
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import JsBarcode from 'jsbarcode';
+interface Patient {
+  id: number;
+  name: string;
+  mobile: string;
+  dob: string;
+  age: number;
+  sex: string;
+  address: string;
+  taluka: string;
+  district: string;
+  consultant: string;
+  visitType: string;
+}
+
+@Component({
+  selector: 'app-patient-registration',
+  templateUrl: './patient-registration.component.html',
+  styleUrls: ['./patient-registration.component.scss'],
+})
+export class PatientRegistrationComponent implements OnInit {
+  patientForm!: FormGroup;
+  consultants: string[] = [
+    'Dr. Eknath Pawar',
+    'Dr. Amit Deshmukh',
+    'Dr. Priya Kulkarni',
+    'Dr. Rakesh Patil',
+  ];
+  visitTypes: string[] = [
+    'General Checkup',
+    'Eye Checkup',
+    'Dental Visit',
+    'Emergency',
+    'Follow-up',
+  ];
+    @ViewChild('barcode') barcodeElement!: ElementRef;
+    patientId: string = '';
+    
+  showSearchBar: boolean = false;
+  searchQuery: string = '';
+  searchResults: Patient[] = [];
+  selectedPatient: Patient | null = null;
+
+  @ViewChild('videoElement') videoElement!: ElementRef;
+  @ViewChild('canvasElement') canvasElement!: ElementRef;
+  imagePreview: string | null = null;
+  isCameraOpen: any;
+  cameraImagePreview: any;
+  savedPicture = false;
+
+  // Mock existing patient data (replace with real API data)
+  existingPatients: Patient[] = [
+    {
+      id: 1,
+      name: 'John Doe',
+      mobile: '1234567890',
+      dob: '1990-05-15',
+      age: 32,
+      sex: 'Male',
+      address: '123 Street',
+      taluka: 'Taluka A',
+      district: 'District X',
+      consultant: 'Dr. Eknath Pawar',
+      visitType: 'General Checkup',
+    },
+    {
+      id: 2,
+      name: 'Jane Smith',
+      mobile: '9876543210',
+      dob: '1985-10-20',
+      age: 37,
+      sex: 'Female',
+      address: '456 Avenue',
+      taluka: 'Taluka B',
+      district: 'District Y',
+      consultant: 'Dr. Priya Kulkarni',
+      visitType: 'Eye Checkup',
+    },
+    {
+      id: 3,
+      name: 'Lokesh Thakare',
+      mobile: '7218509409',
+      dob: '1985-10-20',
+      age: 37,
+      sex: 'Female',
+      address: '456 Avenue',
+      taluka: 'Taluka B',
+      district: 'District Y',
+      consultant: 'Dr. Priya Kulkarni',
+      visitType: 'Eye Checkup',
+    },
+  ];
+
+  constructor(private fb: FormBuilder,private router:Router) {}
+
+  ngOnInit(): void {
+    this.patientForm = this.fb.group({
+      oldPatient: ['no', Validators.required],
+      name: ['', Validators.required],
+      address: ['', Validators.required],
+      taluka: ['', Validators.required],
+      district: ['', Validators.required],
+      dob: ['', Validators.required],
+      age: ['', Validators.required],
+      sex: ['Male', Validators.required],
+      mobile: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
+      consultant: ['', Validators.required],
+      visitType: ['', Validators.required],
+      weight: ['', Validators.required],
+      pulse: ['', Validators.required],
+      bp: ['', Validators.required],
+      temperature: ['', Validators.required],
+      referredBy: [''],
+      complaints: [''],
+      image: [''],
+      searchQuery: [''],
+    });
+
+    // Trigger search when the search query changes
+    this.patientForm
+      .get('searchQuery')
+      ?.valueChanges.subscribe((query: string) => {
+        this.searchPatients(query);
+      });
+      this.patientId = 'P' + Date.now().toString();
+  }
+
+  generateBarcode(): void {
+    if (this.barcodeElement) {
+      JsBarcode(this.barcodeElement.nativeElement, this.patientId, {
+        format: 'CODE128',
+        lineColor: '#000',
+        width: 2,
+        height: 50,
+        displayValue: true,
+      });
+    }
+  }
+
+  onImageUpload(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+        this.patientForm.patchValue({ image: file });
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  onPatientTypeChange(type: string): void {
+    this.showSearchBar = type === 'yes';
+    if (!this.showSearchBar) {
+      this.searchQuery = '';
+      this.searchResults = [];
+      this.selectedPatient = null;
+      // Only reset relevant fields, not the entire form
+      this.patientForm.patchValue({
+        searchQuery: '',
+        name: '',
+        address: '',
+        taluka: '',
+        district: '',
+        dob: '',
+        age: '',
+        sex: 'Male', // or any default value
+        mobile: '',
+        consultant: '',
+        visitType: '',
+        weight: '',
+        pulse: '',
+        bp: '',
+        temperature: '',
+        referredBy: '',
+        complaints: '',
+        image: '',
+      });
+    }
+  }
+  
+
+  searchPatients(query: string): void {
+    query = query?.toLowerCase().trim();
+    if (query) {
+      this.searchResults = this.existingPatients.filter(
+        (patient) =>
+          patient.name.toLowerCase().includes(query) ||
+          patient.mobile.toLowerCase().includes(query) ||
+          patient.id.toString().includes(query) ||
+          patient.dob.toLowerCase().includes(query) ||
+          patient.age.toString().includes(query) ||
+          patient.sex.toLowerCase().includes(query) ||
+          patient.address.toLowerCase().includes(query) ||
+          patient.taluka.toLowerCase().includes(query) ||
+          patient.district.toLowerCase().includes(query) ||
+          patient.consultant.toLowerCase().includes(query) ||
+          patient.visitType.toLowerCase().includes(query)
+      );
+    } else {
+      this.searchResults = [];
+    }
+  }
+
+  selectPatient(patient: Patient): void {
+    this.selectedPatient = patient;
+    this.patientForm.get("searchQuery").reset();
+    this.patientForm.patchValue({
+      name: patient.name,
+      address: patient.address,
+      taluka: patient.taluka,
+      district: patient.district,
+      dob: patient.dob,
+      age: patient.age,
+      sex: patient.sex,
+      mobile: patient.mobile,
+      consultant: patient.consultant,
+      visitType: patient.visitType,
+    });
+  }
+
+  onSubmit() {
+    this.generateBarcode()
+    console.log(this.patientForm.value);
+    if (this.patientForm.valid) {
+      console.log('Form Submitted', this.patientForm.value);
+      alert('Patient Registered Successfully!');
+    } else {
+      alert('Please fill out all required fields correctly.');
+    }
+  }
+  openCamera() {
+    this.isCameraOpen = true;
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then((stream) => {
+        const video: HTMLVideoElement = this.videoElement.nativeElement;
+        video.srcObject = stream;
+        video.play();
+      })
+      .catch((err) => {
+        console.error('Error accessing camera:', err);
+      });
+  }
+
+  capturePhoto() {
+    const video: HTMLVideoElement = this.videoElement.nativeElement;
+    const canvas: HTMLCanvasElement = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const context = canvas.getContext('2d');
+
+    if (context) {
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      this.cameraImagePreview = canvas.toDataURL('image/png');
+      this.stopCamera();
+    }
+  }
+
+  retakePhoto() {
+    this.cameraImagePreview = null;
+    this.savedPicture = false
+    this.openCamera();
+  }
+
+  savePhoto() {
+    this.savedPicture = true
+
+    alert('Photo saved successfully!');
+  }
+
+  stopCamera() {
+    const video: HTMLVideoElement = this.videoElement.nativeElement;
+    const stream = video.srcObject as MediaStream;
+    if (stream) {
+      stream.getTracks().forEach((track) => track.stop());
+    }
+    this.isCameraOpen = false;
+  }
+}
