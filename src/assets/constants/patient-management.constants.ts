@@ -2,7 +2,7 @@ export const PATIENT_MANAGEMENT_TABLE_DATA = {
   patient: [
     {
       id: 1,
-      regDate: '2024-02-02',
+      regDate: '02/02/2024',
       patientName: 'Lokesh Thakare',
       sex: 'Male',
       age: '26',
@@ -13,7 +13,7 @@ export const PATIENT_MANAGEMENT_TABLE_DATA = {
     },
     {
       id: 2,
-      regDate: '03-02-2024',
+      regDate: '03/02/2024',
       patientName: 'Devesh Thakare',
       sex: 'Male',
       age: '21',
@@ -24,7 +24,7 @@ export const PATIENT_MANAGEMENT_TABLE_DATA = {
     },
     {
       id: 3,
-      regDate: '22-02-2024',
+      regDate: '22/02/2024',
       patientName: 'Lokesh Thakare',
       sex: 'Male',
       age: '26',
@@ -35,7 +35,7 @@ export const PATIENT_MANAGEMENT_TABLE_DATA = {
     },
     {
       id: 4,
-      regDate: '23-02-2024',
+      regDate: '23/02/2024',
       patientName: 'Lokesh Thakare',
       sex: 'Male',
       age: '26',
@@ -46,7 +46,7 @@ export const PATIENT_MANAGEMENT_TABLE_DATA = {
     },
     {
       id: 5,
-      regDate: '12-02-2024',
+      regDate: '12/02/2024',
       patientName: 'Lokesh Thakare',
       sex: 'Male',
       age: '26',
@@ -57,7 +57,7 @@ export const PATIENT_MANAGEMENT_TABLE_DATA = {
     },
     {
       id: 6,
-      regDate: '10-02-2024',
+      regDate: '10/02/2024',
       patientName: 'Lokesh Thakare',
       sex: 'Male',
       age: '26',

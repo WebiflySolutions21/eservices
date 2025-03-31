@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LabRoutingModule } from './lab-routing.module';
-import { LabComponent } from './lab.component';
+import { LabDashboardRoutingModule } from './lab-dashboard-routing.module';
+import { LabDashboardComponent } from './lab-dashboard.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
   declarations: [
-    LabComponent
+    LabDashboardComponent
   ],
   imports: [
     CommonModule,
-    LabRoutingModule,
+    LabDashboardRoutingModule,
     SharedModule
   ]
 })
-export class LabModule { }
+export class LabDashboardModule { }

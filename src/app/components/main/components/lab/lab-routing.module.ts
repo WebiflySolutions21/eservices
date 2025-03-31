@@ -5,7 +5,13 @@ import { LabComponent } from './lab.component';
 const routes: Routes = [
   {
     path:"",
-    component:LabComponent
+    component:LabComponent,
+    children:[
+      {
+        path:'lab-dashboard',
+        loadChildren: () => import('./components/lab-dashboard/lab-dashboard.module').then(m => m.LabDashboardModule) 
+      },
+    ]
   }
 ];
 

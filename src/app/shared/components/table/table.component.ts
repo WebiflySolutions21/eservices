@@ -19,6 +19,7 @@ export class TableComponent implements OnInit, OnChanges {
   sortDirection: { [key: string]: boolean } = {};
 
   ngOnInit(): void {
+    console.log("tableData",this.tableData)
     this.filteredData = this.tableData.map(row => {
       if (row.regDate) {
         row.regDate = this.convertToDisplayDateFormat(this.convertToInputDateFormat(row.regDate));
@@ -27,6 +28,7 @@ export class TableComponent implements OnInit, OnChanges {
       }
       return row;
     });
+    console.log("filteredData",this.filteredData)
     this.initializeFilters();
   }
 

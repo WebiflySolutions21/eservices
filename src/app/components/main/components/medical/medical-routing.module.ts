@@ -5,7 +5,13 @@ import { MedicalComponent } from './medical.component';
 const routes: Routes = [
   {
     path:"",
-    component:MedicalComponent
+    component:MedicalComponent,
+    children:[
+      {
+        path:'medical-dashboard',
+        loadChildren: () => import('./components/medical-dashboard/medical-dashboard.module').then(m => m.MedicalDashboardModule) 
+      },
+    ]
   }
 ];
 
