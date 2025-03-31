@@ -1,6 +1,87 @@
 <div class="landing-component">
   <div class="landing-wrapper">
-    <app-header [headingRoutes]="loginRoutes" [hospitalName]="hospitalName"
-      (titleClick)="navigateUser($event)"></app-header>
+    <!-- Header -->
+    <app-header
+      [headingRoutes]="loginRoutes"
+      [hospitalName]="hospitalName"
+      (titleClick)="navigateUser($event)"
+    ></app-header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>{{ hospitalName }}</h1>
+        <p>Efficiently Manage Your Hospital Operations with Ease</p>
+        <div class="hero-buttons">
+          <button (click)="navigateTo('patient-registration')">Get Started</button>
+          <button (click)="navigateTo('contact')">Contact Us</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+      <h2>Key Features</h2>
+      <div class="feature-list">
+        <div class="feature-item">
+          <i class="fas fa-user-md"></i>
+          <h3>Patient Management</h3>
+          <p>Manage patient records and history seamlessly.</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-file-medical"></i>
+          <h3>OPD & IPD Billing</h3>
+          <p>Efficient billing and invoice generation.</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-notes-medical"></i>
+          <h3>Prescription Management</h3>
+          <p>Generate and print prescriptions easily.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hospital Information -->
+    <section class="hospital-info">
+      <h2>About Our Hospital</h2>
+      <p>{{ hospitalDescription }}</p>
+    </section>
+
+    <!-- Doctors Section -->
+    <section class="doctors">
+      <h2>Our Doctors</h2>
+      <div class="doctor-cards">
+        <div class="doctor-card" *ngFor="let doctor of doctors">
+          <img [src]="doctor.image" alt="Doctor Photo" />
+          <h3>{{ doctor.name }}</h3>
+          <p>{{ doctor.specialty }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Patient Reviews -->
+    <section class="reviews">
+      <h2>What Our Patients Say</h2>
+      <div class="review-cards">
+        <div class="review-card" *ngFor="let review of patientReviews">
+          <p>{{ review.message }}</p>
+          <h4>- {{ review.patient }}</h4>
+        </div>
+      </div>
+    </section>
+
+    <!-- Facilities Section -->
+    <section class="facilities">
+      <h2>Our Facilities</h2>
+      <ul>
+        <li *ngFor="let facility of facilities">{{ facility }}</li>
+      </ul>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2025 {{ hospitalName }}. All Rights Reserved.</p>
+      <p>Developed by Lokesh Thakare</p>
+    </footer>
   </div>
 </div>
