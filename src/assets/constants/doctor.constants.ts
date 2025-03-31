@@ -123,6 +123,11 @@ export const DOCTOR_ROUTES = [
     title: 'Review Table',
     path: '/review-table',
   },
+  {
+    id: 2,
+    title: 'Image Gallery',
+    path: '/image-gallery',
+  },
 ];
 
 export const PRESCRIPTION_VIEW_ROUTES = [

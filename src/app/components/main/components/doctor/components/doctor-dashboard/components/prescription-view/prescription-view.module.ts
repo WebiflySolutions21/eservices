@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DoctorDashboardRoutingModule } from './doctor-dashboard-routing.module';
-import { DoctorDashboardComponent } from './doctor-dashboard.component';
+import { PrescriptionViewRoutingModule } from './prescription-view-routing.module';
+import { PrescriptionViewComponent } from './prescription-view.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
-    DoctorDashboardComponent,
+    PrescriptionViewComponent
   ],
   imports: [
     CommonModule,
-    DoctorDashboardRoutingModule,
+    PrescriptionViewRoutingModule,
     SharedModule,
-    FormsModule,
+    FormsModule
   ]
 })
-export class DoctorDashboardModule { }
+export class PrescriptionViewModule { }

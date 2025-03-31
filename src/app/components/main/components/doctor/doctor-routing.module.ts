@@ -15,6 +15,10 @@ const routes: Routes = [
         path:'review-table',
         loadChildren: () => import('./components/review-table/review-table.module').then(m => m.ReviewTableModule) 
       },
+      {
+        path:'image-gallery',
+        loadChildren: () => import('./components/image-gallery/image-gallery.module').then(m => m.ImageGalleryModule) 
+      },
     ]
   }
 ];
