@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { DOCTOR_ROUTES,PRESCRIPTION_VIEW_ROUTES } from '@assets/constants/doctor.constants';
+import { DOCTOR_IMAGE_GALLERY_ROUTES, DOCTOR_ROUTES,PRESCRIPTION_VIEW_ROUTES } from '@assets/constants/doctor.constants';
 
 @Component({
   selector: 'app-doctor',
@@ -24,11 +24,14 @@ ngOnInit() {
     const currentUrl = this.router.url;
 
     if (currentUrl.includes("prescription-view")) {
-      // If inside prescription-view, show different header content
+      // If inside prescription-view or image-gallery, show different header content
       this.doctorRoutes = PRESCRIPTION_VIEW_ROUTES;
-    } else {
+    } else if ( currentUrl.includes("image-gallery")){
+      this.doctorRoutes = DOCTOR_IMAGE_GALLERY_ROUTES
+    }else {
       this.doctorRoutes = DOCTOR_ROUTES;
     }
+    
   });
 }
 

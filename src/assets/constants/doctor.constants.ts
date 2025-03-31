@@ -152,7 +152,13 @@ export const PRESCRIPTION_VIEW_ROUTES = [
     path: '',
   },
 ];
-
+export const DOCTOR_IMAGE_GALLERY_ROUTES = [
+  {
+    id: 1,
+    title: 'Dashboard',
+    path: '/doctor-dashboard',
+  },
+]
 export const PATIENT_DETAILS = {
   name: 'Lokesh Thakare',
   age: 18,

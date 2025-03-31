@@ -1,0 +1,36 @@
+@import "mixins";
+.image-gallery-component {
+  width: 100%;
+  height: 100%;
+  padding-top: 1em;
+  background-color: #1e1e1e;
+  .image-gallery-wrapper {
+    width: 100%;
+    height: 100%;
+    background-color: #1e1e1e;
+    overflow-y: scroll;
+    .editor-controls {
+      position: absolute;
+      bottom: 0.5em;
+      z-index: 999;
+      width: 100%;
+      text-align: right;
+    }
+
+    button {
+      margin-right: 10px;
+    }
+  }
+}
+
+.btns {
+  border-radius: 3em;
+  padding: 0.7em 2.5em;
+  @include font(14, 1vw, 16, hbold, #ffffff);
+}
+img {
+    margin-top: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  

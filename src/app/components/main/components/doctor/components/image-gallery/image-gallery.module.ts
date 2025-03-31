@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ImageGalleryRoutingModule } from './image-gallery-routing.module';
 import { ImageGalleryComponent } from './image-gallery.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { ImageGalleryComponent } from './image-gallery.component';
   ],
   imports: [
     CommonModule,
-    ImageGalleryRoutingModule
+    ImageGalleryRoutingModule,
+    FormsModule
   ]
 })
 export class ImageGalleryModule { }
