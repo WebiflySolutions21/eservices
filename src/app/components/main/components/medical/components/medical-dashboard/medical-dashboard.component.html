@@ -1,0 +1,21 @@
+<div class="medical-dashboard-component">
+    <div class="medical-dashboard-wrapper">
+        <div class="table-data">
+            <div *ngFor="let category of tableCategories">
+              <!-- Table Title -->
+      
+              <!-- Display Table -->
+              <app-table
+                [tableData]="filteredTableData[category]"
+                [tableColumns]="tableColumns[category]"
+                [actions]="[
+                   { label: 'Written Prescription', action: 'handWrittenPrescription' },
+                   { label: 'Prescription', action: 'prescription' },
+                ]"
+                (actionClicked)="handleAction($event)"
+                [showSearch]="true"
+              ></app-table>
+            </div>
+          </div>
+    </div>
+</div>
