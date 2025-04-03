@@ -148,7 +148,7 @@ export const PRESCRIPTION_VIEW_ROUTES = [
   },
   {
     id: 4,
-    title: 'Canvas',
+    title: 'Board',
     path: '',
   },
 ];

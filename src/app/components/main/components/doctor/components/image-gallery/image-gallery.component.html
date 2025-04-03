@@ -1,10 +1,24 @@
 <div class="image-gallery-component">
-    <div class="image-gallery-wrapper">
-      
+  <div class="upload-section" *ngIf="!imageUrl">
+    <label for="fileInput" class="upload-label">Upload Image</label>
+    <input id="fileInput" type="file" (change)="onFileSelected($event)" accept="image/*" hidden />
+  </div>
 
-        <div #tuiImageEditor class="tui"></div>
-        <div class="editor-controls">
-          <button (click)="saveImage()" class="btns btn btn-success">Save Image</button>
-        </div>
+  <div class="gallery-section" *ngIf="images.length > 0 && !imageUrl">
+    <div class="image-card" *ngFor="let image of images" (click)="openEditor(image)">
+      <img [src]="image.url" [alt]="image.name" />
+      <p>{{ image.name }}</p>
     </div>
+  </div>
+
+  <div *ngIf="images.length === 0" class="no-images">
+    No images uploaded. Please upload an image to start your gallery.
+  </div>
+
+  <div *ngIf="imageUrl" class="image-editor">
+    <div #tuiImageEditor class="tui"></div>
+    <button class="btn btn-success save-btn" (click)="saveEditedImage()">
+      Save
+    </button>
+  </div>
 </div>

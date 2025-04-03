@@ -1,67 +1,77 @@
 <div class="prescription-container">
-    <label class="toggle-label">
-      Add Medicines
-      <label class="toggle-switch">
-        <input type="checkbox" [(ngModel)]="isPrintEnabled" />
-        <span class="slider"></span>
-      </label>
+  <label class="toggle-label">
+    Add Medicines
+    <label class="toggle-switch">
+      <input type="checkbox" [(ngModel)]="isPrintEnabled" />
+      <span class="slider"></span>
     </label>
-  
-    <table class="prescription-table">
-      <thead>
-        <tr>
-          <th *ngFor="let header of tableHeaders">{{ header }}</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-  
-      <tbody>
-        <tr *ngFor="let row of prescriptionData; let i = index">
-          <td>
-            <select  [(ngModel)]="row.type">
-              <option value="" disabled selected>Select type</option>
-              <option *ngFor="let type of medicineTypes" [value]="type">
-                {{ type }}
-              </option>
-            </select>
-          </td>
-  
-          <td class="medicine-input-container">
-            <input
+  </label>
+
+  <table class="prescription-table">
+    <thead>
+      <tr>
+        <th *ngFor="let header of tableHeaders">{{ header }}</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let row of prescriptionData; let i = index">
+        <td>
+          <select [(ngModel)]="row.type">
+            <option value="" disabled>Select type</option>
+            <option *ngFor="let type of medicineTypes" [value]="type">{{ type }}</option>
+          </select>
+        </td>
+
+        <td class="medicine-input-container">
+          <input
             class="form-control"
-              type="text"
-              [(ngModel)]="row.medicine"
-              (input)="filterMedicineSuggestions(row)"
-              placeholder="Search medicine..."
-            />
-  
-            <!-- Dropdown for medicine suggestions -->
-            <ul class="medicine-suggestions" *ngIf="row.filteredMedicines.length > 0">
-              <li *ngFor="let med of row.filteredMedicines" (click)="selectMedicine(row, med)">
-                {{ med.medicine }}
-              </li>
-            </ul>
-          </td>
-  
-          <td><input  class="form-control" type="number" [(ngModel)]="row.morning" min="0" /></td>
-          <td><input  class="form-control" type="number" [(ngModel)]="row.afternoon" min="0" /></td>
-          <td><input  class="form-control" type="number" [(ngModel)]="row.night" min="0" /></td>
-          <td>
-            <select [(ngModel)]="row.intakeTime">
-              <option *ngFor="let time of intakeTimes" [value]="time">
-                {{ time }}
-              </option>
-            </select>
-          </td>
-          <td><input  class="form-control" type="number" [(ngModel)]="row.days" min="1" /></td>
-          <td><input  class="form-control" type="number" [(ngModel)]="row.quantity" min="1" /></td>
-          <td>
-            <button (click)="removeRow(i)" class="delete-btn">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <button (click)="addRow()" class="add-btn">Add Medicine</button>
-  </div>
-  
+            type="text"
+            [(ngModel)]="row.medicine"
+            (input)="filterMedicineSuggestions(row)"
+            placeholder="Search medicine..."
+          />
+         
+          <!-- Dropdown for medicine suggestions -->
+          <ul class="medicine-suggestions" *ngIf="row.filteredMedicines.length > 0">
+            <li *ngFor="let med of row.filteredMedicines" (click)="selectMedicine(row, med)">
+              {{ med.medicine }}
+            </li>
+          </ul>
+        </td>
+
+        <td>
+          <input class="form-control" type="number" [(ngModel)]="row.morning" min="0" />
+         
+        </td>
+        <td>
+          <input class="form-control" type="number" [(ngModel)]="row.afternoon" min="0" />
+         
+        </td>
+        <td>
+          <input class="form-control" type="number" [(ngModel)]="row.night" min="0" />
+         
+        </td>
+        <td>
+          <select [(ngModel)]="row.intakeTime">
+            <option *ngFor="let time of intakeTimes" [value]="time">{{ time }}</option>
+          </select>
+        </td>
+        <td>
+          <input class="form-control" type="number" [(ngModel)]="row.days" min="1" />
+          
+        </td>
+        <td>
+          <input class="form-control" type="number" [(ngModel)]="row.quantity" min="1" />
+         
+        </td>
+        <td>
+          <button (click)="removeRow(i)" class="delete-btn">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button (click)="addRow()" class="add-btn">Add Medicine</button>
+</div>

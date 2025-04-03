@@ -16,12 +16,23 @@
     <input
       type="text"
       class="dropdown-input"
+      [attr.data-dropdown-id]="dropdownId"
       [(ngModel)]="searchTerm"
       (focus)="toggleDropdown(true)"
       (input)="filterOptions()"
       (keydown.enter)="addNewOption()"
       placeholder="Select or type..."
     />
+    <!-- Mic Button with Visual Indicator -->
+<button
+class="mic-button"
+[class.recording]="isRecording"
+(click)="toggleVoiceInput()"
+title="Speak"
+>
+<i class="fa fa-microphone"></i>
+</button>
+
   </div>
 
   <div

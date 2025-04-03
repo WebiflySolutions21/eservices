@@ -6,10 +6,11 @@ import { InputTemplateComponent } from './components/input-template/input-templa
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { PrescriptionTableComponent } from './components/prescription-table/prescription-table.component';
 import { PrintPreviewComponent } from './components/print-preview/print-preview.component';
+import { DrawWriteModalComponent } from './components/draw-write-modal/draw-write-modal.component';
 
 
 @NgModule({
-  declarations: [...fromComponents.components,InputTemplateComponent, PrescriptionTableComponent, PrintPreviewComponent],
+  declarations: [...fromComponents.components,InputTemplateComponent, PrescriptionTableComponent, PrintPreviewComponent, DrawWriteModalComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

@@ -1,0 +1,92 @@
+<!-- dynamic-form.component.html -->
+<div class="preview-form">
+    <h2 class="h4 mb-4">{{config.title}}</h2>
+    
+    <form [formGroup]="formGroup">
+      <div *ngFor="let section of config.sections" class="mb-5">
+        <h3 *ngIf="section.title" class="h5 mb-3">{{section.title}}</h3>
+        
+        <div class="row g-3">
+          <div *ngFor="let field of section.fields" 
+               [class]="'col-md-' + (12 / section.columns * (field.span || 1))">
+            
+            <!-- Text Input -->
+            <div *ngIf="field.type === 'text'" class="mb-3">
+              <label [for]="field.id" class="form-label">{{field.label}}</label>
+              <input 
+                [id]="field.id" 
+                type="text" 
+                class="form-control"
+                [formControlName]="field.id"
+                [placeholder]="field.placeholder || ''">
+              <div *ngIf="hasError(field.id, 'required')" class="invalid-feedback d-block">
+                This field is required
+              </div>
+            </div>
+            
+            <!-- Number Input -->
+            <div *ngIf="field.type === 'number'" class="mb-3">
+              <label [for]="field.id" class="form-label">{{field.label}}</label>
+              <input 
+                [id]="field.id" 
+                type="number" 
+                class="form-control"
+                [formControlName]="field.id"
+                [placeholder]="field.placeholder || ''"
+                [min]="field.min"
+                [max]="field.max"
+                [step]="field.step || '1'">
+              <div *ngIf="hasError(field.id, 'required')" class="invalid-feedback d-block">
+                This field is required
+              </div>
+              <div *ngIf="hasError(field.id, 'min')" class="invalid-feedback d-block">
+                Minimum value is {{field.min}}
+              </div>
+              <div *ngIf="hasError(field.id, 'max')" class="invalid-feedback d-block">
+                Maximum value is {{field.max}}
+              </div>
+            </div>
+            
+            <!-- Select Dropdown -->
+            <div *ngIf="field.type === 'select'" class="mb-3">
+              <label [for]="field.id" class="form-label">{{field.label}}</label>
+              <select 
+                [id]="field.id" 
+                class="form-select"
+                [formControlName]="field.id">
+                <option value="" disabled selected>Select an option</option>
+                <option *ngFor="let opt of field.options" [value]="opt.value">{{opt.label}}</option>
+              </select>
+            </div>
+            
+            <!-- Checkbox -->
+            <div *ngIf="field.type === 'checkbox'" class="mb-3 form-check">
+              <input 
+                [id]="field.id" 
+                type="checkbox" 
+                class="form-check-input"
+                [formControlName]="field.id">
+              <label [for]="field.id" class="form-check-label">{{field.label}}</label>
+            </div>
+            
+            <!-- Date Input -->
+            <div *ngIf="field.type === 'date'" class="mb-3">
+              <label [for]="field.id" class="form-label">{{field.label}}</label>
+              <input 
+                [id]="field.id" 
+                type="date" 
+                class="form-control"
+                [formControlName]="field.id"
+                [min]="field.minDate"
+                [max]="field.maxDate">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-outline-secondary">Reset</button>
+      </div>
+    </form>
+  </div>

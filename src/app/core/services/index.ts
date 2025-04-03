@@ -22,5 +22,5 @@ export const services=[
     LoginService,
     FormService,
     DataService,
-    DropdownStateService
+    DropdownStateService,
 ]

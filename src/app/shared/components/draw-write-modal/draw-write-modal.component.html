@@ -1,0 +1,18 @@
+<div class="modal fade" id="drawWriteModal" tabindex="-1" aria-labelledby="drawWriteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Draw or Write</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <canvas id="drawingCanvas" width="800" height="400" class="border canvas"></canvas>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" (click)="saveDrawing()">Save</button>
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

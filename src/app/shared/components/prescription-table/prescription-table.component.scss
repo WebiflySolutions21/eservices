@@ -129,3 +129,24 @@
     }
   }
 }
+button {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  margin-left: 5px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+button:hover {
+  color: #007bff;
+}
+
+button:active {
+  color: #0056b3;
+}
+
+button.recording {
+  color: red;
+}
+

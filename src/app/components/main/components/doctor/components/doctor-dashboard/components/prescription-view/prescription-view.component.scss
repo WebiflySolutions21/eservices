@@ -61,7 +61,8 @@
 
   .add-followup,
   .admin-patient,
-  .refer-patient {
+  .refer-patient,
+  .prescription-canvas,.image-gallery {
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -1,4 +1,5 @@
 <div class="prescription-view-component">
+
     <div class="prescription-view-wrapper">
       <div class="patient-details">
         <div class="detail-card">Name: <span>{{ patientDetails.name }}</span></div>
@@ -33,6 +34,16 @@
         <div class="refer-patient">
           <button (click)="openModal('refer')">Refer Patient</button>
         </div>
+        <div class="prescription-canvas">
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#drawWriteModal">
+            Draw/Write
+          </button>
+        </div>
+        <div class="image-gallery" >
+          <button class="btn btn-primary">
+            Image Gallery
+          </button>
+        </div>
       </div>
       
   
@@ -61,7 +72,7 @@
       
     </div>
   </div>
-  
+  <app-draw-write-modal [patientId]="selectedPatientId"></app-draw-write-modal>
   <!-- Admit Patient Modal -->
   <div #admitPatientModal class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -187,4 +198,3 @@
       </div>
     </div>
   </div>
-  

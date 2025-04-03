@@ -37,7 +37,7 @@ export class PrescriptionViewComponent {
     { id: 4, name: 'Dr. Mehta' },
     { id: 5, name: 'Dr. Rao' },
   ];
-
+  selectedPatientId = 1
   @ViewChild('admitPatientModal', { static: false })
   admitPatientModalRef!: ElementRef;
   private admitPatientModal!: Modal;

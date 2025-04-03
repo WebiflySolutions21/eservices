@@ -26,7 +26,7 @@ ngOnInit() {
     if (currentUrl.includes("prescription-view")) {
       // If inside prescription-view or image-gallery, show different header content
       this.doctorRoutes = PRESCRIPTION_VIEW_ROUTES;
-    } else if ( currentUrl.includes("image-gallery")){
+    } else if ( currentUrl.includes("image-gallery") || currentUrl.includes("review-table")){
       this.doctorRoutes = DOCTOR_IMAGE_GALLERY_ROUTES
     }else {
       this.doctorRoutes = DOCTOR_ROUTES;

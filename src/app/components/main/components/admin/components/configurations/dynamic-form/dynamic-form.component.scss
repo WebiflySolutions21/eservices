@@ -1,0 +1,80 @@
+// dynamic-form.component.scss
+.form-container {
+    width: 100%;
+  }
+  
+  .form-section {
+    margin-bottom: 2rem;
+  }
+  
+  .section-fields {
+    display: grid;
+    width: 100%;
+  }
+  
+  .field-input {
+    display: flex;
+    flex-direction: column;
+    
+    label {
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    input, select, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+  }
+  
+  // Make fields responsive
+  @media (max-width: 768px) {
+    .section-fields {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  // dynamic-form.component.scss
+/* Checkbox styling */
+.form-check {
+    padding-left: 1.5em;
+    
+    .form-check-input {
+      width: 1em;
+      height: 1em;
+      margin-left: -1.5em;
+    }
+  }
+  
+  /* Date input styling */
+  input[type="date"] {
+    &::-webkit-calendar-picker-indicator {
+      background: transparent;
+      bottom: 0;
+      color: transparent;
+      cursor: pointer;
+      height: auto;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: auto;
+    }
+    
+    position: relative;
+    min-width: 200px;
+  }
+  
+  /* Number input styling */
+  input[type="number"] {
+    -moz-appearance: textfield;
+    
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }

@@ -8,6 +8,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class PrescriptionTableComponent {
   isPrintEnabled: boolean = true;
   @Output() prescriptionUpdated = new EventEmitter<any[]>();
+  isRecording: boolean = false;
+  recognition: any;
+  idleTimeout: any;
 
   tableHeaders: string[] = [
     'Types', 'Medicine', 'सकाळ', 'दुपार', 'रात्र', 'कधी घ्यायचा', 'किती दिवस', 'Qty'
@@ -38,12 +41,14 @@ export class PrescriptionTableComponent {
       quantity: '',
       filteredMedicines: [],
     });
-    this.emitPrescriptionData();  // Emit updated data
+    this.emitPrescriptionData();
   }
+
+  
 
   removeRow(index: number) {
     this.prescriptionData.splice(index, 1);
-    this.emitPrescriptionData();  // Emit updated data
+    this.emitPrescriptionData();
   }
 
   filterMedicineSuggestions(row: any) {
@@ -66,7 +71,7 @@ export class PrescriptionTableComponent {
     row.days = selectedMedicine.days;
     row.quantity = selectedMedicine.quantity;
     row.filteredMedicines = [];
-    this.emitPrescriptionData();  // Emit updated data
+    this.emitPrescriptionData();
   }
 
   emitPrescriptionData() {

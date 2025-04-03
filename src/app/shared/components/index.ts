@@ -1,4 +1,5 @@
 
+import { DrawWriteModalComponent } from './draw-write-modal/draw-write-modal.component'
 import { HeaderComponent } from './header/header.component'
 import { InputTemplateComponent } from './input-template/input-template.component'
 import { MultiSelectDropdownComponent } from './multi-select-dropdown/multi-select-dropdown.component'
@@ -13,5 +14,6 @@ export const components=[
     HeaderComponent,
     TableComponent,
     MultiSelectDropdownComponent,
-    PrescriptionTableComponent
+    PrescriptionTableComponent,
+    DrawWriteModalComponent
 ]

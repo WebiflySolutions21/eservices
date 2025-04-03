@@ -13,10 +13,10 @@ export class LandingComponent {
   hospitalDescription = 'Medicare Hospital is dedicated to providing top-notch healthcare services with the latest technology and experienced medical professionals.';
 
   doctors = [
-    { name: 'Dr. John Doe', specialty: 'Cardiologist', image: 'assets/doctors/doc1.jpg' },
-    { name: 'Dr. Sarah Smith', specialty: 'Orthopedic Surgeon', image: 'assets/doctors/doc2.jpg' },
-    { name: 'Dr. Emily Clark', specialty: 'Pediatrician', image: 'assets/doctors/doc3.jpg' },
-    { name: 'Dr. Michael Brown', specialty: 'Neurologist', image: 'assets/doctors/doc4.jpg' },
+    { name: 'Dr. John Doe', specialty: 'Cardiologist', image: 'assets/images/header/doctor.jpeg' },
+    { name: 'Dr. Sarah Smith', specialty: 'Orthopedic Surgeon', image: 'assets/images/header/doctor.jpeg' },
+    { name: 'Dr. Emily Clark', specialty: 'Pediatrician', image: 'assets/images/header/doctor.jpeg' },
+    { name: 'Dr. Michael Brown', specialty: 'Neurologist', image: 'assets/images/header/doctor.jpeg' },
   ];
 
   patientReviews = [

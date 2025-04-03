@@ -1,0 +1,30 @@
+<!-- form-renderer.component.html -->
+<div class="container mt-4">
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h2 class="h5 mb-0">{{formConfig.title}}</h2>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+          <!-- Reuse your dynamic form template here -->
+          <div *ngFor="let section of formConfig.sections" class="mb-5">
+            <h3 *ngIf="section.title" class="h5 mb-3">{{section.title}}</h3>
+            
+            <div class="row g-3">
+              <div *ngFor="let field of section.fields" 
+                   [class]="'col-md-' + (12 / section.columns * (field.span || 1))">
+                
+                <!-- Include all your field type templates here -->
+                <!-- Text, Number, Select, Checkbox, Date, etc. -->
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
