@@ -135,7 +135,7 @@ export const STAFF_TABLE_DATA = {
     {
       id: 1,
       title: 'Registers',
-      path: '/hospital-registers',
+      path: '/registers',
     },
 
   ];

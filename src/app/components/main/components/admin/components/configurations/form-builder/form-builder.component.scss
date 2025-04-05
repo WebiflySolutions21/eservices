@@ -156,3 +156,21 @@
       position: static !important;
     }
   }
+
+  .form-status-indicator {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    color: white;
+    z-index: 1000;
+  }
+  
+  .status-new {
+    background-color: #28a745;
+  }
+  
+  .status-existing {
+    background-color: #ffc107;
+  }

@@ -19,6 +19,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./components/forms/forms.module').then((m) => m.FormsModule),
       },
+      {
+        path: 'registers',
+        loadChildren: () =>
+          import('./components/registers/registers.module').then((m) => m.RegistersModule),
+      },
     ],
   },
 ];

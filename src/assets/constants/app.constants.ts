@@ -57,16 +57,15 @@ export const LOGIN_ROUTES = [
         path:"/shift-admin",
         identification:"shift"
     },
-    
 ]
 
 export const LOGIN_TYPE_LANDING_PAGE=[
-    { item_id: 1, item_text: 'Staff',path:"/staff" },
-    { item_id: 2, item_text: 'Doctor',path:"/doctor" },
-    { item_id: 3, item_text: 'Reception' ,path:"/reception"},
-    { item_id: 4, item_text: 'Opthalmologist',path:"/opthal" },
-    { item_id: 5, item_text: 'Medical',path:"/medical" },
-    { item_id: 6, item_text: 'Lab' ,path:"/lab"}
+    { item_id: 1, item_text: 'Staff',path:"/staff",id:"staff" },
+    { item_id: 2, item_text: 'Doctor',path:"/doctor",id:"doctor" },
+    { item_id: 3, item_text: 'Reception' ,path:"/reception",id:"reception"},
+    { item_id: 4, item_text: 'Opthalmologist',path:"/opthal",id:"opthal" },
+    { item_id: 5, item_text: 'Medical',path:"/medical",id:"medical" },
+    { item_id: 6, item_text: 'Lab' ,path:"/lab",id:"lab"},
   ];
   
 export const INPUT_TYPES = [

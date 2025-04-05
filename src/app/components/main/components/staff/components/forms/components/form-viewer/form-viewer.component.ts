@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class FormViewerComponent implements OnInit {
   form: any;
   formValues: { [key: string]: any } = {};
-  patientId="2"
+  patientId="1"
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
