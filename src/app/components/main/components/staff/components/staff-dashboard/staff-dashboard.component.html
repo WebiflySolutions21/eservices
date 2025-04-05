@@ -1,0 +1,49 @@
+<div class="staff-dashboard-component">
+    <div class="staff-dashboard-wrapper">
+      <div class="heading">
+        <div class="hello"></div>
+  
+        <div class="table-title">Admitted Patient Details</div>
+        <!-- Global Search -->
+        <div class="global-search">
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="fas fa-search"></i>
+            </span>
+            <input
+              type="text"
+              class="form-control global-search-input"
+              placeholder="Search by Name or Mobile Number"
+              [(ngModel)]="globalSearchTerm"
+              (input)="filterData()"
+            />
+            <button
+              *ngIf="globalSearchTerm"
+              class="btn btn-outline-secondary clear-btn"
+              (click)="clearSearch()"
+            >
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+  
+      <div class="table-data">
+        <div *ngFor="let category of tableCategories">
+          <!-- Table Title -->
+  
+          <!-- Display Table -->
+          <app-table
+            [tableData]="filteredTableData[category]"
+            [tableColumns]="tableColumns[category]"
+            [actions]="[
+               { label: 'Forms', action: 'forms' },
+            ]"
+            (actionClicked)="handleAction($event)"
+            [showSearch]="true"
+          ></app-table>
+        </div>
+      </div>
+    </div>
+  </div>
+  

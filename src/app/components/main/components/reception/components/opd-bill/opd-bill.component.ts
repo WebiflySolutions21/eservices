@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Modal } from 'bootstrap';
 
 @Component({
@@ -14,7 +15,7 @@ export class OpdBillComponent {
   chargeForm: FormGroup;
   totalAmount: number = 0;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private router:Router) {
     this.chargeForm = this.fb.group({
       charges: this.fb.array([]),
       opdBills: this.fb.array([]),
@@ -113,8 +114,17 @@ calculateTotal(): void {
     console.log("Form Data:", this.chargeForm.value);
   }
   
-  submitOpdBill(): void {
+  submitOpdBill(arg?): void {
     console.log("OPD Bills:", this.opdBills.value);
+    if(arg === "print"){
+      this.router.navigate(["/main/reception/print-page"],{
+        state:{
+          paymentMethods:this.paymentMethods.value,
+          opdBills:this.opdBills.value,
+          billTitle:"OPD BILL"
+        }
+      })
+    }
   }
   
   submitPaymentMethod(): void {

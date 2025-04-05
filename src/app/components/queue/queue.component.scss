@@ -1,0 +1,41 @@
+.queue-dashboard {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  .queue-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px auto;
+    justify-content: center;
+  }
+  
+  .queue-line div {
+    padding: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
+    width: 150px;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  
+  .waiting {
+    background-color: #f0ad4e;
+  }
+  
+  .in-progress {
+    background-color: #5bc0de;
+    transform: scale(1.1);
+  }
+  
+  .completed {
+    background-color: #5cb85c;
+  }
+  
+  .current-token {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  

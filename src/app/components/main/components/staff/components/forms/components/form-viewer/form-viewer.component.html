@@ -1,0 +1,169 @@
+<div class="form-viewer-component container py-4">
+  <div class="form-viewer-wrapper">
+    <!-- Hospital and Patient Info -->
+    <div class="imports-details mb-4">
+      <app-hospital-details></app-hospital-details>
+      <app-patient-details></app-patient-details>
+    </div>
+
+    <!-- Form Header -->
+    <div class="forms-data">
+      <div class="heading-section text-center mb-4">
+        <h2 class="form-title">{{ form?.title }}</h2>
+        <p class="form-desc">{{ form?.description }}</p>
+      </div>
+
+      <!-- Dynamic Form -->
+      <div class="card shadow rounded-3">
+        <div class="card-body">
+          <form
+            *ngIf="form"
+            (ngSubmit)="submitForm()"
+            #dynamicForm="ngForm"
+            novalidate
+          >
+            <div *ngFor="let section of form.sections" class="mb-5">
+              <h5 class="section-title border-bottom pb-2 mb-4">
+                {{ section.title }}
+              </h5>
+
+              <div class="row g-4" [ngClass]="'row-cols-' + section.columns">
+                <div *ngFor="let field of section.fields" class="col">
+                  <!-- Label -->
+                  <label [for]="field.id" class="form-label">
+                    {{ field.label }}
+                    <span *ngIf="field.required" class="text-danger">*</span>
+                  </label>
+
+                  <!-- Text Input -->
+                  <input
+                    *ngIf="field.type === 'text'"
+                    type="text"
+                    class="form-control"
+                    [id]="field.id"
+                    [placeholder]="field.placeholder"
+                    [(ngModel)]="formValues[field.id]"
+                    [name]="field.id"
+                    [required]="field.required"
+                  />
+
+                  <!-- Number Input -->
+                  <input
+                    *ngIf="field.type === 'number'"
+                    type="number"
+                    class="form-control"
+                    [id]="field.id"
+                    [placeholder]="field.placeholder"
+                    [(ngModel)]="formValues[field.id]"
+                    [name]="field.id"
+                    [required]="field.required"
+                  />
+
+                  <!-- Date Input -->
+                  <input
+                    *ngIf="field.type === 'date'"
+                    type="date"
+                    class="form-control"
+                    [id]="field.id"
+                    [(ngModel)]="formValues[field.id]"
+                    [name]="field.id"
+                    [required]="field.required"
+                  />
+
+                  <!-- DateTime Local Input -->
+                  <input
+                    *ngIf="field.type === 'datetime-local'"
+                    type="datetime-local"
+                    class="form-control"
+                    [id]="field.id"
+                    [(ngModel)]="formValues[field.id]"
+                    [name]="field.id"
+                    [required]="field.required"
+                  />
+                  <!-- Radio Buttons -->
+                  <div *ngIf="field.type === 'radio'">
+                    <div class="form-check" *ngFor="let opt of field.options">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        [id]="field.id + '-' + opt.value"
+                        [name]="field.id"
+                        [value]="opt.value"
+                        [(ngModel)]="formValues[field.id]"
+                        [required]="field.required"
+                      />
+                      <label
+                        class="form-check-label"
+                        [for]="field.id + '-' + opt.value"
+                      >
+                        {{ opt.label }}
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Multi-Checkbox -->
+                  <div *ngIf="field.type === 'multi-checkbox'">
+                    <div class="form-check" *ngFor="let opt of field.options">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        [id]="field.id + '-' + opt.value"
+                        [value]="opt.value"
+                        (change)="onMultiCheckboxChange($event, field.id)"
+                        [checked]="formValues[field.id]?.includes(opt.value)"
+                      />
+                      <label
+                        class="form-check-label"
+                        [for]="field.id + '-' + opt.value"
+                      >
+                        {{ opt.label }}
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Checkbox -->
+                  <div
+                    *ngIf="field.type === 'checkbox'"
+                    class="form-check mt-2"
+                  >
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      [id]="field.id"
+                      [(ngModel)]="formValues[field.id]"
+                      [name]="field.id"
+                    />
+                    <label class="form-check-label" [for]="field.id">
+                      {{ field.placeholder || field.label }}
+                    </label>
+                  </div>
+
+                  <!-- Dropdown -->
+                  <select
+                    *ngIf="field.type === 'dropdown'"
+                    class="form-select"
+                    [id]="field.id"
+                    [(ngModel)]="formValues[field.id]"
+                    [name]="field.id"
+                    [required]="field.required"
+                  >
+                    <option value="">Select an option</option>
+                    <option *ngFor="let opt of field.options" [value]="opt">
+                      {{ opt }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center mt-4">
+              <button type="submit" class="btn btn-success px-5 py-2">
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

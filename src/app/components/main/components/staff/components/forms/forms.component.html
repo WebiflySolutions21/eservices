@@ -1,0 +1,21 @@
+<div class="forms-component">
+  <div class="forms-wrapper">
+    <div class="header">
+      <app-hospital-details></app-hospital-details>
+      <app-patient-details></app-patient-details>
+    </div>
+    <div class="form-button-section">
+      <div class="availableFormsHeading">Available Forms</div>
+      <div class="d-flex flex-wrap gap-3">
+        <button
+          *ngFor="let form of forms"
+          class="btn btn-outline-primary"
+          (click)="openForm(form.id)"
+        >
+          {{ form.title }}
+        </button>
+      </div>
+    </div>
+    
+  </div>
+</div>

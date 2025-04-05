@@ -1,0 +1,65 @@
+<div class="container mt-4">
+    <div class="card shadow p-4">
+      <h3 class="card-title">Shift Assignment</h3>
+      <form [formGroup]="assignmentForm" (ngSubmit)="assignShift()">
+        <!-- Employee Name -->
+        <div class="mb-3">
+          <label for="employeeName" class="form-label">Employee Name</label>
+          <input
+            type="text"
+            id="employeeName"
+            class="form-control"
+            formControlName="employeeName"
+            placeholder="Enter employee name"
+          />
+        </div>
+  
+        <!-- Select Shift -->
+        <div class="mb-3">
+          <label for="shiftSelect" class="form-label">Select Shift</label>
+          <select id="shiftSelect" class="form-select" formControlName="shiftId">
+            <option *ngFor="let shift of savedShifts" [value]="shift.id">
+              {{ shift.shiftName }} ({{ shift.shiftStart }} - {{ shift.shiftEnd }})
+            </option>
+          </select>
+        </div>
+  
+        <!-- Assignment Date Range -->
+        <div class="mb-3">
+          <label class="form-label">Assignment Date Range</label>
+          <div class="d-flex gap-2">
+            <input
+              type="date"
+              id="assignmentFromDate"
+              class="form-control"
+              formControlName="assignmentFromDate"
+              (change)="calculateDays()"
+            />
+            <input
+              type="date"
+              id="assignmentToDate"
+              class="form-control"
+              formControlName="assignmentToDate"
+              (change)="calculateDays()"
+            />
+          </div>
+          <!-- Display Number of Days -->
+          <p class="mt-2">Number of Days: <strong>{{ numberOfDays }}</strong></p>
+        </div>
+  
+        <button type="submit" class="btn btn-primary">Assign Shift</button>
+      </form>
+  
+      <!-- Assigned Shifts List -->
+      <h4 class="mt-4">Assigned Shifts</h4>
+      <ul class="list-group">
+        <li *ngFor="let assignment of assignedShifts" class="list-group-item">
+          <strong>{{ assignment.employeeName }}</strong> - 
+          Shift: {{ assignment.shiftName }} ({{ assignment.shiftStart }} - {{ assignment.shiftEnd }}) - 
+          From: {{ assignment.assignmentFromDate }} To: {{ assignment.assignmentToDate }} - 
+          Days: {{ assignment.numberOfDays }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  

@@ -27,7 +27,6 @@ export class DoctorDashboardComponent {
     this.filterData();
   }
 
-  
   filterData() {
     const searchTerm = this.globalSearchTerm.toLowerCase().trim();
 
@@ -58,6 +57,8 @@ export class DoctorDashboardComponent {
     console.log(event);
     if (event.action === 'view') {
       this.router.navigate(['/main/doctor/doctor-dashboard/prescription-view']);
+    } else if (event.action === 'opd') {
+      this.router.navigate(['/main/reception/reception-dashboard']);
     }
     console.log(`${event.action} clicked for`, event.row);
   }

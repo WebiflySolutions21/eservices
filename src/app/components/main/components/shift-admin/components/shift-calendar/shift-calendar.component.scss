@@ -1,0 +1,90 @@
+.fc-event {
+    font-size: 0.8rem;
+    padding: 2px 4px;
+    margin: 1px;
+    border-radius: 4px;
+    opacity: 0.9;
+  }
+  
+  .fc-event:hover {
+    opacity: 1;
+  }
+  
+  .fc-daygrid-event {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .fc .fc-toolbar-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .fc-event-title {
+    color: white; /* Ensure good contrast */
+  }
+  
+  .fc-daygrid-event-dot {
+    border-radius: 50%;
+  }
+  
+  .fc .fc-daygrid-day-frame {
+    padding: 5px;
+  }
+  
+  .fc-theme-standard .fc-list-event:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .modal {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1050;
+    width: 300px;
+  }
+  
+  .modal-content {
+    padding: 20px;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .modal-header .btn-close {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+  }
+  
+  .modal-body {
+    margin: 10px 0;
+  }
+  
+  .modal-footer {
+    text-align: right;
+  }
+  .fc-event-holiday {
+    background-color: #FF6347 !important; /* Distinct red color */
+    color: #fff !important;
+    font-weight: bold;
+  }
+  
+  .modal-body button {
+    margin: 4px;
+  }
+  
+  .fc-more {
+    color: blue;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  

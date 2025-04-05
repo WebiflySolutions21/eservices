@@ -1,0 +1,74 @@
+@import "mixins";
+
+.print-container {
+  // @include flex-container(center, flex-start, column); // Good for screen
+  width: 100%;
+  height: auto;
+  padding: 1rem;
+
+  .section-title {
+    @include font(14, 1vw, 16, hbold, #000);
+    margin-bottom: 0.5rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+
+    th,
+    td {
+      border: 1px solid #000;
+      padding: 4px 6px;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  }
+
+  th {
+    @include font(12, 1vw, 14, hbold, #000);
+  }
+
+  td {
+    @include font(12, 1vw, 14, helvetica, #000);
+  }
+
+  .imports-details,
+  .prescription-section {
+    width: 100%;
+  }
+
+  /* 💡 PRINT STYLES */
+  @media print {
+    body * {
+      visibility: hidden;
+    }
+
+    .print-container,
+    .print-container * {
+      visibility: visible !important;
+    }
+
+    .btn {
+      display: none !important;
+    }
+
+    .print-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      height: auto;
+      display: block !important; // ❗ Overriding flex for print
+    }
+  }
+}
+button{
+  @include font(14, 1vw, 16, hbold, #fff);
+}

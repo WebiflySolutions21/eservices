@@ -1,0 +1,15 @@
+@import "mixins";
+.consultant{
+    @include flex-container(flex-end,space-between,column);
+    width: 90%;
+    img{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 7vw;
+    }
+    .consultant-name{
+      @include font(16, 1vw, 18, hbold, #000);
+      margin: 0;
+    }
+  }

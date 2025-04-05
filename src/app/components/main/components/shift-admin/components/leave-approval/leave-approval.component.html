@@ -1,0 +1,31 @@
+<div class="container mt-4">
+    <h3>Leave Approval</h3>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Employee</th>
+          <th>Leave Type</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Number of Days</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let leave of pendingLeaves">
+          <td>{{ leave.employeeName }}</td>
+          <td>{{ leave.leaveType }}</td>
+          <td>{{ leave.startDate }}</td>
+          <td>{{ leave.endDate }}</td>
+          <td>{{ leave.numberOfDays }}</td>
+          <td>{{ leave.status }}</td>
+          <td>
+            <button class="btn btn-success" (click)="approveLeave(leave)">Approve</button>
+            <button class="btn btn-danger" (click)="rejectLeave(leave)">Reject</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

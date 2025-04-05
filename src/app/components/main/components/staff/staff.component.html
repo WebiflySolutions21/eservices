@@ -1,0 +1,14 @@
+<div class="staff-component">
+    <div class="header">
+      <app-header
+      [headingRoutes]="staffRoutes"
+      [loginDetails]="loginDetails"
+      [hospitalName]="hospitalName"
+      (titleClick)="navigateUser($event)"
+    ></app-header>
+    </div>
+    <div class="router-outlet">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  

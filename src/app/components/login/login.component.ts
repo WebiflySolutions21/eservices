@@ -45,10 +45,11 @@ export class LoginComponent implements OnInit {
 
   loginUser() {
     console.log(this.loginForm.value);
-    if(this.userId){
+    if(this.userId !="shift"){
       this.router.navigate([`/main/${this.userId}/${this.userId}-dashboard`])
     } else{
-      alert("No user id in parameters")
+      this.router.navigate([`/main/${this.userId}-admin`])
+
     }
     return
 

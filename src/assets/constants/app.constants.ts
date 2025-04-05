@@ -51,6 +51,12 @@ export const LOGIN_ROUTES = [
         path:"/appointment",
         identification:"appointment"
     },
+    {
+        id:8,
+        title:"Shift",
+        path:"/shift-admin",
+        identification:"shift"
+    },
     
 ]
 

@@ -10,9 +10,14 @@ import {ErrorInterceptor,TokenInterceptor} from "./core/interceptors"
 import { ToastrModule } from 'ngx-toastr';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { QueueComponent } from './components/queue/queue.component';
+import { FormsModule } from '@angular/forms';
+import { TokenStatusComponent } from './components/token-status/token-status.component';
 @NgModule({
   declarations: [
     AppComponent,
+    QueueComponent,
+    TokenStatusComponent,
   ],
   imports: [
     BrowserModule,
@@ -21,7 +26,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     SharedModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    FormsModule
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

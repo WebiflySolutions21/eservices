@@ -171,7 +171,8 @@ export const PATIENT_DETAILS = {
   spo2: 98,
   registrationDate:"23/04/2025",
   contact:7218509409,
-  barcode : "Barcode"
+  barcode : "Barcode",
+  admissionDate:"25/04/2025"
 };
 export const FOLLOW_UP_DETAILS = [
   { label: '1 Day', value: 1 },

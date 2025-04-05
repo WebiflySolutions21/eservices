@@ -1,0 +1,31 @@
+<div class="container mt-4">
+    <h3>Apply for Leave</h3>
+    <form (ngSubmit)="applyLeave()">
+      <div class="mb-3">
+        <label for="leaveType" class="form-label">Leave Type</label>
+        <select id="leaveType" class="form-select" [(ngModel)]="leaveType" name="leaveType" required>
+          <option *ngFor="let type of availableLeaveTypes" [value]="type.name">
+            {{ type.name }} ({{ type.days }} days)
+          </option>
+        </select>
+      </div>
+  
+      <div class="mb-3">
+        <label for="fromDate" class="form-label">From Date</label>
+        <input id="fromDate" type="date" class="form-control" [(ngModel)]="fromDate" name="fromDate" required>
+      </div>
+  
+      <div class="mb-3">
+        <label for="toDate" class="form-label">To Date</label>
+        <input id="toDate" type="date" class="form-control" [(ngModel)]="toDate" name="toDate" required>
+      </div>
+  
+      <div class="mb-3">
+        <label for="reason" class="form-label">Reason</label>
+        <textarea id="reason" class="form-control" [(ngModel)]="reason" name="reason"></textarea>
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Apply</button>
+    </form>
+  </div>
+  

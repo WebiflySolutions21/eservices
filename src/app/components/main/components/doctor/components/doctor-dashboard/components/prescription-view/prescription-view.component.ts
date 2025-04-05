@@ -248,7 +248,7 @@ export class PrescriptionViewComponent {
   }
   saveAndPrintPrescription() {
     console.log(this.payload)
-    this.router.navigate(['/main/doctor/doctor-dashboard/print-prescription'], {
+    this.router.navigate(['/main/doctor/doctor-dashboard/prescription-view/print-prescription'], {
       state: { patientDetails: this.payload },
     });
   }

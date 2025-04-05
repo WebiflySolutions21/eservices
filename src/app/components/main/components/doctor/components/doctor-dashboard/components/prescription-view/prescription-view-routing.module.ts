@@ -5,8 +5,12 @@ import { PrescriptionViewComponent } from './prescription-view.component';
 const routes: Routes = [
   {
     path:"",
-    component:PrescriptionViewComponent
-  }
+    component:PrescriptionViewComponent,
+  },
+  {
+    path: 'print-prescription',
+    loadChildren: () => import('./components/print-prescription/print-prescription.module').then(m => m.PrintPrescriptionModule),
+  },
 ];
 
 @NgModule({

@@ -1,0 +1,49 @@
+<div class="mt-4 print-container">
+  <div class="text-right mb-3">
+    <button class="btn btn-primary" (click)="printPage()">Print</button>
+  </div>
+  <div class="imports-details">
+    <app-hospital-details></app-hospital-details>
+    <app-patient-details></app-patient-details>
+  </div>
+  
+  <div class="prescription-section mb-4">
+    <div class="section-title text-center">{{billTitle}}</div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Charge Name</th>
+          <th>Charge Amount</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let bill of opdBills">
+          <td>{{ bill.chargeName }}</td>
+          <td>{{ bill.chargeAmount }}</td>
+          <td>{{ bill.quantity }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prescription-section mb-4">
+    <div class="section-title">Payment Methods:</div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Payment Mode</th>
+          <th>Payment Type</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payment of paymentMethods">
+          <td>{{ payment.paymentMode }}</td>
+          <td>{{ payment.paymentType }}</td>
+          <td>{{ payment.amount }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

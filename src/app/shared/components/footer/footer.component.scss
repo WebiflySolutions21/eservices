@@ -1,0 +1,31 @@
+@import "mixins";
+.footer {
+    text-align: center;
+    border-top: 2px solid #000000;
+    margin-top: 1em;
+    small {
+      text-align: center;
+    }
+    .bottom {
+      @include flex-container();
+      gap: 2em;
+  
+      .logo img {
+        width: 4.3em;
+        height: auto;
+      }
+  
+      .hospital-name {
+        @include font(26, 1vw, 30, hbold, #000);
+  
+        margin: 0;
+      }
+  
+      .hospital-address,
+      .hospital-contact {
+        @include font(14, 1vw, 16, helvetica, #555);
+  
+        margin: 0;
+      }
+    }
+  }

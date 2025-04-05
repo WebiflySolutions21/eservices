@@ -27,6 +27,10 @@ const routes: Routes = [
         path:'patient-management',
         loadChildren: () => import('./components/patient-management/patient-management.module').then(m => m.PatientManagementModule) 
       },
+      {
+        path:'print-page',
+        loadChildren: () => import('./components/print-page/print-page.module').then(m => m.PrintPageModule) 
+      },
     ]
   }
 ];

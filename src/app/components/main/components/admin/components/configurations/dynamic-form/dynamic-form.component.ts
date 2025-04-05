@@ -31,35 +31,64 @@ hasError(fieldId: string, errorType: string): boolean {
 }
 
   // dynamic-form.component.ts
-createFormControls() {
-  this.config.sections.forEach(section => {
-    section.fields.forEach(field => {
-      const validators = [];
-      if (field.required) {
-        validators.push(Validators.required);
-      }
-      
-      if (field.type === 'number') {
-        if (field.min !== null && field.min !== undefined) {
-          validators.push(Validators.min(field.min));
+  createFormControls() {
+    this.config.sections.forEach(section => {
+      section.fields.forEach(field => {
+        const validators = [];
+  
+        if (field.required) {
+          validators.push(Validators.required);
         }
-        if (field.max !== null && field.max !== undefined) {
-          validators.push(Validators.max(field.max));
+  
+        if (field.type === 'number') {
+          if (field.min !== null && field.min !== undefined) {
+            validators.push(Validators.min(field.min));
+          }
+          if (field.max !== null && field.max !== undefined) {
+            validators.push(Validators.max(field.max));
+          }
         }
-      }
-      
-      // For checkbox fields, use the defaultValue if provided
-      const defaultValue = field.type === 'checkbox' 
-        ? field.defaultValue || false 
-        : field.defaultValue || '';
-      
-      this.formGroup.addControl(
-        field.id, 
-        new FormControl(defaultValue, validators)
-      );
+  
+        // Determine default value based on field type
+        let defaultValue: any;
+  
+        switch (field.type) {
+          case 'checkbox':
+            defaultValue = field.defaultValue ?? false;
+            break;
+          case 'multi-checkbox':
+            defaultValue = field.defaultValue ?? [];
+            break;
+          case 'number':
+            defaultValue = field.defaultValue ?? null;
+            break;
+          default:
+            defaultValue = field.defaultValue ?? '';
+            break;
+        }
+  
+        this.formGroup.addControl(
+          field.id,
+          new FormControl(defaultValue, validators)
+        );
+      });
     });
-  });
+  }
+  
+onMultiCheckboxChange(fieldId: string, value: any, checked: boolean): void {
+  const control = this.formGroup.get(fieldId);
+  if (!control) return;
+
+  const current = control.value || [];
+  if (checked) {
+    control.setValue([...current, value]);
+  } else {
+    control.setValue(current.filter((v: any) => v !== value));
+  }
+
+  control.markAsTouched();
 }
+
 
 getErrorMessages(fieldId: string): string[] {
   const control = this.formGroup.get(fieldId);

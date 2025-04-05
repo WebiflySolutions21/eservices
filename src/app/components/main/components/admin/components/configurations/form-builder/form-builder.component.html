@@ -9,7 +9,11 @@
           <div class="mb-4">
             <div class="input-group">
               <span class="input-group-text">Form Title</span>
-              <input type="text" class="form-control" [(ngModel)]="formConfig.title">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="formConfig.title"
+              />
             </div>
           </div>
 
@@ -18,135 +22,340 @@
           </button>
 
           <div cdkDropListGroup class="sections-container">
-            <div *ngFor="let section of formConfig.sections; let i = index" 
-                 class="section-card mb-4"
-                 cdkDropList
-                 [cdkDropListData]="formConfig.sections"
-                 (cdkDropListDropped)="onSectionDrop($event)">
-              
+            <div
+              *ngFor="let section of formConfig.sections; let i = index"
+              class="section-card mb-4"
+              cdkDropList
+              [cdkDropListData]="formConfig.sections"
+              (cdkDropListDropped)="onSectionDrop($event)"
+            >
               <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center bg-light" cdkDrag>
+                <div
+                  class="card-header d-flex justify-content-between align-items-center bg-light"
+                  cdkDrag
+                >
                   <div class="d-flex align-items-center">
-                    <i class="bi bi-grip-vertical me-2 text-muted" style="cursor: move;"></i>
-                    <input type="text" class="form-control form-control-sm w-auto" 
-                           [(ngModel)]="section.title" placeholder="Section title">
+                    <i
+                      class="bi bi-grip-vertical me-2 text-muted"
+                      style="cursor: move"
+                    ></i>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm w-auto"
+                      [(ngModel)]="section.title"
+                      placeholder="Section title"
+                    />
                   </div>
                   <div class="d-flex align-items-center">
-                    <select class="form-select form-select-sm me-2 w-auto" [(ngModel)]="section.columns">
-                      <option *ngFor="let cols of [1,2,3,4,5,6]" [value]="cols">{{cols}} Column{{cols > 1 ? 's' : ''}}</option>
+                    <select
+                      class="form-select form-select-sm me-2 w-auto"
+                      [(ngModel)]="section.columns"
+                    >
+                      <option
+                        *ngFor="let cols of [1, 2, 3, 4, 5, 6]"
+                        [value]="cols"
+                      >
+                        {{ cols }} Column{{ cols > 1 ? "s" : "" }}
+                      </option>
                     </select>
-                    <button class="btn btn-sm btn-danger" (click)="removeSection(i)">
+                    <button
+                      class="btn btn-sm btn-danger"
+                      (click)="removeSection(i)"
+                    >
                       <i class="bi bi-trash"></i>
                     </button>
                   </div>
                 </div>
-                
+
                 <div class="card-body">
-                  <div class="fields-container" 
-                       cdkDropList
-                       [cdkDropListData]="section.fields"
-                       (cdkDropListDropped)="onFieldDrop($event, section)">
-                    
-                    <div *ngFor="let field of section.fields" class="field-card mb-3" cdkDrag>
+                  <div
+                    class="fields-container"
+                    cdkDropList
+                    [cdkDropListData]="section.fields"
+                    (cdkDropListDropped)="onFieldDrop($event, section)"
+                  >
+                    <div
+                      *ngFor="let field of section.fields"
+                      class="field-card mb-3"
+                      cdkDrag
+                    >
                       <div class="card">
                         <div class="card-body">
-                          <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
-                            <i class="bi bi-grip-vertical text-muted" style="cursor: move;"></i>
-                            
-                            <select class="form-select form-select-sm w-auto" [(ngModel)]="field.type">
-                              <option *ngFor="let type of availableFieldTypes" [value]="type.value">{{type.label}}</option>
+                          <div
+                            class="d-flex flex-wrap align-items-center gap-2 mb-2"
+                          >
+                            <i
+                              class="bi bi-grip-vertical text-muted"
+                              style="cursor: move"
+                            ></i>
+
+                            <select
+                              class="form-select form-select-sm w-auto"
+                              [(ngModel)]="field.type"
+                            >
+                              <option
+                                *ngFor="let type of availableFieldTypes"
+                                [value]="type.value"
+                              >
+                                {{ type.label }}
+                              </option>
                             </select>
-                            
-                            <input type="text" class="form-control form-control-sm" 
-                                   [(ngModel)]="field.label" placeholder="Field label">
-                            
+
+                            <input
+                              type="text"
+                              class="form-control form-control-sm"
+                              [(ngModel)]="field.label"
+                              placeholder="Field label"
+                            />
+
                             <div class="form-check form-switch">
-                              <input class="form-check-input" type="checkbox" id="required-{{field.id}}" 
-                                     [(ngModel)]="field.required">
-                              <label class="form-check-label" for="required-{{field.id}}">Required</label>
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="required-{{ field.id }}"
+                                [(ngModel)]="field.required"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="required-{{ field.id }}"
+                                >Required</label
+                              >
                             </div>
-                            
-                            <div *ngIf="section.columns > 1" class="d-flex align-items-center">
+
+                            <div
+                              *ngIf="section.columns > 1"
+                              class="d-flex align-items-center"
+                            >
                               <label class="me-2 small">Span:</label>
-                              <select class="form-select form-select-sm w-auto" [(ngModel)]="field.span">
-                                <option *ngFor="let span of [1,2,3,4,5,6]" [value]="span">{{span}}</option>
+                              <select
+                                class="form-select form-select-sm w-auto"
+                                [(ngModel)]="field.span"
+                              >
+                                <option
+                                  *ngFor="let span of [1, 2, 3, 4, 5, 6]"
+                                  [value]="span"
+                                >
+                                  {{ span }}
+                                </option>
                               </select>
                             </div>
-                            
-                            <button class="btn btn-sm btn-outline-danger" 
-                                    (click)="removeField(section, section.fields.indexOf(field))">
+
+                            <button
+                              class="btn btn-sm btn-outline-danger"
+                              (click)="
+                                removeField(
+                                  section,
+                                  section.fields.indexOf(field)
+                                )
+                              "
+                            >
                               <i class="bi bi-trash"></i>
                             </button>
                           </div>
-                          
+
                           <!-- Text Field Configuration -->
                           <div *ngIf="field.type === 'text'" class="mt-2">
-                            <input type="text" class="form-control form-control-sm" 
-                                   [(ngModel)]="field.placeholder" placeholder="Placeholder text">
+                            <input
+                              type="text"
+                              class="form-control form-control-sm"
+                              [(ngModel)]="field.placeholder"
+                              placeholder="Placeholder text"
+                            />
                           </div>
-                          
+
                           <!-- Number Field Configuration -->
                           <div *ngIf="field.type === 'number'" class="mt-2">
                             <div class="row g-2">
                               <div class="col">
-                                <input type="text" class="form-control form-control-sm" 
-                                       [(ngModel)]="field.placeholder" placeholder="Placeholder">
+                                <input
+                                  type="text"
+                                  class="form-control form-control-sm"
+                                  [(ngModel)]="field.placeholder"
+                                  placeholder="Placeholder"
+                                />
                               </div>
                               <div class="col">
-                                <input type="number" class="form-control form-control-sm" 
-                                       [(ngModel)]="field.min" placeholder="Min value">
+                                <input
+                                  type="number"
+                                  class="form-control form-control-sm"
+                                  [(ngModel)]="field.min"
+                                  placeholder="Min value"
+                                />
                               </div>
                               <div class="col">
-                                <input type="number" class="form-control form-control-sm" 
-                                       [(ngModel)]="field.max" placeholder="Max value">
+                                <input
+                                  type="number"
+                                  class="form-control form-control-sm"
+                                  [(ngModel)]="field.max"
+                                  placeholder="Max value"
+                                />
                               </div>
                               <div class="col">
-                                <input type="number" class="form-control form-control-sm" 
-                                       [(ngModel)]="field.step" placeholder="Step" step="any">
+                                <input
+                                  type="number"
+                                  class="form-control form-control-sm"
+                                  [(ngModel)]="field.step"
+                                  placeholder="Step"
+                                  step="any"
+                                />
                               </div>
                             </div>
                           </div>
-                          
+                          <div
+                            *ngIf="field.type === 'datetime-local'"
+                            class="mt-2"
+                          >
+                            <input
+                              type="datetime-local"
+                              class="form-control form-control-sm"
+                              [(ngModel)]="field.defaultValue"
+                            />
+                          </div>
+                          <!-- Radio Button Configuration -->
+                          <div *ngIf="field.type === 'radio'" class="mt-2">
+                            <div
+                              class="d-flex align-items-center mb-2"
+                              *ngFor="let opt of field.options; let i = index"
+                            >
+                              <input
+                                type="text"
+                                class="form-control form-control-sm me-2"
+                                [(ngModel)]="opt.label"
+                                placeholder="Option label"
+                              />
+                              <input
+                                type="text"
+                                class="form-control form-control-sm me-2"
+                                [(ngModel)]="opt.value"
+                                placeholder="Option value"
+                              />
+                              <button
+                                class="btn btn-sm btn-outline-danger"
+                                (click)="removeOption(field, i)"
+                              >
+                                <i class="bi bi-trash"></i>
+                              </button>
+                            </div>
+                            <button
+                              class="btn btn-sm btn-outline-primary"
+                              (click)="addOption(field)"
+                            >
+                              <i class="bi bi-plus-circle me-1"></i>Add Option
+                            </button>
+                          </div>
+                          <!-- Multi-checkbox Configuration -->
+                          <div
+                            *ngIf="field.type === 'multi-checkbox'"
+                            class="mt-2"
+                          >
+                            <div
+                              class="d-flex align-items-center mb-2"
+                              *ngFor="let opt of field.options; let i = index"
+                            >
+                              <input
+                                type="text"
+                                class="form-control form-control-sm me-2"
+                                [(ngModel)]="opt.label"
+                                placeholder="Label"
+                              />
+                              <input
+                                type="text"
+                                class="form-control form-control-sm me-2"
+                                [(ngModel)]="opt.value"
+                                placeholder="Value"
+                              />
+                              <button
+                                class="btn btn-sm btn-outline-danger"
+                                (click)="removeOption(field, i)"
+                              >
+                                <i class="bi bi-trash"></i>
+                              </button>
+                            </div>
+                            <button
+                              class="btn btn-sm btn-outline-primary"
+                              (click)="addOption(field)"
+                            >
+                              <i class="bi bi-plus-circle me-1"></i>Add Checkbox
+                              Option
+                            </button>
+                          </div>
+
                           <!-- Date Field Configuration -->
                           <div *ngIf="field.type === 'date'" class="mt-2">
                             <div class="row g-2">
                               <div class="col">
-                                <input type="text" class="form-control form-control-sm" 
-                                       [(ngModel)]="field.placeholder" placeholder="Placeholder">
+                                <input
+                                  type="text"
+                                  class="form-control form-control-sm"
+                                  [(ngModel)]="field.placeholder"
+                                  placeholder="Placeholder"
+                                />
                               </div>
                               <div class="col">
-                                <input type="date" class="form-control form-control-sm" 
-                                       [(ngModel)]="field.minDate" placeholder="Min date">
+                                <input
+                                  type="date"
+                                  class="form-control form-control-sm"
+                                  [(ngModel)]="field.minDate"
+                                  placeholder="Min date"
+                                />
                               </div>
                               <div class="col">
-                                <input type="date" class="form-control form-control-sm" 
-                                       [(ngModel)]="field.maxDate" placeholder="Max date">
+                                <input
+                                  type="date"
+                                  class="form-control form-control-sm"
+                                  [(ngModel)]="field.maxDate"
+                                  placeholder="Max date"
+                                />
                               </div>
                             </div>
                           </div>
-                          
+
                           <!-- Checkbox Configuration -->
                           <div *ngIf="field.type === 'checkbox'" class="mt-2">
                             <div class="form-check form-switch">
-                              <input class="form-check-input" type="checkbox" id="default-{{field.id}}" 
-                                     [(ngModel)]="field.defaultValue">
-                              <label class="form-check-label" for="default-{{field.id}}">Checked by default</label>
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="default-{{ field.id }}"
+                                [(ngModel)]="field.defaultValue"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="default-{{ field.id }}"
+                                >Checked by default</label
+                              >
                             </div>
                           </div>
-                          
+
                           <!-- Select Dropdown Configuration -->
                           <div *ngIf="field.type === 'select'" class="mt-2">
-                            <div class="d-flex align-items-center mb-2" *ngFor="let opt of field.options; let i = index">
-                              <input type="text" class="form-control form-control-sm me-2" 
-                                     [(ngModel)]="opt.label" placeholder="Option label">
-                              <input type="text" class="form-control form-control-sm me-2" 
-                                     [(ngModel)]="opt.value" placeholder="Option value">
-                              <button class="btn btn-sm btn-outline-danger" 
-                                      (click)="removeOption(field, i)">
+                            <div
+                              class="d-flex align-items-center mb-2"
+                              *ngFor="let opt of field.options; let i = index"
+                            >
+                              <input
+                                type="text"
+                                class="form-control form-control-sm me-2"
+                                [(ngModel)]="opt.label"
+                                placeholder="Option label"
+                              />
+                              <input
+                                type="text"
+                                class="form-control form-control-sm me-2"
+                                [(ngModel)]="opt.value"
+                                placeholder="Option value"
+                              />
+                              <button
+                                class="btn btn-sm btn-outline-danger"
+                                (click)="removeOption(field, i)"
+                              >
                                 <i class="bi bi-trash"></i>
                               </button>
                             </div>
-                            <button class="btn btn-sm btn-outline-primary" (click)="addOption(field)">
+                            <button
+                              class="btn btn-sm btn-outline-primary"
+                              (click)="addOption(field)"
+                            >
                               <i class="bi bi-plus-circle me-1"></i>Add Option
                             </button>
                           </div>
@@ -154,8 +363,11 @@
                       </div>
                     </div>
                   </div>
-                  
-                  <button class="btn btn-sm btn-primary mt-2" (click)="addField(section)">
+
+                  <button
+                    class="btn btn-sm btn-primary mt-2"
+                    (click)="addField(section)"
+                  >
                     <i class="bi bi-plus-circle me-1"></i>Add Field
                   </button>
                 </div>
@@ -165,9 +377,9 @@
         </div>
       </div>
     </div>
-    
+
     <div class="col-lg-4">
-      <div class="card shadow-sm sticky-top" style="top: 20px;">
+      <div class="card shadow-sm sticky-top" style="top: 20px">
         <div class="card-header bg-primary text-white">
           <h3 class="h6 mb-0">Form Preview</h3>
         </div>
@@ -182,9 +394,13 @@
 <!-- Add this near the top of form-builder.component.html -->
 <div class="card-footer bg-light">
   <button class="btn btn-primary me-2" (click)="saveForm()">
-    <i class="bi bi-save me-1"></i>{{isEditMode ? 'Update' : 'Save'}} Form
+    <i class="bi bi-save me-1"></i>{{ isEditMode ? "Update" : "Save" }} Form
   </button>
-  <button class="btn btn-outline-secondary" (click)="initializeForm()" *ngIf="isEditMode">
+  <button
+    class="btn btn-outline-secondary"
+    (click)="initializeForm()"
+    *ngIf="isEditMode"
+  >
     <i class="bi bi-plus-circle me-1"></i>New Form
   </button>
 </div>

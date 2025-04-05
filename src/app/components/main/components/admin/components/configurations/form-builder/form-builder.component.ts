@@ -26,7 +26,10 @@ export class FormBuilderComponent {
     { value: 'number', label: 'Number' },
     { value: 'select', label: 'Dropdown' },
     { value: 'checkbox', label: 'Checkbox' },
-    { value: 'date', label: 'Date' }
+    { value: 'date', label: 'Date' },
+    { value: 'datetime-local', label: 'Date & Time' },
+    { value: 'radio', label: 'Radio Buttons' },
+    { value: 'multi-checkbox', label: 'Multi Checkboxes' },
   ];
   isEditMode = false;
 
@@ -93,8 +96,11 @@ addField(section: FormSection) {
     text: { placeholder: 'Enter text...' },
     number: { placeholder: 'Enter number...', min: null, max: null, step: 1 },
     date: { placeholder: 'Select date...', minDate: null, maxDate: null },
+    'datetime-local': { placeholder: 'Pick date & time...' },
     checkbox: { defaultValue: false },
-    select: { options: [{value: '', label: ''}] }
+    select: { options: [{ value: '', label: '' }] },
+    radio: { options: [{ value: '', label: '' }] },
+    'multi-checkbox': { options: [{ value: '', label: '' }] }
   };
 
   const newField: FormFieldConfig = {

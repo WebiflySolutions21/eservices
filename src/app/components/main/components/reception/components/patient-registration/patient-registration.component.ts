@@ -23,6 +23,7 @@ interface Patient {
 })
 export class PatientRegistrationComponent implements OnInit {
   patientForm!: FormGroup;
+  uploadedImageUrl: string | null = null;
   consultants: string[] = [
     'Dr. Eknath Pawar',
     'Dr. Amit Deshmukh',
@@ -36,9 +37,9 @@ export class PatientRegistrationComponent implements OnInit {
     'Emergency',
     'Follow-up',
   ];
-    @ViewChild('barcode') barcodeElement!: ElementRef;
-    patientId: string = '';
-    
+  @ViewChild('barcode') barcodeElement!: ElementRef;
+  patientId: string = '';
+
   showSearchBar: boolean = false;
   searchQuery: string = '';
   searchResults: Patient[] = [];
@@ -94,7 +95,7 @@ export class PatientRegistrationComponent implements OnInit {
     },
   ];
 
-  constructor(private fb: FormBuilder,private router:Router) {}
+  constructor(private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.patientForm = this.fb.group({
@@ -115,7 +116,6 @@ export class PatientRegistrationComponent implements OnInit {
       temperature: ['', Validators.required],
       referredBy: [''],
       complaints: [''],
-      image: [''],
       searchQuery: [''],
     });
 
@@ -125,7 +125,7 @@ export class PatientRegistrationComponent implements OnInit {
       ?.valueChanges.subscribe((query: string) => {
         this.searchPatients(query);
       });
-      this.patientId = 'P' + Date.now().toString();
+    this.patientId = 'P' + Date.now().toString();
   }
 
   generateBarcode(): void {
@@ -138,6 +138,11 @@ export class PatientRegistrationComponent implements OnInit {
         displayValue: true,
       });
     }
+    // Get SVG string
+    const svgString = new XMLSerializer().serializeToString(
+      this.barcodeElement.nativeElement
+    );
+    console.log('SVG Barcode:', svgString);
   }
 
   onImageUpload(event: any): void {
@@ -181,7 +186,6 @@ export class PatientRegistrationComponent implements OnInit {
       });
     }
   }
-  
 
   searchPatients(query: string): void {
     query = query?.toLowerCase().trim();
@@ -207,7 +211,7 @@ export class PatientRegistrationComponent implements OnInit {
 
   selectPatient(patient: Patient): void {
     this.selectedPatient = patient;
-    this.patientForm.get("searchQuery").reset();
+    this.patientForm.get('searchQuery').reset();
     this.patientForm.patchValue({
       name: patient.name,
       address: patient.address,
@@ -223,8 +227,13 @@ export class PatientRegistrationComponent implements OnInit {
   }
 
   onSubmit() {
-    this.generateBarcode()
-    console.log(this.patientForm.value);
+    this.generateBarcode();
+    let payload = {
+      ...this.patientForm.value,
+      patientLivePic: this.cameraImagePreview,
+      imageUploaded: this.imagePreview,
+    };
+    console.log(payload);
     if (this.patientForm.valid) {
       console.log('Form Submitted', this.patientForm.value);
       alert('Patient Registered Successfully!');
@@ -262,12 +271,12 @@ export class PatientRegistrationComponent implements OnInit {
 
   retakePhoto() {
     this.cameraImagePreview = null;
-    this.savedPicture = false
+    this.savedPicture = false;
     this.openCamera();
   }
 
   savePhoto() {
-    this.savedPicture = true
+    this.savedPicture = true;
 
     alert('Photo saved successfully!');
   }

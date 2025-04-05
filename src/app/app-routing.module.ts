@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TokenStatusComponent } from './components/token-status/token-status.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () =>
       import('./components/login/login.module').then((m) => m.LoginModule),
+  },
+  {
+    path: 'token-status',
+    component:TokenStatusComponent
   },
   {
     path: 'landing',

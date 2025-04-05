@@ -1,0 +1,23 @@
+<div class="token-status-container">
+    <h2>Check Your Token Status</h2>
+    <input type="number" [(ngModel)]="tokenNumber" placeholder="Enter your token number" />
+    <button (click)="checkTokenStatus()">Check Status</button>
+  
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  
+    <div *ngIf="tokenStatus" class="status-info">
+      <h3>Token Number: {{ tokenStatus.tokenNumber }}</h3>
+      <p>Status: {{ tokenStatus.status | titlecase }}</p>
+      <p>Current Position: {{ tokenStatus.currentPosition }}</p>
+      <p>Estimated Waiting Time: {{ tokenStatus.estimatedWaitTime }} minutes</p>
+      <p>Ongoing Token: {{ tokenStatus.currentToken }}</p>
+  
+      <h4>Patients Ahead:</h4>
+      <ul>
+        <li *ngFor="let patient of tokenStatus.patientsAhead">
+          Token {{ patient.tokenNumber }} - {{ patient.name }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  

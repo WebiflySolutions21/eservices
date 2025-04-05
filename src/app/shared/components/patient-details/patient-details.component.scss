@@ -1,0 +1,87 @@
+@import "mixins";
+table {
+  width: 100%;
+  margin: 1em 0em 1em 0em;
+  border-collapse: collapse;
+  table-layout: auto;
+
+  th,
+  td {
+    padding: 2px 6px;
+    text-align: center;
+    border: 1px solid #ddd;
+    white-space: nowrap; /* Prevent wrapping for other cells */
+    vertical-align: middle; /* Align vertically to center */
+    @include font(12,1vw,14,helvetica,#212529);
+
+  }
+
+  th {
+    background-color: #f2f2f2;
+    @include font(12,1vw,14,hbold,#212529);
+
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  /* Specific width for each column */
+  .name-col {
+    width: 7%;
+  }
+  .age-col,
+  .sex-col,
+  .weight-col,
+  .pulse-col,
+  .bp-col,
+  .temp-col {
+    width: 2%;
+  }
+  .contact-col {
+    width: 7%;
+  }
+
+  /* Address-specific styling */
+  .address-col {
+    width: 25%;
+    white-space: normal;
+    word-wrap: break-word;
+    font-size: 12px;
+    line-height: 1.2;
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  }
+  .address-col-2 {
+    width: 10%;
+    white-space: normal;
+    word-wrap: break-word;
+    font-size: 12px;
+    line-height: 1.2;
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  }
+
+  .barcode-col {
+    width: 7%;
+  }
+}
+
+.reg-date {
+  width: 100%;
+  @include flex-container(center, space-between, row);
+  margin: 0.5em 0em 0em 0em;
+
+  .reg {
+    @include font(14, 1vw, 16, hbold, #000);
+    margin: 0;
+  }
+}
+
+.section-title {
+  @include font(14, 1vw, 16, hbold, #000);
+}
+
+.admission-date {
+  @include font(14, 1vw, 16, hbold, #000);
+}

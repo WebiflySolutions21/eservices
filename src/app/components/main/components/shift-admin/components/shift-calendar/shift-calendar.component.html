@@ -1,0 +1,47 @@
+<div class="container mt-4">
+    <h3>Shift Calendar View</h3>
+    
+    <div class="d-flex justify-content-start mb-3">
+      <button class="btn btn-success me-2" (click)="markAttendance('markIn')">Mark In</button>
+      <button class="btn btn-danger" (click)="markAttendance('markOut')">Mark Out</button>
+    </div>
+  
+    <full-calendar [options]="calendarOptions"></full-calendar>
+  </div>
+  
+<!-- Modal for More Events -->
+<!-- Modal for More Events -->
+<div
+  id="shiftModal"
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  style="display: none"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Shifts on {{ selectedDate }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="closeModal()"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li *ngFor="let event of moreEvents">
+            {{ event.title }} ({{ event.extendedProps.shiftStart }} -
+            {{ event.extendedProps.shiftEnd }})
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

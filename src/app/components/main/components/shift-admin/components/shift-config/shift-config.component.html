@@ -1,0 +1,134 @@
+<div class="container mt-4">
+    <div class="card shadow p-4">
+      <h3 class="card-title">Shift Configuration</h3>
+      <form [formGroup]="shiftForm" (ngSubmit)="onSubmit()">
+        <!-- Shift Name -->
+        <div class="mb-3">
+          <label for="shiftName" class="form-label">Shift Name</label>
+          <input
+            type="text"
+            id="shiftName"
+            class="form-control"
+            formControlName="shiftName"
+            placeholder="Enter shift name"
+          />
+        </div>
+  
+        <!-- Shift Start Time -->
+        <div class="mb-3">
+          <label for="shiftStart" class="form-label">Shift Start Time</label>
+          <input
+            type="time"
+            id="shiftStart"
+            class="form-control"
+            formControlName="shiftStart"
+            (change)="calculateDuration()"
+          />
+        </div>
+  
+        <!-- Shift End Time -->
+        <div class="mb-3">
+          <label for="shiftEnd" class="form-label">Shift End Time</label>
+          <input
+            type="time"
+            id="shiftEnd"
+            class="form-control"
+            formControlName="shiftEnd"
+            (change)="calculateDuration()"
+          />
+        </div>
+  
+        <!-- Shift Duration -->
+        <div class="mb-3">
+          <label class="form-label">Shift Duration</label>
+          <p><strong>{{ shiftDuration }}</strong></p>
+        </div>
+  
+        <!-- Minimum Hours Per Day -->
+        <div class="mb-3">
+          <label for="minHours" class="form-label">Minimum Hours Per Day</label>
+          <input
+            type="number"
+            id="minHours"
+            class="form-control"
+            formControlName="minHours"
+            placeholder="Enter minimum hours per day"
+          />
+        </div>
+  
+        <!-- Half-Day Hours -->
+        <div class="mb-3">
+          <label for="halfDayHours" class="form-label">Half-Day Hours</label>
+          <input
+            type="number"
+            id="halfDayHours"
+            class="form-control"
+            formControlName="halfDayHours"
+            placeholder="Enter half-day hours"
+          />
+        </div>
+  
+        <!-- Total Hours Per Day -->
+        <div class="mb-3">
+          <label for="totalHoursPerDay" class="form-label">Total Hours Per Day</label>
+          <input
+            type="number"
+            id="totalHoursPerDay"
+            class="form-control"
+            formControlName="totalHoursPerDay"
+            placeholder="Enter total hours per day"
+            (input)="calculateWeeklyHours()"
+          />
+        </div>
+  
+        <!-- Number of Holidays Per Week -->
+        <div class="mb-3">
+          <label for="holidaysPerWeek" class="form-label">Number of Holidays Per Week</label>
+          <input
+            type="number"
+            id="holidaysPerWeek"
+            class="form-control"
+            formControlName="holidaysPerWeek"
+            placeholder="Enter holidays per week"
+            (input)="calculateWeeklyHours()"
+          />
+        </div>
+  
+        <!-- Total Weekly Work Hours -->
+        <div class="mb-3">
+          <label class="form-label">Total Weekly Work Hours</label>
+          <p><strong>{{ totalWeeklyHours }} hours</strong></p>
+        </div>
+  
+        <!-- Shift Text Color -->
+        <div class="mb-3">
+          <label for="shiftColor" class="form-label">Shift Text Color</label>
+          <input
+            type="color"
+            id="shiftColor"
+            class="form-control form-control-color"
+            formControlName="shiftColor"
+          />
+        </div>
+  
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+  
+      <!-- Display Saved Shifts -->
+      <h4 class="mt-4">Saved Shifts</h4>
+      <ul class="list-group">
+        <li *ngFor="let shift of savedShifts" class="list-group-item">
+          <strong>{{ shift.shiftName }}</strong> ({{ shift.shiftStart }} - {{ shift.shiftEnd }}) - 
+          Duration: {{ shift.duration }} - 
+          Min Hours: {{ shift.minHours }}h, 
+          Half-Day: {{ shift.halfDayHours }}h, 
+          Per Day: {{ shift.totalHoursPerDay }}h, 
+          Per Week: {{ shift.totalHoursPerWeek }}h, 
+          Holidays/Week: {{ shift.holidaysPerWeek }}, 
+          Total Weekly Work: {{ shift.totalWeeklyHours }}h, 
+          <span [style.color]="shift.shiftColor">{{ shift.shiftColor }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  

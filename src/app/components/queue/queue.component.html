@@ -1,0 +1,11 @@
+<div class="queue-dashboard">
+    <h2>Live Queue</h2>
+    <button (click)="startQueue()">Start Queue</button>
+    <div class="queue-line">
+      <div *ngFor="let patient of queue" [ngClass]="patient.status">
+        Token {{ patient.tokenNumber }} - {{ patient.name }}
+      </div>
+    </div>
+    <div class="current-token">Current Token: {{ currentToken }}</div>
+  </div>
+  

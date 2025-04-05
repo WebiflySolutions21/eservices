@@ -20,12 +20,20 @@ const routes: Routes = [
         loadChildren: () => import('./components/reception/reception.module').then(m => m.ReceptionModule) 
       },
       {
+        path:'staff',
+        loadChildren: () => import('./components/staff/staff.module').then(m => m.StaffModule) 
+      },
+      {
         path:'medical',
         loadChildren: () => import('./components/medical/medical.module').then(m => m.MedicalModule) 
       },
       {
         path:'lab',
         loadChildren: () => import('./components/lab/lab.module').then(m => m.LabModule) 
+      },
+      {
+        path:'shift-admin',
+        loadChildren: () => import('./components/shift-admin/shift-admin.module').then(m => m.ShiftAdminModule) 
       }
     ]
   }

@@ -1,0 +1,39 @@
+<div class="patient-details">
+    <div class="reg-date">
+      <div class="section-title">Patient Details:</div>
+      <div class="admission-date">Admission Date: <span>{{patientDetails?.admissionDate}}</span></div>
+      <div class="reg">
+        Reg. Date : <span>{{ patientDetails?.registrationDate }}</span>
+      </div>
+    </div>
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th class="name-col">Name</th>
+          <td class="name-col">{{ patientDetails.name }}</td>
+          <th class="age-col">Age</th>
+          <td class="age-col">{{ patientDetails.age }}</td>
+          <th class="sex-col">Sex</th>
+          <td class="sex-col">{{ patientDetails.sex }}</td>
+          <th class="contact-col">Contact No</th>
+          <td class="contact-col">{{ patientDetails.contact }}</td>
+          <th class="address-col-2">Address</th>
+          <td class="address-col">
+            {{ "Bhumi Aditi Galaxy, Flat no 404, Itkheda, Aurangabad" }}
+          </td>
+        </tr>
+        <tr>
+          <th class="weight-col">Weight</th>
+          <td class="weight-col">{{ patientDetails.weight }}</td>
+          <th class="pulse-col">Pulse</th>
+          <td class="pulse-col">{{ patientDetails.pulse }}</td>
+          <th class="bp-col">BP</th>
+          <td class="bp-col">{{ patientDetails.bp }}</td>
+          <th class="temp-col">Temp</th>
+          <td class="temp-col">{{ patientDetails.temp }}</td>
+          <th class="barcode-col">Barcode</th>
+          <td class="barcode-col">{{ patientDetails.barcode }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

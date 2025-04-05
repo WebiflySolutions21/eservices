@@ -1,0 +1,65 @@
+<div class="container mt-4">
+    <h2>Leave Configuration</h2>
+  
+    <!-- Leave Types Configuration -->
+    <div class="card mb-4">
+      <div class="card-header">Leave Types</div>
+      <div class="card-body">
+        <div class="input-group mb-3">
+          <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Leave Type (e.g., Sick Leave)" 
+            [(ngModel)]="leaveName"
+          />
+          <input 
+            type="number" 
+            class="form-control" 
+            placeholder="Number of Days" 
+            [(ngModel)]="leaveDays"
+          />
+          <button class="btn btn-primary" (click)="addLeaveType()">Add</button>
+        </div>
+        <ul class="list-group">
+          <li *ngFor="let leave of leaveTypes" class="list-group-item d-flex justify-content-between align-items-center">
+            {{ leave.name }} - {{ leave.days }} days
+            <button class="btn btn-danger btn-sm" (click)="deleteLeaveType(leave.id)">Delete</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+    <!-- Holiday Configuration -->
+    <div class="card">
+      <div class="card-header">Holiday Configuration</div>
+      <div class="card-body">
+        <div class="input-group mb-3">
+          <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Holiday Name" 
+            [(ngModel)]="holidayName"
+          />
+          <input 
+            type="date" 
+            class="form-control" 
+            [(ngModel)]="holidayDate"
+          />
+          <select 
+            class="form-select" 
+            [(ngModel)]="holidayType">
+            <option value="Common">Common</option>
+            <option value="Optional">Optional</option>
+          </select>
+          <button class="btn btn-primary" (click)="addHoliday()">Add</button>
+        </div>
+        <ul class="list-group">
+          <li *ngFor="let holiday of holidays" class="list-group-item d-flex justify-content-between align-items-center">
+            {{ holiday.name }} ({{ holiday.type }}) - {{ holiday.date }}
+            <button class="btn btn-danger btn-sm" (click)="deleteHoliday(holiday.id)">Delete</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  

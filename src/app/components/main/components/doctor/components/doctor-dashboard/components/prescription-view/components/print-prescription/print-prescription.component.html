@@ -1,0 +1,74 @@
+<div class="print-container p-4">
+    <!-- Print Button -->
+    <div class="text-right mb-3">
+      <button class="btn btn-primary" (click)="printPage()">Print</button>
+    </div>
+  
+    <!-- Header Section -->
+  <app-hospital-details></app-hospital-details>
+    <!-- Patient Details Section -->
+ <app-patient-details></app-patient-details>
+  
+    <!-- Additional Information Section -->
+    <div class="additional-info-section mb-4">
+      <div class="section-title">Additional Information:</div>
+      <div class="row">
+        <ng-container *ngFor="let section of data.selectedCheckboxes">
+          <ng-container *ngIf="section.isPrintable">
+            <div class="col-md-4 col-sm-4 mb-2">
+              <div class="info-box p-2 border rounded">
+                <div class="section-title">{{ getSectionTitle(section) }}</div>
+                <ul class="m-0 pl-3">
+                  <li *ngFor="let item of getSectionData(section)">
+                    {{ item.name }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  
+    <!-- Prescription Section -->
+    <div class="prescription-section mb-4">
+      <div class="section-title">Prescription Details:</div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th class="type-col">Type</th>
+            <th class="medicine-col">Medicine</th>
+            <th class="morning-col">Morning</th>
+            <th class="afternoon-col">Afternoon</th>
+            <th class="night-col">Night</th>
+            <th class="intake-time-col">Intake Time</th>
+            <th class="days-col">Days</th>
+            <th class="quantity-col">Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of data.prescriptionData">
+            <td class="type-col">{{ item.type }}</td>
+            <td class="medicine-col">{{ item.medicine }}</td>
+            <td class="morning-col">{{ item.morning }}</td>
+            <td class="afternoon-col">{{ item.afternoon }}</td>
+            <td class="night-col">{{ item.night }}</td>
+            <td class="intake-time-col">{{ item.intakeTime }}</td>
+            <td class="days-col">{{ item.days }}</td>
+            <td class="quantity-col">{{ item.quantity }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="follow-up">
+      Follow Up : <span>{{ data?.followupDate }}</span>
+    </div>
+    <div class="advice">
+      Advice : <span>{{ "Take Rest" }}</span>
+    </div>
+    <app-consultant-sign></app-consultant-sign>
+
+    <app-footer></app-footer>
+  </div>
+  

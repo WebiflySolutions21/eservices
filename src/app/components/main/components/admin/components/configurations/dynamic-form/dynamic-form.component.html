@@ -68,7 +68,34 @@
                 [formControlName]="field.id">
               <label [for]="field.id" class="form-check-label">{{field.label}}</label>
             </div>
-            
+            <!-- Radio Buttons -->
+<div *ngIf="field.type === 'radio'" class="mb-3">
+  <label class="form-label d-block mb-2">{{field.label}}</label>
+  <div *ngFor="let opt of field.options" class="form-check form-check-inline">
+    <input 
+      class="form-check-input" 
+      type="radio" 
+      [id]="field.id + '-' + opt.value" 
+      [formControlName]="field.id"
+      [value]="opt.value">
+    <label class="form-check-label" [for]="field.id + '-' + opt.value">{{opt.label}}</label>
+  </div>
+</div>
+<!-- Multi-select checkbox -->
+<div *ngIf="field.type === 'multi-checkbox'" class="mb-3">
+  <label class="form-label d-block mb-2">{{field.label}}</label>
+  <div *ngFor="let opt of field.options" class="form-check">
+    <input 
+      class="form-check-input" 
+      type="checkbox" 
+      [id]="field.id + '-' + opt.value"
+      [checked]="formGroup.get(field.id)?.value?.includes(opt.value)"
+      (change)="onMultiCheckboxChange(field.id, opt.value, $event.target.checked)">
+    <label class="form-check-label" [for]="field.id + '-' + opt.value">{{opt.label}}</label>
+  </div>
+</div>
+
+
             <!-- Date Input -->
             <div *ngIf="field.type === 'date'" class="mb-3">
               <label [for]="field.id" class="form-label">{{field.label}}</label>
@@ -80,6 +107,16 @@
                 [min]="field.minDate"
                 [max]="field.maxDate">
             </div>
+            <!-- Datetime-local -->
+<div *ngIf="field.type === 'datetime-local'" class="mb-3">
+  <label [for]="field.id" class="form-label">{{field.label}}</label>
+  <input 
+    [id]="field.id" 
+    type="datetime-local" 
+    class="form-control"
+    [formControlName]="field.id">
+</div>
+
           </div>
         </div>
       </div>
