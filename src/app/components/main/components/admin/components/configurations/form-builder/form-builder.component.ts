@@ -51,6 +51,7 @@ export class FormBuilderComponent {
     { value: 'datetime-local', label: 'Date & Time' },
     { value: 'radio', label: 'Radio Buttons' },
     { value: 'multi-checkbox', label: 'Multi Checkboxes' },
+    { value: 'file', label: 'File Upload' }
   ];
   isEditMode = false;
   availableForms: FormConfig[] = [];
@@ -143,9 +144,13 @@ export class FormBuilderComponent {
         createdAt: new Date(),
         entries: []
       });
+
     }
+
     this.registerModal.hide();
     this.showRegisterPrompt = false;
+    alert('New form created successfully!');
+
   }
 
   createForm() {
@@ -157,7 +162,6 @@ export class FormBuilderComponent {
     // Always show register prompt for new forms
      this.handleRegisterSetup();
     
-    alert('New form created successfully!');
     this.initializeForm();
   }
   countFields(form: FormConfig): number {
@@ -246,13 +250,17 @@ export class FormBuilderComponent {
       checkbox: { defaultValue: false },
       select: { options: [{ value: '', label: '' }] },
       radio: { options: [{ value: '', label: '' }] },
-      'multi-checkbox': { options: [{ value: '', label: '' }] },
+      'multi-checkbox': { options: [{ value: '', label: '' }] ,file: { 
+        accept: '*', 
+        multiple: false,
+        maxSize: 5 // MB
+      }},
     };
 
     const newField: FormFieldConfig = {
       id: `field-${Date.now()}`,
       type: 'text',
-      label: 'New Field',
+    label: 'New Field',
       required: false,
       span: 1,
       ...defaults['text'],

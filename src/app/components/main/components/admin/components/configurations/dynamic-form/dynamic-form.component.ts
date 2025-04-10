@@ -24,6 +24,26 @@ export class DynamicFormComponent implements OnInit {
   ngOnInit() {
     this.createFormControls();
   }
+
+  // onFileChange(event: any, field: FormFieldConfig) {
+  //   const files = event.target.files;
+  //   if (files && files.length > 0) {
+  //     // Validate file size if specified
+  //     if (field.maxSize) {
+  //       const maxBytes = field.maxSize * 1024 * 1024;
+  //       for (let file of files) {
+  //         if (file.size > maxBytes) {
+  //           alert(`File ${file.name} exceeds maximum size of ${field.maxSize}MB`);
+  //           event.target.value = ''; // Clear selection
+  //           return;
+  //         }
+  //       }
+  //     }
+      
+  //     // Store files in form data
+  //     this.formData[field.id] = field.multiple ? files : files[0];
+  //   }
+  // }
   // In your component class
 hasError(fieldId: string, errorType: string): boolean {
   const control = this.formGroup.get(fieldId);

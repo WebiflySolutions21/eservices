@@ -32,6 +32,7 @@
                 [(ngModel)]="formConfig.title"
               />
             </div>
+            
           </div>
 
           <button class="btn btn-success mb-4" (click)="addSection()">
@@ -218,6 +219,43 @@
                               </div>
                             </div>
                           </div>
+                          <!-- File Upload Configuration -->
+<div *ngIf="field.type === 'file'" class="mt-2">
+  <div class="row g-2">
+    <div class="col-md-6">
+      <label class="form-label">Accepted File Types</label>
+      <input
+        type="text"
+        class="form-control form-control-sm"
+        [(ngModel)]="field.accept"
+        placeholder="e.g. '.pdf,.jpg' or 'image/*'"
+      />
+      <small class="text-muted">Leave as '*' for all file types</small>
+    </div>
+    <div class="col-md-3">
+      <div class="form-check form-switch mt-4">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="multiple-{{field.id}}"
+          [(ngModel)]="field.multiple"
+        />
+        <label class="form-check-label" for="multiple-{{field.id}}">
+          Multiple files
+        </label>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Max Size (MB)</label>
+      <input
+        type="number"
+        class="form-control form-control-sm"
+        [(ngModel)]="field.maxSize"
+        min="1"
+      />
+    </div>
+  </div>
+</div>
                           <div
                             *ngIf="field.type === 'datetime-local'"
                             class="mt-2"

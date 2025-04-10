@@ -21,6 +21,7 @@
             (ngSubmit)="submitForm()"
             #dynamicForm="ngForm"
             novalidate
+            enctype="multipart/form-data"
           >
             <div *ngFor="let section of form.sections" class="mb-5">
               <h5 class="section-title border-bottom pb-2 mb-4">
@@ -80,6 +81,45 @@
                     [name]="field.id"
                     [required]="field.required"
                   />
+
+                  <!-- File Upload Input -->
+                  <div *ngIf="field.type === 'file'">
+                    <input
+                      type="file"
+                      class="form-control"
+                      [id]="field.id"
+                      [accept]="field.accept || '*'"
+                      [multiple]="field.multiple || false"
+                      (change)="onFileChange($event, field)"
+                      [required]="field.required"
+                    />
+                    <small *ngIf="field.maxSize" class="text-muted">
+                      Max file size: {{field.maxSize}}MB
+                    </small>
+                    
+                    <!-- File Preview -->
+                    <div *ngIf="formValues[field.id]" class="mt-2">
+                      <div *ngIf="field.multiple && formValues[field.id].length > 0" class="file-preview">
+                        <div *ngFor="let file of formValues[field.id]" class="file-preview-item">
+                          <span>{{file.name}}</span>
+                          <small class="text-muted ms-2">({{(file.size/1024).toFixed(2)}} KB)</small>
+                          <button type="button" class="btn btn-sm btn-outline-danger ms-2" (click)="removeFile(field, file)">
+                            <i class="bi bi-x"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div *ngIf="!field.multiple && formValues[field.id]" class="file-preview">
+                        <div class="file-preview-item">
+                          <span>{{formValues[field.id].name}}</span>
+                          <small class="text-muted ms-2">({{(formValues[field.id].size/1024).toFixed(2)}} KB)</small>
+                          <button type="button" class="btn btn-sm btn-outline-danger ms-2" (click)="removeFile(field)">
+                            <i class="bi bi-x"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   <!-- Radio Buttons -->
                   <div *ngIf="field.type === 'radio'">
                     <div class="form-check" *ngFor="let opt of field.options">
@@ -122,10 +162,7 @@
                   </div>
 
                   <!-- Checkbox -->
-                  <div
-                    *ngIf="field.type === 'checkbox'"
-                    class="form-check mt-2"
-                  >
+                  <div *ngIf="field.type === 'checkbox'" class="form-check mt-2">
                     <input
                       type="checkbox"
                       class="form-check-input"
@@ -140,7 +177,7 @@
 
                   <!-- Dropdown -->
                   <select
-                    *ngIf="field.type === 'dropdown'"
+                    *ngIf="field.type === 'select'"
                     class="form-select"
                     [id]="field.id"
                     [(ngModel)]="formValues[field.id]"
@@ -148,8 +185,8 @@
                     [required]="field.required"
                   >
                     <option value="">Select an option</option>
-                    <option *ngFor="let opt of field.options" [value]="opt">
-                      {{ opt }}
+                    <option *ngFor="let opt of field.options" [value]="opt.value">
+                      {{ opt.label }}
                     </option>
                   </select>
                 </div>

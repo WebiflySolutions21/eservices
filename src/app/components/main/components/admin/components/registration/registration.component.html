@@ -1,9 +1,131 @@
 <div class="registration-component">
   <div class="registration-wrapper">
-    <div class="row">
-      <div class="col-md-12">
-        <app-input-template [jsonObs$]="jsonObs$" [formValueObs$]="formValueObs$" (sectionCtaClick)="previewCtaClick($event)"></app-input-template>
-      </div>
+    <div class="container mt-4 registration-form">
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <div class="row g-3">
+          <!-- Name -->
+          <div class="col-md-6">
+            <label for="name" class="form-label">Name</label>
+            <input formControlName="name" type="text" class="form-control" id="name" required>
+          </div>
+    
+          <!-- Contact No -->
+          <div class="col-md-6">
+            <label for="contactNo" class="form-label">Contact No</label>
+            <input formControlName="contactNo" type="tel" class="form-control" id="contactNo" required>
+          </div>
+    
+          <!-- Address -->
+          <div class="col-12">
+            <label for="address" class="form-label">Address</label>
+            <textarea formControlName="address" class="form-control" id="address" rows="2" required></textarea>
+          </div>
+    
+          <!-- Profession -->
+          <div class="col-md-6">
+            <label for="profession" class="form-label">Profession</label>
+            <input formControlName="profession" type="text" class="form-control" id="profession">
+          </div>
+    
+          <!-- District -->
+          <div class="col-md-6">
+            <label for="district" class="form-label">District</label>
+            <input formControlName="district" type="text" class="form-control" id="district">
+          </div>
+    
+          <!-- Reg Date -->
+          <div class="col-md-6">
+            <label for="regDate" class="form-label">Registration Date</label>
+            <input formControlName="regDate" type="date" class="form-control" id="regDate" readonly>
+          </div>
+    
+          <!-- Sex -->
+          <div class="col-md-6">
+            <label for="sex" class="form-label">Sex</label>
+            <select formControlName="sex" class="form-select" id="sex">
+              <option value="">Select</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+    
+          <!-- Age -->
+          <div class="col-md-6">
+            <label for="age" class="form-label">Age</label>
+            <input formControlName="age" type="number" class="form-control" id="age">
+          </div>
+    
+          <!-- DOB -->
+          <div class="col-md-6">
+            <label for="dob" class="form-label">Date of Birth</label>
+            <input formControlName="dob" type="date" class="form-control" id="dob">
+          </div>
+    
+          <!-- Username -->
+          <div class="col-md-6">
+            <label for="username" class="form-label">Username</label>
+            <input formControlName="username" type="text" class="form-control" id="username">
+          </div>
+    
+          <!-- Password -->
+          <div class="col-md-6">
+            <label for="password" class="form-label">Password</label>
+            <input formControlName="password" type="password" class="form-control" id="password">
+          </div>
+    
+          <!-- Type -->
+          <div class="col-md-6">
+            <label for="type" class="form-label">Type</label>
+            <select formControlName="type" class="form-select" id="type">
+              <option value="">Select</option>
+              <option>Eye</option>
+              <option>Ortho</option>
+              <option>General</option>
+              <option>Gynec</option>
+            </select>
+          </div>
+    
+          <!-- Login Type -->
+          <div class="col-md-6">
+            <label for="loginType" class="form-label">Login Type</label>
+            <select formControlName="loginType" class="form-select" id="loginType">
+              <option value="">Select</option>
+              <option>Doctor</option>
+              <option>Staff</option>
+              <option>Reception</option>
+              <option>Opthal</option>
+              <option>Medical</option>
+              <option>Lab</option>
+            </select>
+          </div>
+    
+          <!-- Uploads -->
+         <!-- Signature Upload -->
+<div class="col-md-4">
+  <label class="form-label">Upload Signature</label>
+  <input type="file" class="form-control" (change)="onFileChange($event, 'signature')">
+</div>
+
+<!-- Photo Upload -->
+<div class="col-md-4">
+  <label class="form-label">Upload Photo</label>
+  <input type="file" class="form-control" (change)="onFileChange($event, 'photo')">
+</div>
+
+<!-- Govt ID Upload -->
+<div class="col-md-4">
+  <label class="form-label">Upload Govt ID</label>
+  <input type="file" class="form-control" (change)="onFileChange($event, 'govId')">
+</div>
+
+        </div>
+    
+        <!-- Submit Button -->
+        <div class="text-end mt-4">
+          <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+      </form>
     </div>
+    
   </div>
 </div>

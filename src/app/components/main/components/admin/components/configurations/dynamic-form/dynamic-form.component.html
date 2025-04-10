@@ -28,6 +28,23 @@
               This field is required
             </div>
           </div>
+          <div *ngIf="field.type === 'file'" class="mb-3">
+            <label [for]="field.id" class="form-label">{{field.label}} 
+              <span *ngIf="field.required" class="text-danger">*</span>
+            </label>
+            <input
+              [id]="field.id"
+              type="file"
+              class="form-control"
+              [accept]="field.accept || '*'"
+              [multiple]="field.multiple || false"
+              (change)="onFileChange($event, field)"
+              [required]="field.required"
+            >
+            <small *ngIf="field.maxSize" class="text-muted">
+              Max file size: {{field.maxSize}}MB
+            </small>
+          </div>
 
           <!-- Number Input -->
           <div *ngIf="field.type === 'number'" class="mb-3">

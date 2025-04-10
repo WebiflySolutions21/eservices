@@ -27,6 +27,9 @@ export class DoctorDashboardComponent {
     this.filterData();
   }
 
+
+  
+
   filterData() {
     const searchTerm = this.globalSearchTerm.toLowerCase().trim();
 

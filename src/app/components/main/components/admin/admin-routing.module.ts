@@ -16,7 +16,7 @@ const routes: Routes = [
         loadChildren: () => import('./components/configurations/configurations.module').then(m => m.ConfigurationsModule) 
       },
       {
-        path:'doctor',
+        path:'registration',
         loadChildren: () => import('./components/registration/registration.module').then(m => m.RegistrationModule) 
       },
       {
