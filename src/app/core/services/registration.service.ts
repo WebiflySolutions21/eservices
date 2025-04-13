@@ -9,7 +9,6 @@ export class RegistrationService {
   save(data: any) {
     return this.http.post(this.apiUrl, data);
   }
-
   getAll() {
     return this.http.get(this.apiUrl);
   }
