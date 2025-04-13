@@ -1,0 +1,16 @@
+@import "mixins";
+
+.super-admin-dashboard-component{
+    width: 100%;
+    height: 100%;
+    .super-admin-dashboard-wrapper{
+        width: 100%;
+        height: 100%;
+        margin-top: 2em;
+        .title{
+            width:100%;
+            text-align: center;
+            @include font(24,1vw,28,hbold,#000);
+        }
+    }
+}

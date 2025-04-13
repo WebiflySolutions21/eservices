@@ -29,13 +29,13 @@
     </div>
 
     <div class="table-data">
-      <div *ngFor="let category of tableCategories">
+      <!-- <div *ngFor="let category of tableCategories"> -->
         <!-- Table Title -->
 
         <!-- Display Table -->
         <app-table
-          [tableData]="filteredTableData[category]"
-          [tableColumns]="tableColumns[category]"
+          [tableData]="filteredTableData"
+          [tableColumns]="tableColumns"
           [actions]="[
              { label: 'OPD Bill', action: 'opdBill' },
              { label: 'IPD Bill', action: 'ipdBill' },
@@ -44,9 +44,8 @@
             { label: 'Details', action: 'details' }
           ]"
           (actionClicked)="handleAction($event)"
-          [showSearch]="true"
         ></app-table>
-      </div>
+      <!-- </div> -->
     </div>
   </div>
 </div>

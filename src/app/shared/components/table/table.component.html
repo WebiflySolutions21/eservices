@@ -63,14 +63,14 @@
       </thead>
       <tbody>
         <tr
-          *ngFor="let row of filteredData"
+          *ngFor="let row of filteredData; let i = index"
           [ngClass]="{ 'admitted-row': row.isAdmitted }"
         >
           <td
             *ngFor="let col of tableColumns"
             [ngClass]="{ 'admitted-text': row.isAdmitted }"
           >
-            {{ row[col.key] }}
+            {{ row[col?.key] }}
           </td>
           <td *ngIf="actions.length" class="btns">
             <!-- Display the first 3 buttons -->

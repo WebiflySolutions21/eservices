@@ -174,3 +174,16 @@
   .status-existing {
     background-color: #ffc107;
   }
+
+  .patient-diagnosis-section {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); // 4 columns
+    gap: 1em;
+    width: 95%;
+    margin-top: 2em;
+    justify-content: center;
+    align-items: center;
+    .examination {
+      width: 100%; // Ensure each dropdown takes full column width
+    }
+  }

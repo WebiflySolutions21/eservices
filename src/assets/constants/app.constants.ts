@@ -1,5 +1,11 @@
 export const LOGIN_ROUTES = [
     {
+        id:9,
+        title:"Super Admin",
+        path:"/super-admin",
+        identification:"super-admin"
+    },
+    {
         id:1,
         title:"Admin Login",
         path:"/admin",

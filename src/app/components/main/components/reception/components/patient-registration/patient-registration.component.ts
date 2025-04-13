@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import JsBarcode from 'jsbarcode';
+import { PatientService } from 'src/app/core/services';
 interface Patient {
   id: number;
   name: string;
@@ -23,6 +24,7 @@ interface Patient {
 })
 export class PatientRegistrationComponent implements OnInit {
   patientForm!: FormGroup;
+  uploadedPicFile!: File;
   uploadedImageUrl: string | null = null;
   consultants: string[] = [
     'Dr. Eknath Pawar',
@@ -30,6 +32,7 @@ export class PatientRegistrationComponent implements OnInit {
     'Dr. Priya Kulkarni',
     'Dr. Rakesh Patil',
   ];
+  livePicFile: any;
   visitTypes: string[] = [
     'General Checkup',
     'Eye Checkup',
@@ -95,7 +98,11 @@ export class PatientRegistrationComponent implements OnInit {
     },
   ];
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private patientService: PatientService
+  ) {}
 
   ngOnInit(): void {
     this.patientForm = this.fb.group({
@@ -126,6 +133,7 @@ export class PatientRegistrationComponent implements OnInit {
         this.searchPatients(query);
       });
     this.patientId = 'P' + Date.now().toString();
+
   }
 
   generateBarcode(): void {
@@ -148,10 +156,10 @@ export class PatientRegistrationComponent implements OnInit {
   onImageUpload(event: any): void {
     const file = event.target.files[0];
     if (file) {
+      this.uploadedPicFile = file; // <- Store the actual file for FormData
       const reader = new FileReader();
       reader.onload = () => {
         this.imagePreview = reader.result as string;
-        this.patientForm.patchValue({ image: file });
       };
       reader.readAsDataURL(file);
     }
@@ -228,18 +236,26 @@ export class PatientRegistrationComponent implements OnInit {
 
   onSubmit() {
     this.generateBarcode();
-    let payload = {
-      ...this.patientForm.value,
-      patientLivePic: this.cameraImagePreview,
-      imageUploaded: this.imagePreview,
-    };
-    console.log(payload);
-    if (this.patientForm.valid) {
-      console.log('Form Submitted', this.patientForm.value);
-      alert('Patient Registered Successfully!');
-    } else {
-      alert('Please fill out all required fields correctly.');
+    const formData = new FormData();
+
+    Object.entries(this.patientForm.value).forEach(([key, value]) => {
+      if (value !== null && value !== undefined) {
+        formData.append(key, value.toString());
+      }
+    });
+    formData.append('patientId', this.patientId);
+
+    // Append file uploads
+    if (this.livePicFile) {
+      formData.append('patientLivePic', this.livePicFile);
     }
+    if (this.uploadedPicFile) {
+      formData.append('imageUploaded', this.uploadedPicFile);
+    }
+
+    this.patientService.savePatient(formData).subscribe((res) => {
+      console.log('Patient registered!', res);
+    });
   }
   openCamera() {
     this.isCameraOpen = true;
@@ -264,9 +280,24 @@ export class PatientRegistrationComponent implements OnInit {
 
     if (context) {
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      this.cameraImagePreview = canvas.toDataURL('image/png');
+      const dataUrl = canvas.toDataURL('image/png');
+      this.cameraImagePreview = dataUrl;
+      this.livePicFile = this.dataURLToFile(dataUrl, 'live-photo.png');
       this.stopCamera();
     }
+  }
+
+  // Convert base64 to File
+  dataURLToFile(dataUrl: string, filename: string): File {
+    const arr = dataUrl.split(',');
+    const mime = arr[0].match(/:(.*?);/)![1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
   }
 
   retakePhoto() {

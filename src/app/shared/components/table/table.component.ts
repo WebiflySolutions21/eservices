@@ -5,13 +5,12 @@ import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit, OnChanges {
+export class TableComponent implements OnInit,OnChanges {
   @Input() tableData: any[] = [];
   @Input() tableColumns: { key: string; title: string; filterType?: string; options?: any[] }[] = [];
   @Input() actions: { label: string; action: string; class?: string }[] = [];
   @Output() actionClicked = new EventEmitter<{ action: string; row: any }>();
   @Input() type = "normal";
-
   searchValues: { [key: string]: string } = {};
   dropdownValues: { [key: string]: any } = {};
   dateValues: { [key: string]: string } = {};
@@ -20,7 +19,7 @@ export class TableComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     console.log("tableData",this.tableData)
-    this.filteredData = this.tableData.map(row => {
+    this.filteredData = this.tableData?.map(row => {
       if (row.regDate) {
         row.regDate = this.convertToDisplayDateFormat(this.convertToInputDateFormat(row.regDate));
       } else {
@@ -34,7 +33,7 @@ export class TableComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tableData']) {
-      this.filteredData = [...this.tableData];
+      this.filteredData = this.tableData;
     }
   }
 

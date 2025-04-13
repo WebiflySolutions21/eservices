@@ -19,3 +19,8 @@
   color: #202020;
   @include font(16, 4vw, 19, hbold, #202020);
 }
+.heading{
+  width: 100%;
+  @include font(25,1vw,32,hbold,#000);
+  text-align: center;
+}

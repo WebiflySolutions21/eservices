@@ -1,21 +1,18 @@
 <div class="admin-dashboard-component">
   <div class="admin-dashboard-wrapper">
     <div class="table-data">
-      <div *ngFor="let category of tableCategories">
-        <!-- Table Title -->
-        <h2 class="table-title">{{ category | titlecase }} Registration Details</h2>
-
-        <!-- Display Table -->
+      <div class="heading">
+        Registration Details
+      </div>
         <app-table
-          [tableData]="tableData[category]"
-          [tableColumns]="tableColumns[category]"
+          [tableData]="tableData"
+          [tableColumns]="tableColumns"
           [actions]="[
             { label: 'Edit', action: 'edit' },
-            { label: 'Delete', action: 'delete' }
+            { label: 'Delete', action: 'delete',class:'btn btn-danger' }
           ]"
           (actionClicked)="handleAction($event)"
         ></app-table>
-      </div>
     </div>
   </div>
 </div>

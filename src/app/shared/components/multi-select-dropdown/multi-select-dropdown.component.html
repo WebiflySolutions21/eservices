@@ -1,7 +1,7 @@
 <div class="dropdown-container">
   <div class="dropdown-header">
     <div class="label">{{ label }}</div>
-    <label class="toggle-switch">
+    <label class="toggle-switch" *ngIf="showCheckBox">
       <input type="checkbox" [(ngModel)]="isPrintEnabled" (change)="emitSelectionChanged()"/>
       <span class="slider"></span>
     </label>
@@ -29,6 +29,7 @@ class="mic-button"
 [class.recording]="isRecording"
 (click)="toggleVoiceInput()"
 title="Speak"
+*ngIf="showVoiceInput"
 >
 <i class="fa fa-microphone"></i>
 </button>

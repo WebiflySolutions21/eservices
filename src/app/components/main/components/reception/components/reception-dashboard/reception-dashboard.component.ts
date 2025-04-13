@@ -1,25 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   RECEPTION_TABLE_COLUMNS,
   RECEPTION_TABLE_DATA,
 } from '@assets/constants/reception.constants';
+import { PatientService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-reception-dashboard',
   templateUrl: './reception-dashboard.component.html',
   styleUrls: ['./reception-dashboard.component.scss'],
 })
-export class ReceptionDashboardComponent {
+export class ReceptionDashboardComponent implements OnInit {
   tableCategories = Object.keys(RECEPTION_TABLE_DATA); // ['doctor', 'staff', 'receptionist']
-  tableData = RECEPTION_TABLE_DATA;
   tableColumns = RECEPTION_TABLE_COLUMNS;
   globalSearchTerm = ''; // Global search input
-  filteredTableData: any = {};
-
-  constructor(private router: Router) {
-    this.filteredTableData = { ...this.tableData };
+  filteredTableData: any;
+  tableData:any
+  constructor(private router: Router,private patientService: PatientService) {
   }
+
+  ngOnInit(){
+    this.getAllPatients();
+  }
+
+  getAllPatients() {
+    this.patientService.getPatients().subscribe({
+      next: (res: any) => {
+        this.filteredTableData = res;
+        this.tableData = res;
+        console.log(res)
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+  }
+  
 
   // Filter data based on global search term
   clearSearch() {
@@ -31,14 +48,13 @@ export class ReceptionDashboardComponent {
     const searchTerm = this.globalSearchTerm.toLowerCase().trim();
 
     if (!searchTerm) {
-      this.filteredTableData = { ...this.tableData };
+      this.filteredTableData = this.tableData;
       return;
     }
 
     this.filteredTableData = {};
 
-    for (const category of this.tableCategories) {
-      this.filteredTableData[category] = this.tableData[category].filter(
+      this.filteredTableData= this.tableData.filter(
         (item: any) => {
           const patientName = item.patientName?.toString().toLowerCase() || '';
           const contactNo = item.contactNo?.toString().toLowerCase() || '';
@@ -48,7 +64,6 @@ export class ReceptionDashboardComponent {
           );
         }
       );
-    }
 
     console.log('Filtered Data:', this.filteredTableData);
   }

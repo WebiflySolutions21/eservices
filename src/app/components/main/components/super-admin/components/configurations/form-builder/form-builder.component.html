@@ -1,4 +1,22 @@
 <div class="container-fluid py-4">
+  <div class="patient-diagnosis-section mb-4">
+    <div class="examination" *ngFor="let item of dropdowns">
+      <app-multi-select-dropdown
+      [label]="item.label"
+      [options]="item.options"
+      [dropdownId]="item.dropdownId"
+      [showCheckBox]="true"
+      [showVoiceInput]="false"
+      [initialSelections]="getInitialSelections(item.label)"
+      (selectionChanged)="onSelectionChanged($event)"
+    ></app-multi-select-dropdown>
+    </div>
+    <div *ngIf="selectedCheckboxes.length">
+      <h4>Current selectedCheckboxes:</h4>
+      <pre>{{ selectedCheckboxes | json }}</pre>
+    </div>
+  </div>
+
   <div class="mb-4">
     <button class="btn btn-info" (click)="openImportModal()">
       <i class="bi bi-upload me-1"></i>Import Form

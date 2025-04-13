@@ -1,0 +1,30 @@
+<div class="super-admin-dashboard-component">
+    <div class="super-admin-dashboard-wrapper">
+        <div class="title">Hospital Registration Details</div>
+
+        <div class="table-data">
+            <!-- <div *ngFor="let category of tableCategories"> -->
+              <!-- Table Title -->
+      
+              <!-- Display Table -->
+              <app-table
+                [tableData]="filteredTableData"
+                [tableColumns]="tableColumns"
+                [actions]="[
+                  { label: 'Delete', action: 'delete',class:'btn btn-danger' },
+                  { label: 'Revoke', action: 'revoke',class : 'btn btn-warning' }
+                ]"
+                (actionClicked)="handleAction($event)"
+              ></app-table>
+            <!-- </div> -->
+          </div>
+    </div>
+</div>
+
+<app-confirmation-dialog
+  [title]="title"
+  [message]="message"
+  [show]="showConfirmDialog"
+  (confirm)="handleConfirm()"
+  (cancel)="handleCancel()"
+></app-confirmation-dialog>

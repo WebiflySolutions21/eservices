@@ -24,7 +24,10 @@ interface OptionsFormat {
 export class MultiSelectDropdownComponent implements OnInit {
   @Input() options: OptionsFormat[] = [];
   @Input() label: string = '';
+  @Input() initialSelections: OptionsFormat[] = [];
   @Input() dropdownId: string = ''; // Unique ID for each dropdown
+  @Input() showCheckBox: boolean = false; // Show checkbox for each option
+  @Input() showVoiceInput: boolean = false; // Show voice input button
   @Output() selectionChanged = new EventEmitter(); // Emit selected options to parent
   selectedOptions: OptionsFormat[] = [];
   filteredOptions: OptionsFormat[] = [];
@@ -39,36 +42,42 @@ export class MultiSelectDropdownComponent implements OnInit {
     private cdr: ChangeDetectorRef // Add this
   ) {}
 
-  ngOnInit() {
-    this.dropdownStateService.setActiveDropdown(null);
-    this.filteredOptions = [...this.options]; // Initialize filtered options
-
-    // Emit an empty selection if there are no dropdown options
-    if (!this.options || this.options.length === 0) {
-      this.emitSelectionChanged();
-    }
+  // Update ngOnInit to handle initial selections
+ngOnInit() {
+  this.dropdownStateService.setActiveDropdown(null);
+  this.filteredOptions = [...this.options];
+  
+  // Set initial selections if provided
+  if (this.initialSelections && this.initialSelections.length) {
+    this.selectedOptions = [...this.initialSelections];
+    this.emitSelectionChanged();
   }
+  
+  if (!this.options || this.options.length === 0) {
+    this.emitSelectionChanged();
+  }
+}
   isRecording: boolean = false;
   recognition: any;
   idleTimeout: any;
-  
+
   toggleVoiceInput(): void {
     if (!('webkitSpeechRecognition' in window)) {
       alert('Your browser does not support voice input.');
       return;
     }
-  
+
     this.recognition = new (window as any).webkitSpeechRecognition();
     this.recognition.lang = 'en-US';
     this.recognition.interimResults = true; // Enable real-time updates
     this.recognition.maxAlternatives = 1;
-  
+
     // Start Recording
     this.recognition.onstart = () => {
       this.isRecording = true;
       console.log('Recording started');
     };
-  
+
     // Handle Real-Time Results
     this.recognition.onresult = (event: any) => {
       const spokenText = Array.from(event.results)
@@ -77,7 +86,7 @@ export class MultiSelectDropdownComponent implements OnInit {
       this.searchTerm = spokenText;
       this.filterOptions();
       console.log('Recognized Text:', spokenText);
-  
+
       // Reset the idle timeout when receiving results
       clearTimeout(this.idleTimeout);
       this.idleTimeout = setTimeout(() => {
@@ -85,29 +94,57 @@ export class MultiSelectDropdownComponent implements OnInit {
         console.log('Recording stopped automatically due to inactivity.');
       }, 1500); // Stop recording after 1.5 seconds of silence
     };
-  
+
     // Handle Errors
     this.recognition.onerror = (event: any) => {
       console.error('Speech Recognition Error:', event.error);
       this.stopVoiceInput();
     };
-  
+
     // Stop Recording
     this.recognition.onend = () => {
       this.stopVoiceInput();
       console.log('Recording ended');
     };
-  
+
     // Start voice recognition
     this.recognition.start();
   }
-  
+
+  // Add this to your MultiSelectDropdownComponent
+// In MultiSelectDropdownComponent
+ngOnChanges() {
+  console.log('Dropdown changes:', {
+    label: this.label,
+    initialSelections: this.initialSelections,
+    options: this.options
+  });
+
+  if (this.initialSelections && this.initialSelections.length) {
+    console.log('Processing initial selections:', this.initialSelections);
+    
+    this.selectedOptions = this.initialSelections.filter(initOpt => {
+      const exists = this.options.some(opt => 
+        opt.name === initOpt.name || opt.value === initOpt.value
+      );
+      
+      if (!exists) {
+        console.warn('Option not found:', initOpt);
+      }
+      return exists;
+    });
+    
+    console.log('Final selected options:', this.selectedOptions);
+    this.emitSelectionChanged();
+  }
+}
+
   stopVoiceInput(): void {
     if (this.recognition) {
       this.recognition.stop();
       this.isRecording = false;
       console.log('Recording stopped');
-  
+
       // Simulate Enter key press to save data
       const event = new KeyboardEvent('keydown', {
         key: 'Enter',
@@ -115,7 +152,7 @@ export class MultiSelectDropdownComponent implements OnInit {
         keyCode: 13, // Key code for Enter
         bubbles: true,
       });
-  
+
       // Use a more specific selector by dropdown ID to target the correct input field
       const inputElement = document.querySelector(
         `.dropdown-input[data-dropdown-id="${this.dropdownId}"]`
@@ -123,14 +160,13 @@ export class MultiSelectDropdownComponent implements OnInit {
       if (inputElement) {
         inputElement.dispatchEvent(event);
       }
-  
+
       this.filterOptions(); // Update options after final stop
       this.cdr.detectChanges(); // Force Angular to update the view
     }
     clearTimeout(this.idleTimeout);
   }
-  
-  
+
   toggleDropdown(open: boolean) {
     if (open) {
       this.dropdownStateService.setActiveDropdown(this.dropdownId);
@@ -165,6 +201,7 @@ export class MultiSelectDropdownComponent implements OnInit {
   }
 
   toggleSelection(option: OptionsFormat) {
+    console.log(option);
     const index = this.selectedOptions.findIndex(
       (item) => item.name === option.name
     );
@@ -182,12 +219,12 @@ export class MultiSelectDropdownComponent implements OnInit {
       options: [...this.selectedOptions], // Clone to avoid reference issues
       isPrintEnabled: this.isPrintEnabled, // Include toggle switch value
     };
-  
+    console.log('newEntry', newEntry);
     // Find existing index
-    const existingIndex = this.allData.findIndex(
+    const existingIndex = this.allData?.findIndex(
       (item) => item.label === this.label
     );
-  
+
     // Update or add
     if (this.selectedOptions.length > 0) {
       if (existingIndex !== -1) {
@@ -204,8 +241,6 @@ export class MultiSelectDropdownComponent implements OnInit {
     // Emit a deep copy to prevent external modifications
     this.selectionChanged.emit(JSON.parse(JSON.stringify(this.allData)));
   }
-  
-  
 
   removeItem(item: OptionsFormat) {
     this.selectedOptions = this.selectedOptions.filter(

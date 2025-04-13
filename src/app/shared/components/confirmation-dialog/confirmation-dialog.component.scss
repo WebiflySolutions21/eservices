@@ -1,0 +1,26 @@
+@import "mixins";
+.modal {
+    &-content {
+      transition: all 0.3s ease;
+    }
+    &-header {
+      border-bottom: none;
+    }
+    &-footer {
+      border-top: none;
+      justify-content: space-between;
+    }
+  }
+  button{
+    @include font(14,1vw,16,hbold,#fff)
+    
+  }
+  .modal-title{
+    @include font(16,1vw,18,hbold,#fff)
+  }
+
+  p{
+    text-align: center;
+    @include font(14,1vw,16,helvetica,#000)
+
+  }

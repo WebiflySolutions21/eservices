@@ -43,6 +43,11 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/main/agent']);
   }
 
+  signup(){
+    // this.router.navigate(['/auth/signup']);
+    //redirect to signup page
+  }
+
   loginUser() {
     console.log(this.loginForm.value);
     if(this.userId !="shift"){
@@ -56,7 +61,6 @@ export class LoginComponent implements OnInit {
     let payload = {
       username: this.loginForm.controls.username.value,
       password: this.loginForm.controls.password.value,
-      role: 'agent',
     };
     this.loginService.login(payload).subscribe(
       (res: any) => {

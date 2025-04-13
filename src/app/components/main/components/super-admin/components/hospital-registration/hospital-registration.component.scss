@@ -1,0 +1,55 @@
+@import "mixins";
+.hospital-registration-component {
+  width: 100%;
+  height: 100%;
+  .hospital-registration-wrapper {
+    width: 100%;
+    height: 100%;
+    .title {
+      width: 100%;
+      text-align: center;
+      @include font(24, 1vw, 28, hbold, #000);
+      margin-top: 2em;
+    }
+    .registration-card {
+      @include top-box-shadow();
+      border-radius: 0.75rem;
+      overflow: hidden;
+      width: 80%;
+      margin: 2rem auto;
+      background: #ffffff;
+    
+      .card-header {
+        @include font(16, 2vw, 20, hbold, #fff);
+        padding: 1rem 1.5rem;
+      }
+    
+      .card-body {
+        padding: 1.5rem;
+    
+        .form-label {
+          @include font(14, 2vw, 16, hbold, #333);
+        }
+    
+        input,
+        select,
+        textarea {
+          @include font(14, 2vw, 16, regular, #000);
+          border-radius: 0.375rem;
+          transition: border-color 0.2s ease-in-out;
+    
+          &:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+          }
+        }
+    
+        .btn {
+          @include font(14, 2vw, 16, hbold, #fff);
+          padding: 0.5rem 1.5rem;
+          border-radius: 0.375rem;
+        }
+      }
+    }
+  }
+}

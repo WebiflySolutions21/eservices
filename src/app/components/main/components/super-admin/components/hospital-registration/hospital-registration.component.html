@@ -1,0 +1,65 @@
+<div class="hospital-registration-component">
+  <div class="hospital-registration-wrapper">
+    <!-- <div class="title">Register Hospital</div> -->
+    <div class="card registration-card shadow-sm">
+      <div class="card-header text-white bg-primary">
+        <h5 class="mb-0">Hospital Registration</h5>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="registrationForm" (ngSubmit)="submit()">
+          <div *ngFor="let field of formFields" class="mb-3">
+            <label class="form-label">{{ field.label }}</label>
+
+            <ng-container [ngSwitch]="field.type">
+              <input
+                *ngSwitchCase="'text'"
+                [formControlName]="field.name"
+                class="form-control"
+                [type]="field.type"
+                [placeholder]="field.label"
+              />
+
+              <input
+                *ngSwitchCase="'number'"
+                [formControlName]="field.name"
+                class="form-control"
+                type="number"
+                [placeholder]="field.label"
+              />
+
+              <input
+                *ngSwitchCase="'date'"
+                [formControlName]="field.name"
+                class="form-control"
+                type="date"
+              />
+
+              <textarea
+                *ngSwitchCase="'textarea'"
+                [formControlName]="field.name"
+                class="form-control"
+                rows="2"
+                [placeholder]="field.label"
+              ></textarea>
+
+              <select
+                *ngSwitchCase="'select'"
+                [formControlName]="field.name"
+                class="form-select"
+              >
+                <option value="" disabled>Select {{ field.label }}</option>
+                <option *ngFor="let option of field.options" [value]="option">
+                  {{ option }}
+                </option>
+              </select>
+            </ng-container>
+          </div>
+
+          <div class="text-center">
+            <button type="submit" class="btn btn-success px-4">Register</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

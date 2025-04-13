@@ -1,5 +1,4 @@
-export const RECEPTION_TABLE_DATA = {
-  patient: [
+export const RECEPTION_TABLE_DATA = [
     {
       id: 1,
       regDate: '02/02/2024',
@@ -90,14 +89,13 @@ export const RECEPTION_TABLE_DATA = {
       consultantType: 'eye',
       consultantName: 'Dr. Abhay Patil',
     },
-  ],
-};
-export const RECEPTION_TABLE_COLUMNS = {
-  patient: [
+
+]
+export const RECEPTION_TABLE_COLUMNS = [
     { key: 'id', title: 'ID' },
     { key: 'regDate', title: 'Registration Date', filterType: 'date' },
     {
-      key: 'patientName',
+      key: 'name',
       title: 'Patient Name',
       filterType: 'search',
       type: 'text',
@@ -110,7 +108,7 @@ export const RECEPTION_TABLE_COLUMNS = {
     },
     { key: 'age', title: 'Age' },
     {
-      key: 'contactNo',
+      key: 'mobile',
       title: 'Contact No',
       filterType: 'search',
       type: 'number',
@@ -128,8 +126,7 @@ export const RECEPTION_TABLE_COLUMNS = {
       options: ["Referred","Not Referred"],
     },
     { key: 'visitCount', title: 'Visit No.' },
-  ],
-};
+  ]
 
 export const RECEPTION_ROUTES = [
   {

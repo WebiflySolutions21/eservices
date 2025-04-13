@@ -34,6 +34,10 @@ const routes: Routes = [
       {
         path:'shift-admin',
         loadChildren: () => import('./components/shift-admin/shift-admin.module').then(m => m.ShiftAdminModule) 
+      },
+      {
+        path:'super-admin',
+        loadChildren: () => import('./components/super-admin/super-admin.module').then(m => m.SuperAdminModule) 
       }
     ]
   }
