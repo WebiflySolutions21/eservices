@@ -43,5 +43,4 @@ export interface FormConfig {
   updatedAt: Date;
   version: number;
   sections: FormSection[];
-  formVisibility:any
 }

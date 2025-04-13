@@ -111,34 +111,6 @@ ngOnInit() {
     this.recognition.start();
   }
 
-  // Add this to your MultiSelectDropdownComponent
-// In MultiSelectDropdownComponent
-ngOnChanges() {
-  console.log('Dropdown changes:', {
-    label: this.label,
-    initialSelections: this.initialSelections,
-    options: this.options
-  });
-
-  if (this.initialSelections && this.initialSelections.length) {
-    console.log('Processing initial selections:', this.initialSelections);
-    
-    this.selectedOptions = this.initialSelections.filter(initOpt => {
-      const exists = this.options.some(opt => 
-        opt.name === initOpt.name || opt.value === initOpt.value
-      );
-      
-      if (!exists) {
-        console.warn('Option not found:', initOpt);
-      }
-      return exists;
-    });
-    
-    console.log('Final selected options:', this.selectedOptions);
-    this.emitSelectionChanged();
-  }
-}
-
   stopVoiceInput(): void {
     if (this.recognition) {
       this.recognition.stop();

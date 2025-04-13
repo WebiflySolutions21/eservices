@@ -17,7 +17,6 @@ export class DynamicFormComponent implements OnInit {
     updatedAt: new Date(),
     version: 1,
     sections: [],
-    formVisibility:[]
   };
   
   formGroup: FormGroup = new FormGroup({});

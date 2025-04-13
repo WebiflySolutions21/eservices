@@ -48,7 +48,6 @@ export class FormBuilderComponent {
   enableRegister = false;
   registerButtonText = 'View Register';
   showRegisterPrompt = false;
-  selectedCheckboxes: FormVisibilityItem[] = [];
   formConfig: FormConfig = {
     id: '1',
     title: 'New Form',
@@ -57,29 +56,9 @@ export class FormBuilderComponent {
     updatedAt: new Date(),
     version: 1,
     sections: [],
-    formVisibility: [],
+
   };
   @ViewChild('importModal') importModalRef!: ElementRef;
-
-  loginType = [
-    { id: 1, name: 'Doctor', value: "doctor" },
-    { id: 2, name: 'Staff', value: "staff" },
-    { id: 3, name: 'Reception', value: "reception" },
-    { id: 4, name: 'Opthal', value: "opthal" },
-    { id: 5, name: 'Lab', value: "lab" },
-    { id: 6, name: "Medical", value: "medical" },
-    { id: 7, name: "Admin", value: "admin" }
-  ].map(item => ({
-    ...item,
-    // Ensure consistent string IDs for comparison
-    id: item.id.toString(),
-    value: item.value.toLowerCase()
-  }));
-  hospitalList = SUPER_ADMIN_TABLE_DATA
-  dropdowns = [
-    { label: 'LoginType', options: this.loginType, dropdownId: 1 },
-    { label: 'Select Hospital', options: this.hospitalList, dropdownId: 2 },
-  ];
   availableFieldTypes = [
     { value: 'text', label: 'Text Input' },
     { value: 'number', label: 'Number' },
@@ -112,14 +91,6 @@ export class FormBuilderComponent {
         this.initializeForm();
       }
     });
-    console.log(this.logInCategoryTypes);
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['logInCategoryTypes']) {
-      // React to updated selectedItems here
-      console.log('Updated logInCategoryTypes:', this.logInCategoryTypes);
-      // you can also trigger form rebuilds or updates here
-    }
   }
   ngAfterViewInit() {
     // Initialize modal after view is ready
@@ -130,55 +101,6 @@ export class FormBuilderComponent {
       this.registerModalRef.nativeElement
     );
   }
-
-  onSelectionChanged(selectedOptions) {
-    if (!selectedOptions || !selectedOptions.length) {
-      this.selectedCheckboxes = [];
-      return;
-    }
-  
-    // Create a map for quick lookup
-    const newSelectionsMap = new Map();
-    selectedOptions.forEach(option => {
-      newSelectionsMap.set(option.label, option);
-    });
-  
-    // Update existing or add new
-    const updatedSelections = [];
-    newSelectionsMap.forEach((value, key) => {
-      const existingIndex = this.selectedCheckboxes.findIndex(
-        item => Object.keys(item)[0] === key
-      );
-  
-      if (existingIndex !== -1) {
-        // Update existing
-        this.selectedCheckboxes[existingIndex] = {
-          [key]: value.options.map(opt => ({
-            id: parseInt(opt.value),
-            name: opt.name
-          })),
-          isPrintable: value.isPrintEnabled
-        };
-      } else {
-        // Add new
-        updatedSelections.push({
-          [key]: value.options.map(opt => ({
-            id: parseInt(opt.value),
-            name: opt.name
-          })),
-          isPrintable: value.isPrintEnabled
-        });
-      }
-    });
-  
-    // Remove items that are no longer selected
-    this.selectedCheckboxes = this.selectedCheckboxes.filter(item => {
-      const key = Object.keys(item)[0];
-      return newSelectionsMap.has(key);
-    }).concat(updatedSelections);
-  
-    console.log('Updated selections:', this.selectedCheckboxes);
-  }
   addOption(field: FormFieldConfig) {
     if (!field.options) field.options = [];
     field.options.push({ value: '', label: '' });
@@ -188,80 +110,12 @@ export class FormBuilderComponent {
     this.availableForms = this.formService.getAllForms();
     this.modal.show();
   }
-
-  getInitialSelections(label: string): any[] {
-    if (!this.selectedCheckboxes || !this.selectedCheckboxes.length) {
-      console.log('No selected checkboxes for label:', label);
-      return [];
-    }
-  
-    console.log('Looking for selections:', {
-      label,
-      selectedCheckboxes: this.selectedCheckboxes
-    });
-  
-    const visibilityItem = this.selectedCheckboxes.find(item => {
-      const key = Object.keys(item)[0];
-      console.log('Checking item:', { key, matches: key === label });
-      return key === label;
-    });
-  
-    if (!visibilityItem) {
-      console.log('No visibility item found for label:', label);
-      return [];
-    }
-  
-    const key = Object.keys(visibilityItem)[0];
-    const options = visibilityItem[key];
-  
-    console.log('Found options for', key, ':', options);
-  
-    // Handle LoginType specifically
-    if (key === 'LoginType') {
-      return options.map(opt => {
-        // Convert ID to string for comparison
-        const optId = opt.id?.toString();
-        const matched = this.loginType.find(lt => 
-          lt.id === optId || 
-          lt.name?.toLowerCase() === opt.name?.toLowerCase()
-        );
-  
-        if (!matched) {
-          console.warn('No match found for LoginType option:', opt);
-        }
-  
-        return {
-          name: matched?.name || opt.name,
-          value: matched?.id || optId,
-          dropdownId: this.dropdowns.find(d => d.label === key)?.dropdownId || 0
-        };
-      });
-    }
-  
-    // Default handling for other dropdowns
-    return options.map(opt => ({
-      name: opt.name,
-      value: opt.id?.toString(),
-      dropdownId: this.dropdowns.find(d => d.label === key)?.dropdownId || 0
-    }));
-  }
   // Update your importForm method
   importForm(form: FormConfig) {
     this.formConfig = JSON.parse(JSON.stringify(form));
     this.originalFormId = form.id;
     this.isExistingForm = this.formService.formExists(form.id);
     this.isEditMode = true;
-    
-    // Reset selections
-    this.selectedCheckboxes = [];
-    
-    if (form.formVisibility) {
-      // Use setTimeout to ensure DOM is ready
-      setTimeout(() => {
-        console.log('Importing form with visibility:', form.formVisibility);
-        this.setDropdownSelections(form.formVisibility);
-      }, 100);
-    }
     
     this.modal.hide();
   }
@@ -318,7 +172,6 @@ export class FormBuilderComponent {
     this.formConfig.version = 1;
     let payload = {
       ...this.formConfig,
-      formVisibility:this.selectedCheckboxes
     }
     this.formService.saveForm(payload);
 
@@ -356,7 +209,6 @@ export class FormBuilderComponent {
       createdAt: new Date(),
       updatedAt: new Date(),
       version: 1,
-      formVisibility: [],
     };
     this.isExistingForm = false;
     this.originalFormId = null;
@@ -372,97 +224,15 @@ export class FormBuilderComponent {
     this.modal.hide();
   }
 
-  setDropdownSelections(formVisibility: any[]) {
-    if (!formVisibility || !formVisibility.length) return;
-  
-    this.selectedCheckboxes = [];
-    
-    formVisibility.forEach(item => {
-      const key = Object.keys(item)[0] as 'LoginType' | 'Select Hospital';
-      const options = item[key] as FormVisibilityOption[];
-      const isPrintable = item.isPrintable !== false;
-  
-      if (!options || !options.length) return;
-  
-      // Create the storage data object with proper typing
-      const storageData: FormVisibilityItem = {
-        isPrintable
-      } as FormVisibilityItem;
-      
-      // Initialize the dynamic key
-      storageData[key] = [];
-  
-      const dropdownData = {
-        label: key,
-        options: [] as DropdownOption[],
-        isPrintEnabled: isPrintable
-      };
-  
-      options.forEach(opt => {
-        if (key === 'LoginType') {
-          const matched = this.loginType.find(lt => 
-            lt.id === opt.id?.toString() || 
-            lt.name?.toLowerCase() === opt.name?.toLowerCase()
-          );
-  
-          if (matched) {
-            dropdownData.options.push({
-              name: matched.name,
-              value: matched.id,
-              dropdownId: this.dropdowns.find(d => d.label === key)?.dropdownId || 0
-            });
-  
-            storageData[key].push({
-              id: matched.id,
-              name: matched.name
-            });
-          }
-        }
-        else if (key === 'Select Hospital') {
-          const matched = this.hospitalList.find(h => 
-            h.id === opt.id || 
-            h.name?.toLowerCase() === opt.name?.toLowerCase()
-          );
-  
-          if (matched) {
-            dropdownData.options.push({
-              name: matched.name,
-              value: matched.id.toString(),
-              dropdownId: this.dropdowns.find(d => d.label === key)?.dropdownId || 0
-            });
-  
-            storageData[key].push({
-              id: matched.id,
-              name: matched.name
-            });
-          }
-        }
-      });
-  
-      if (dropdownData.options.length > 0) {
-        this.selectedCheckboxes.push(storageData);
-        this.onSelectionChanged([dropdownData]);
-      }
-    });
-  }
 
-
+  
   importForUpdate(form: FormConfig) {
-    // Keep original ID for updating
-    console.log(form)
     this.formConfig = JSON.parse(JSON.stringify(form));
     this.isExistingForm = true;
     this.originalFormId = form.id;
     this.isEditMode = true;
-  // Reset dropdowns first
-  this.selectedCheckboxes = [];
-  
-  // Auto-fill dropdowns if formVisibility exists
-  if (form.formVisibility) {
-    setTimeout(() => {
-      this.setDropdownSelections(form.formVisibility);
-    }, 100); // Small delay to ensure DOM is ready
-  }
+    
+    
     this.modal.hide();
   }
 
